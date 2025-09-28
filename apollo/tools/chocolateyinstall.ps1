@@ -49,7 +49,7 @@ if ($null -ne (Get-process -name "*vigembus_installer.exe*")) {
 
 #update env path
 "Updating system PATH..." | Out-Host
-& "$scripts\update-path.bat" Add
+& "$scripts\update-path.bat" add
 
 #install sudovda virtual display driver
 "Installing SudoVDA virtual display driver..." | Out-Host
@@ -58,10 +58,14 @@ if ($null -ne (Get-process -name "*vigembus_installer.exe*")) {
 "Restarting Apollo service after re-running scripts..." | Out-Host
 get-service ApolloService | restart-service
 
-Write-Host -BackgroundColor Green -ForegroundColor Blue -Object @"
+Write-Host -BackgroundColor Yellow -ForegroundColor Blue -Object @"
 
 Apollo has been installed/upgraded!
 Go to https://localhost:47990 to access your web interface.
+"@
+
+
+Write-Host -BackgroundColor Yellow -ForegroundColor Black -Object @"
 
 NOTE: There will be a privacy warning if you haven't trusted the self-signed cert or added your own previously.
 You can get past this with "Advanced" -> "Proceed to localhost (unsafe)" in most browsers.

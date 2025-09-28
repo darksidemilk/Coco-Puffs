@@ -17,7 +17,7 @@ if (!(Test-Path $dateTimeConfigDir)) {
 }
 
 "Backing up existing configuration files to your documents directory in a new apollo-config-backup directory $($dateTimeConfigDir)..." | Out-Host
-Write-Warning "You can manually restore this $($dateTimeConfigDir) directory back to $installDir\config if you want to restore your previous configuration."
+Write-Warning "You can manually restore this $($dateTimeConfigDir) directory back to $installDir\config if you want to restore your previous configuration upon reinstalling."
 Copy-Item "$installDir\config\*" $dateTimeConfigDir -Recurse -Force -ea 0;
 
 #firewall rule
@@ -34,15 +34,15 @@ if ($null -ne (Get-process -name "*vigembus_installer.exe*")) {
 #config service
 "uninstalling Apollo service..." | Out-Host
 try {
-    & "$scripts\uninstall-service.bat"
+    & "$scripts\uninstall-service.bat" #attempts to delete sunshinesvc but fails if it doesn't exist, which it wouldn't if you've only used apollo.
 } catch {
     if ($null -ne (Get-service sunshinesvc -ea 0)) {
         Stop-service sunshinesvc -Force -ea 0;
-        Remove-Service sunshinesvc -ea 0 -Confirm:$false;
+        sc.exe delete sunshinesvc;
     }
     if ($null -ne (Get-service ApolloService -ea 0)) {
         Stop-service ApolloService -Force -ea 0;
-        Remove-Service ApolloService -ea 0 -Confirm:$false;
+        sc.exe delete ApolloService;
     }
 }
 
@@ -52,7 +52,8 @@ try {
 
 #uninstall sudovda virtual display driver
 "Uninstalling SudoVDA virtual display driver..." | Out-Host
-& "$drivers\sudovda\uninstall.bat"
+# & "$drivers\sudovda\uninstall.bat" # this has a pause in it
+& "$drivers\sudovda\nefconc.exe" --remove-device-node --hardware-id root\sudomaker\sudovda --class-guid "4D36E968-E325-11CE-BFC1-08002BE10318"
 
 Set-Location $home;
 
