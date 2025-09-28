@@ -2,6 +2,11 @@ $ErrorActionPreference = 'Stop';
 
 $toolsDir     = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 # $fileLocation = ''
+$version = "0.4.6"
+$filename = "Apollo-$version.exe"
+$installDir = "$env:ProgramFiles\Apollo"
+$scripts = "$installDir\scripts"
+$drivers = "$installDir\drivers"
 
 $packageArgs = @{
   packageName   = $env:ChocolateyPackageName
@@ -9,7 +14,7 @@ $packageArgs = @{
   fileType      = 'exe'
   silentArgs    = "/S"
   validExitCodes= @(0)
-  url           = "https://github.com/ClassicOldSong/Apollo/releases/download/v0.4.6/Apollo-0.4.6.exe"
+  url           = "https://github.com/ClassicOldSong/Apollo/releases/download/$version/$filename"
   checksum      = '42B2AEFAACB3474511517A56B96EE9F0517F30AC38B5DD2FDA9FD5B478F5021A'
   checksumType  = 'sha256'
   destination   = $toolsDir
@@ -17,6 +22,35 @@ $packageArgs = @{
 }
 
 Install-ChocolateyPackage @packageArgs
+
+Write-Host -BackgroundColor Green -ForegroundColor Blue -Object @"
+
+Ensuring dependencies and drivers are installed via embedded scripts...
+
+"@
+
+Set-Location $installDir;
+
+#firewall rule
+"Configuring firewall rule..." | Out-Host
+& "$scripts\add-firewall-rule.bat"
+
+#vigembus
+"Installing ViGEmBus driver..." | Out-Host
+& "$scripts\install-gamepad.ps1"
+
+#config service
+"Configuring Apollo service to auto start..." | Out-Host
+& "$scripts\autostart-service.bat"
+
+#update env path
+"Updating system PATH..." | Out-Host
+& "$scripts\update-env-path.bat" Add
+
+#install sudovda virtual display driver
+"Installing SudoVDA virtual display driver..." | Out-Host
+& "$drivers\sudovda\install.bat"
+
 
 Write-Host -BackgroundColor Green -ForegroundColor Blue -Object @"
 
