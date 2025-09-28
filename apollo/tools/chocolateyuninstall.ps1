@@ -20,7 +20,7 @@ Set-Location $installDir;
 
 #update env path
 "Updating system PATH..." | Out-Host
-& "$scripts\update-env-path.bat" remove
+& "$scripts\update-envpath.bat" remove
 
 #uninstall sudovda virtual display driver
 "Uninstalling SudoVDA virtual display driver..." | Out-Host

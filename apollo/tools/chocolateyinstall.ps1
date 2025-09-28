@@ -45,7 +45,7 @@ Set-Location $installDir;
 
 #update env path
 "Updating system PATH..." | Out-Host
-& "$scripts\update-env-path.bat" Add
+& "$scripts\update-path.bat" Add
 
 #install sudovda virtual display driver
 "Installing SudoVDA virtual display driver..." | Out-Host
