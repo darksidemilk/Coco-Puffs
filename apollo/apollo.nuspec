@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Read this before creating packages: https://chocolatey.org/docs/create-packages -->
+<!-- It is especially important to read the above link to understand additional requirements when publishing packages to the community feed aka dot org (https://chocolatey.org/packages). -->
+<!-- Test your packages in a test environment: https://github.com/chocolatey/chocolatey-test-environment -->
+<!--
+This is a nuspec. It mostly adheres to https://docs.nuget.org/create/Nuspec-Reference. Chocolatey uses a special version of NuGet.Core that allows us to do more than was initially possible. As such there are certain things to be aware of:
+
+* the package xmlns schema url may cause issues with nuget.exe
+* Any of the following elements can ONLY be used by choco tools - projectSourceUrl, docsUrl, mailingListUrl, bugTrackerUrl, packageSourceUrl, provides, conflicts, replaces 
+* nuget.exe can still install packages with those elements but they are ignored. Any authoring tools or commands will error on those elements 
+-->
+<!-- You can embed software files directly into packages, as long as you are not bound by distribution rights. -->
+<!-- * If you are an organization making private packages, you probably have no issues here -->
+<!-- * If you are releasing to the community feed, you need to consider distribution rights. -->
+<!-- Do not remove this test for UTF-8: if “Ω” doesn’t appear as greek uppercase omega letter enclosed in quotation marks, you should use an editor that supports UTF-8, not this one. -->
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>apollo</id>
+    <title>Apollo Game Streaming Server</title>
+    <summary>Apollo is a self-hosted desktop stream host for Artemis(Moonlight Noir). Offering low latency, native client resolution, cloud gaming server capabilities with support for AMD, Intel, and Nvidia GPUs for hardware encoding. Software encoding is also available. A web UI is provided to allow configuration and client pairing from your favorite web browser. Pair from the local server or any mobile device.</summary>
+    <version>0.4.6</version>
+    <authors>ClassicOldSong</authors>
+    <owners>JJ Fullmer</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://github.com/ClassicOldSong/Apollo/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/ClassicOldSong/Apollo</projectUrl>
+    <iconUrl>https://cdn.statically.io/gh/ClassicOldSong/Apollo/f83ac60e/apollo.png</iconUrl>
+    <description><![CDATA[
+# Apollo Game Streaming Server Chocolatey Package
+
+This package will be an automatically maintained package for the latest release of the Apollo game streaming server.
+The first release is manual to ensure the initial things are working correctly.
+
+## Dependencies
+
+[vigembus](https://community.chocolatey.org/packages/vigembus) is required for virtual gamepad support and will be auto installed as a dependency.
+
+# Apollo
+
+Apollo is a self-hosted desktop stream host for [Artemis(Moonlight Noir)](https://github.com/ClassicOldSong/moonlight-android). Offering low latency, native client resolution, cloud gaming server capabilities with support for AMD, Intel, and Nvidia GPUs for hardware encoding. Software encoding is also available. A web UI is provided to allow configuration and client pairing from your favorite web browser. Pair from the local server or any mobile device.
+
+Major features:
+
+- [x] Built-in Virtual Display with HDR support that matches the resolution/framerate config of your client automatically
+- [x] Permission management for clients
+- [x] Clipboard sync
+- [x] Commands for client connection/disconnection (checkout [Auto pause/resume games](https://github.com/ClassicOldSong/Apollo/wiki/Auto-pause-resume-games))
+- [x] Input only mode
+
+## Usage
+
+Refer to LizardByte's documentation hosted on [Read the Docs](https://docs.lizardbyte.dev/projects/sunshine) for now.
+Currently Virtual Display support is Windows only, Linux support is planned and will be implemented in the future.
+
+## About Permission System
+
+Check out the [Wiki](https://github.com/ClassicOldSong/Apollo/wiki/Permission-System)
+
+> [!NOTE]
+> The **FIRST** client paired with Apollo will be granted with FULL permissions, then other newly paired clients will only be granted with `View Streams` and `List Apps` permission. If you encounter `Permission Denied` error when trying to launch any app, go check the permission for that device and grant `Launch Apps` permission. The same applies to the situation when you find that you can't move mouse or type with keyboard on newly paired clients, grant the corresponding client `Mouse Input` and `Keyboard Input` permissions.
+
+## About Virtual Display
+
+> [!WARNING]
+> ***It is highly recommend to remove any other virtual display solutions from your system and Apollo/Sunshine config, to reduce confusions and compatibility issues.***
+
+> [!NOTE]
+> **TL;DR** Just treat your Artemis/Moonlight client like a dedicated PnP monitor with Apollo.
+
+Apollo uses SudoVDA for virtual display. It features auto resolution and framerate matching for your Artemis/Moonlight clients. The virtual display is created upon the stream starts and removed once the app quits. **If you do not see a new virtual display added or removed when the stream starts or stops, there may be a driver misconfiguration, or another persistent virtual display might still be active.**
+The virtual display works just like any physically attached monitors with SudoVDA, there's completely no need for a super complicated solution to "fix" resolution configurations for your devices. Unlike all other solutions that reuses one identity or generate a random one each time for any virtual display sessions, **Apollo assigns a fixed identity for each Artemis/Moonlight client, so your display configuration will be automatically remembered and managed by Windows natively.**
+
+## FAQ
+Moved to [WiKi](https://github.com/ClassicOldSong/Apollo/wiki/FAQ)
+
+]]></description>
+    <releaseNotes>Fix Spanish locale
+Fix double-refresh-rate not being used with custom refresh rates
+Add auto value for minimal fps target to reduce framerate overshoot in certain setups</releaseNotes>
+    <copyright>2025</copyright>
+    <tags>apollo nvidia amd intel gaming streaming server nvidia-gamestream</tags>
+    <docsUrl>https://github.com/ClassicOldSong/Apollo/wiki</docsUrl>
+    <mailingListUrl>https://github.com/ClassicOldSong/Apollo/discussions</mailingListUrl>
+    <bugTrackerUrl>https://github.com/ClassicOldSong/Apollo/issues</bugTrackerUrl>
+    <projectSourceUrl>https://github.com/darksidemilk/Coco-Puffs/apollo</projectSourceUrl>
+    <packageSourceUrl>https://github.com/darksidemilk/Coco-Puffs/tree/main/apollo/apollo.nuspec</packageSourceUrl>
+    <dependencies>
+      <dependency id="ViGEmBus" version="1.22.0" />
+    </dependencies>
+</metadata>
+<files>
+    <!-- this section controls what actually gets packaged into the Chocolatey package -->
+    <!-- make sure that all files used in the module are included-->
+    <file src="tools\**" target="tools" />
+</files>
+</package>

@@ -1,0 +1,1 @@
+#todo automate checking for new releases at https://github.com/ClassicOldSong/Apollo/releases/latest and then updating package details
