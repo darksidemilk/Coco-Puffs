@@ -12,10 +12,13 @@ Set-Location $installDir;
 
 #vigembus
 "Uninstalling ViGEmBus driver..." | Out-Host
+if ($null -ne (Get-process -name "*vigembus_installer.exe*")) {
+  Stop-Process -Name "*vigembus_installer.exe*" -Force
+}
 & "$scripts\uninstall-gamepad.ps1"
 
 #config service
-"uninstalling Apollo service to auto start..." | Out-Host
+"uninstalling Apollo service..." | Out-Host
 & "$scripts\uninstall-service.bat"
 
 #update env path

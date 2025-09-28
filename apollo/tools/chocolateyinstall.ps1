@@ -14,7 +14,7 @@ $packageArgs = @{
   fileType      = 'exe'
   silentArgs    = "/S"
   validExitCodes= @(0)
-  url           = "https://github.com/ClassicOldSong/Apollo/releases/download/$version/$filename"
+  url           = "https://github.com/ClassicOldSong/Apollo/releases/download/v$version/$filename"
   checksum      = '42B2AEFAACB3474511517A56B96EE9F0517F30AC38B5DD2FDA9FD5B478F5021A'
   checksumType  = 'sha256'
   destination   = $toolsDir
@@ -37,6 +37,10 @@ Set-Location $installDir;
 
 #vigembus
 "Installing ViGEmBus driver..." | Out-Host
+if ($null -ne (Get-process -name "*vigembus_installer.exe*")) {
+  "Stopping existing ViGEmBus installer process..." | Out-Host
+  Stop-Process -Name "*vigembus_installer.exe*" -Force
+}
 & "$scripts\install-gamepad.ps1"
 
 #config service
@@ -51,6 +55,8 @@ Set-Location $installDir;
 "Installing SudoVDA virtual display driver..." | Out-Host
 & "$drivers\sudovda\install.bat"
 
+"Restarting Apollo service after re-running scripts..." | Out-Host
+get-service ApolloService | restart-service
 
 Write-Host -BackgroundColor Green -ForegroundColor Blue -Object @"
 
