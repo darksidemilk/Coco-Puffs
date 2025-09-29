@@ -2,7 +2,7 @@ $ErrorActionPreference = 'Stop';
 
 $toolsDir     = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 # $fileLocation = ''
-$version = "0.4.6"
+$version = $env:ChocolateyPackageVersion
 $filename = "Apollo-$version.exe"
 $installDir = "$env:ProgramFiles\Apollo"
 $scripts = "$installDir\scripts"
