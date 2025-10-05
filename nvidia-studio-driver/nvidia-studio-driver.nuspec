@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Do not remove this test for UTF-8: if “Ω” doesn’t appear as greek uppercase omega letter enclosed in quotation marks, you should use an editor that supports UTF-8, not this one. -->
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>nvidia-studio-driver</id>
+    <version>581.29</version>
+    <packageSourceUrl>https://github.com/darksidemilk/Coco-Puffs/tree/main/nvidia-studio-driver</packageSourceUrl>
+    <owners>JJ Fullmer</owners>
+    <title>NVidia Studio Driver</title>
+    <authors>NVIDIA</authors>
+    <projectUrl>https://www.nvidia.com/en-us/studio/</projectUrl>
+    <projectSourceUrl>https://www.nvidia.com/en-us/drivers/details/254262/</projectSourceUrl>
+    <iconUrl>https://cdn.statically.io/gh/darksidemilk/Coco-Puffs/main/nvidia-studio-driver/icons/nvidia-studio-icon.png</iconUrl>
+    <licenseUrl>https://www.nvidia.com/en-us/drivers/geforce-license/</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <tags>graphics card driver studio rtx nvidia</tags>
+    <summary>NVIDIA Studio Driver</summary>
+    <description>
+      This package installs the latest Nvidia Studio Driver (aka the creator ready driver) for Windows 10/11 with the default settings. This driver also works with most Quadro cards.
+      You can automate driver updates with `choco upgrade nvidia-studio-driver -y` in a scheduled task.
+      You can revert to previous driver versions with `choco install` and specifying the version. i.e. `choco install nvidia-studio-driver --version=581.29 -yf`
+    </description>
+    <releaseNotes>Wed Sep 10, 2025 - https://us.download.nvidia.com/Windows/581.29/581.29-win10-win11-nsd-release-notes.pdf</releaseNotes>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>
