@@ -7,3 +7,22 @@ if ($null -ne $pinnedRelease) {
 #psuedo code
 # get-filefromweb -url $quadro.ids.downloadinfo.downloadurl -filepath "nvidia-quadro-$(get-date -Format "yyMM").$($quadro.ids.downloadinfo.version).exe"
 
+#release notes url
+[System.Web.HttpUtility]::UrlDecode($quadro.ids.downloadinfo.othernotes)
+
+#project source url = details url.
+$quadro.ids.downloadinfo.DetailsURL
+
+#version will be used in package and to check for updates
+$quadro.ids.downloadinfo.Version
+
+#download url
+$quadro.ids.downloadinfo.DownloadURL
+
+#release date
+$quadro.ids.downloadinfo.ReleaseDate
+
+#checksum
+#when new package is being built, download the url and get the checksum
+Get-ChocolateyWebFile -url $quadro.ids.downloadinfo.DownloadURL -packagename 'nvidia-quadro-driver' -fileFullPath "$env:TEMP\nvidia-quadro-driver.exe"
+$hash = (Get-FileHash "$env:TEMP\nvidia-quadro-driver.exe" -Algorithm SHA256).Hash
