@@ -24,6 +24,23 @@ $downloadExtractArgs = @{
   UnzipLocation  = $extractPath
 }
 
+$packageArgs = @{
+  packageName   = $packageName
+  softwareName  = 'NVIDIA-Quadro*'
+  fileType      = 'exe'
+  silentArgs    = "/s /noreboot"
+  validExitCodes= @(0)
+  file          = "$extractPath\setup.exe"
+  checksum      = $hash
+  checksumType  = 'sha256'
+  destination   = $toolsDir
+  #installDir   = "" # passed when you want to override install directory - requires licensed editions
+}
+
+
+Get-ChocolateyWebFile -url $downloadURL -packagename $packageName -fileFullPath "$env:TEMP\nvidia-quadro-driver.exe"
+
+
 Install-ChocolateyZipPackage @downloadExtractArgs
 
 $hash = Get-FileHash "$extractPath\setup.exe" -Algorithm SHA256
@@ -32,16 +49,16 @@ $packageArgs = @{
   packageName   = $packageName
   softwareName  = 'NVIDIA-Quadro*'
   fileType      = 'exe'
-  silentArgs    = "/s"
+  silentArgs    = "/s /noreboot"
   validExitCodes= @(0)
   $fileLocation = "$extractPath\setup.exe"
-  checksum      = $hash.Hash
+  checksum      = $hash
   checksumType  = 'sha256'
   destination   = $toolsDir
   #installDir   = "" # passed when you want to override install directory - requires licensed editions
 }
 
-Install-ChocolateyPackage @packageArgs
+Install-ChocolateyInstallPackage @packageArgs
 
 #cleanup extracted files
 if (Test-Path -Path $sources) {
