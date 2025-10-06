@@ -4,8 +4,9 @@ $toolsDir     = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 $sources	  = "$toolsDir\files";
 $extractPath  = "$sources\$version"
 $downloadHash = "002E46DAFFED8C89F09325397839739D49F12594260A0990BC601FBEB3155CB4"
-$downloadHashType = "sha256"
-$downloadURL = "https://us.download.nvidia.com/Windows/581.29/581.29-desktop-win10-win11-64bit-international-nsd-dch-whql.exe"
+$installerHash= "6C2433AB59433BB5A31E51008C74C33808F00659BFEB363D40A0EFE185B2E8AB"
+$hashType     = "sha256"
+$downloadURL  = "https://us.download.nvidia.com/Windows/581.29/581.29-desktop-win10-win11-64bit-international-nsd-dch-whql.exe"
 
 #create extract path
 if (!(Test-Path -Path $sources)) {
@@ -16,17 +17,27 @@ if (!(Test-Path -Path $extractPath)) {
 }
 
 # download the driver and extract to get the setup.exe for cleaner silent install
-$downloadExtractArgs = @{
+$downloadArgs = @{
   packageName    = $packageName
   url            = $downloadURL
   checksum       = $downloadHash
-  checksumType   = $downloadHashType
-  UnzipLocation  = $extractPath
+  checksumType   = $hashType
+  fileFullPath   = "$sources\nvidia-studio-driver-$version.exe"
 }
 
-Install-ChocolateyZipPackage @downloadExtractArgs
+Get-ChocolateyWebFile @downloadArgs
 
-$hash = (Get-FileHash "$extractPath\setup.exe" -Algorithm SHA256).hash
+$unzipArgs = @{
+  packageName    = $packageName
+  fileFullPath   = $downloadArgs.fileFullPath
+  destination    = $extractPath
+}
+
+Get-ChocolateyUnzip @unzipArgs
+
+# Install-ChocolateyZipPackage @downloadExtractArgs
+
+# $hash = (Get-FileHash "$extractPath\setup.exe" -Algorithm SHA256).hash
 
 $packageArgs = @{
   packageName   = $packageName
@@ -35,8 +46,8 @@ $packageArgs = @{
   silentArgs    = "/s /noreboot"
   validExitCodes= @(0)
   file         = "$extractPath\setup.exe"
-  checksum      = $hash
-  checksumType  = 'sha256'
+  checksum      = $installerHash
+  checksumType  = $hashType
   destination   = $toolsDir
   #installDir   = "" # passed when you want to override install directory - requires licensed editions
 }
@@ -49,6 +60,6 @@ if (Test-Path -Path $sources) {
     try {
         Remove-Item -Recurse -Force $sources -ea stop
     } catch {
-        Write-Warning "Could not remove $sources. Please remove it manually to delete the extracted contents of the downloaded installer. The installer is in your chocolatey cache folder, defaults to '$env:temp\chocolatey' "
+        Write-Warning "Could not remove $sources. Please remove it manually to delete the downloaded installer and extracted contents"
     }
 }

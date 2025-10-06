@@ -4,7 +4,8 @@ $toolsDir     = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 $sources	  = "$toolsDir\files";
 $extractPath  = "$sources\$version"
 $downloadHash = "8D5603152F0483FD71251DE17A40B4D47826AA3CDDF15FFECB2366870542B961"
-$downloadHashType = "sha256"
+$installerHash= "002FCB28DFEE4374CFDBAA38D45453E592469F11D86938F0DB2C87016F0834B0"
+$hashType     = "sha256"
 $downloadURL = "https://us.download.nvidia.com/Windows/Quadro_Certified/553.62/553.62-quadro-rtx-desktop-notebook-win10-win11-64bit-international-dch-whql.exe"
 
 #create extract path
@@ -16,34 +17,23 @@ if (!(Test-Path -Path $extractPath)) {
 }
 
 # download the driver and extract to get the setup.exe for cleaner silent install
-$downloadExtractArgs = @{
+$downloadArgs = @{
   packageName    = $packageName
   url            = $downloadURL
   checksum       = $downloadHash
-  checksumType   = $downloadHashType
-  UnzipLocation  = $extractPath
+  checksumType   = $hashType
+  fileFullPath   = "$sources\nvidia-studio-driver-$version.exe"
 }
 
-$packageArgs = @{
-  packageName   = $packageName
-  softwareName  = 'NVIDIA-Quadro*'
-  fileType      = 'exe'
-  silentArgs    = "/s /noreboot"
-  validExitCodes= @(0)
-  file          = "$extractPath\setup.exe"
-  checksum      = $hash
-  checksumType  = 'sha256'
-  destination   = $toolsDir
-  #installDir   = "" # passed when you want to override install directory - requires licensed editions
+Get-ChocolateyWebFile @downloadArgs
+
+$unzipArgs = @{
+  packageName    = $packageName
+  fileFullPath   = $downloadArgs.fileFullPath
+  destination    = $extractPath
 }
 
-
-Get-ChocolateyWebFile -url $downloadURL -packagename $packageName -fileFullPath "$env:TEMP\nvidia-quadro-driver.exe"
-
-
-Install-ChocolateyZipPackage @downloadExtractArgs
-
-$hash = Get-FileHash "$extractPath\setup.exe" -Algorithm SHA256
+Get-ChocolateyUnzip @unzipArgs
 
 $packageArgs = @{
   packageName   = $packageName
@@ -52,8 +42,8 @@ $packageArgs = @{
   silentArgs    = "/s /noreboot"
   validExitCodes= @(0)
   $fileLocation = "$extractPath\setup.exe"
-  checksum      = $hash
-  checksumType  = 'sha256'
+  checksum      = $installerHash
+  checksumType  = $hashType
   destination   = $toolsDir
   #installDir   = "" # passed when you want to override install directory - requires licensed editions
 }

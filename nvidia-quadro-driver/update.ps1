@@ -26,3 +26,28 @@ $quadro.ids.downloadinfo.ReleaseDate
 #when new package is being built, download the url and get the checksum
 Get-ChocolateyWebFile -url $quadro.ids.downloadinfo.DownloadURL -packagename 'nvidia-quadro-driver' -fileFullPath "$env:TEMP\nvidia-quadro-driver.exe"
 $hash = (Get-FileHash "$env:TEMP\nvidia-quadro-driver.exe" -Algorithm SHA256).Hash
+
+#then extract it and get the hash of setup.exe for install
+$unzipArgs = @{
+  packageName    = 'nvidia-studio-driver'
+  fileFullPath   = "$env:TEMP\nvidia-studio-driver.exe"
+  destination    = "$env:TEMP\nvidia-studio-driver-$version"
+}
+Get-ChocolateyUnzip @unzipArgs
+$installerHash = (Get-FileHash "$env:TEMP\nvidia-studio-driver-$version\setup.exe" -Algorithm SHA256).Hash
+
+
+#check my version against $quadro.ids.downloadinfo.Version
+
+#if newer avail get new version and new hashes
+
+#update the download url
+
+# update the version
+
+# update the packagesourceurl with details url
+
+# update description with bannerurl?
+
+# update releasenotes with releasenotes url and date
+

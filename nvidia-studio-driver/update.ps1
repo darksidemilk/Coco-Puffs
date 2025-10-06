@@ -22,8 +22,16 @@ $studio.ids.downloadinfo.ReleaseDate
 #checksum
 #when new package is being built, download the url and get the checksum
 Get-ChocolateyWebFile -url $studio.ids.downloadinfo.DownloadURL -packagename 'nvidia-studio-driver' -fileFullPath "$env:TEMP\nvidia-studio-driver.exe"
-$hash = (Get-FileHash "$env:TEMP\nvidia-studio-driver.exe" -Algorithm SHA256).Hash
+$hash = (Get-FileHash "$env:TEMP\nvidia-studio-driver-$version.exe" -Algorithm SHA256).Hash
 
+#then extract it and get the hash of setup.exe for install
+$unzipArgs = @{
+  packageName    = 'nvidia-studio-driver'
+  fileFullPath   = "$env:TEMP\nvidia-studio-driver.exe"
+  destination    = "$env:TEMP\nvidia-studio-driver-$version"
+}
+Get-ChocolateyUnzip @unzipArgs
+$installerHash = (Get-FileHash "$env:TEMP\nvidia-studio-driver-$version\setup.exe" -Algorithm SHA256).Hash
 
 #check my version against $studio.ids.downloadinfo.Version
 
