@@ -190,31 +190,3 @@ function Remove-OtherVersionsOfNvidiaDisplayDrivers {
     }
     
 }
-
-function Test-IsChocoVerifier {
-    <#
-    .SYNOPSIS
-    Tests if the current environment matches the Chocolatey verifier
-    
-    .DESCRIPTION
-    Checks if the current user is "vagrant", the computer name starts with "WIN-", and if a specific Vagrantfile exists
-    where the chocolatey/test-environment vagrant box is used, indicating it's the Chocolatey verifier environment.
-    Meant to skip over certain checks when running in the verifier environment which doesn't have a GPU.
-
-    #>
-    [CmdletBinding()]
-    param ( )
-    
-    process {
-        if (($env:username -eq "vagrant") -and ($env:COMPUTERNAME -like "WIN-*") -and (Test-Path C:\vagrant\Vagrantfile)) {
-            if ((Get-Content C:\vagrant\Vagrantfile) -match "config.vm.box = `"chocolatey/test-environment`"") {
-                return $true;
-            } else {
-                return $false;
-            }
-        } else {
-            return $false;
-        }
-    }
-    
-}

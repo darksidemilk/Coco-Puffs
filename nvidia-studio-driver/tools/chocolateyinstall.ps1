@@ -15,18 +15,13 @@ $pp = Get-PackageParameters;
 if (!($pp.SkipCompatCheck)) {
   $nvidiaGpu = Get-NvidiaGPU
   if ($null -eq $nvidiaGpu) {
-    if (Test-IsChocoVerifier) {
-        Write-Warning "No nvidia gpu found, but this appears to be the choco verifier, returning the package as installed as the verifier won't have a GPU."
-        exit 0;
-    } else {
       throw "No Nvidia GPU found! This package is only for systems with Nvidia GPUs!"
       exit -436207360; #match the nvidia installer exit code for no nvidia gpu found
-    }
   } else {
     "Found nvidia gpu: $($nvidiaGpu.Name)" | out-host;
   }
 } else {
-  Write-Warning "Skipping nvidia gpu compatibility check as requested with SkipCompatCheck package parameter, you are installing at your own risk! Install will still fail if not GPU exists"
+  Write-Warning "Skipping nvidia gpu compatibility check as requested with SkipCompatCheck package parameter, you are installing at your own risk! Install will still fail if no GPU exists"
 }
 
 #create extract path
