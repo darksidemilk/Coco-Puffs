@@ -22,7 +22,7 @@ $downloadArgs = @{
   url            = $downloadURL
   checksum       = $downloadHash
   checksumType   = $hashType
-  fileFullPath   = "$sources\nvidia-studio-driver-$version.exe"
+  fileFullPath   = "$sources\$packageName-$version.exe"
 }
 
 Get-ChocolateyWebFile @downloadArgs
