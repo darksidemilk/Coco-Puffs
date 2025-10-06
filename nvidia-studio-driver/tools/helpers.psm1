@@ -175,10 +175,11 @@ function Remove-OtherVersionsOfNvidiaDisplayDrivers {
     process {
     
         $driversToRemove | ForEach-Object {
-            "Removing driver version $($_.version) aka '$($_.version.Substring(4,3)).$($_.version.Substring(7,2))'" | out-host;
+            $ver = $_.Version.replace(".","");
+            "Removing driver version $($_.version) aka '$($ver.Substring(4,3)).$($ver.Substring(7,2))'" | out-host;
             try {
-                $result = pnputil /delete-driver $infDriverPath /uninstall;
-                $result2 = pnputil /delete-driver $infDriverPath /delete /force;
+                $result = pnputil /delete-driver $_.driver /uninstall;
+                $result2 = pnputil /delete-driver $_.driver /delete /force;
                 if (!($result -match 'Driver package deleted successfully.' -or $result2 -match 'Driver package deleted successfully.')) { # if neither command has a success message, throw an error
                     throw 'pnputil failed to delete'
                 }
