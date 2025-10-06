@@ -16,9 +16,23 @@
     <tags>graphics card driver studio rtx nvidia</tags>
     <summary>NVIDIA Studio Driver</summary>
     <description>
+      # Overview
+
       This package installs the latest Nvidia Studio Driver (aka the creator ready driver) for Windows 10/11 with the default settings. This driver also works with most Quadro cards.
       You can automate driver updates with `choco upgrade nvidia-studio-driver -y` in a scheduled task.
       You can revert to previous driver versions with `choco install` and specifying the version. i.e. `choco install nvidia-studio-driver --version=581.29 -yf`
+
+      # Package Parameters
+
+      The following package parameters can be set to customize the installation with custom behavior.
+
+      * `/SkipCompatCheck` - Skip the compatibility check that ensures your GPU is supported by this driver version. Use at your own risk.
+      * `/RemoveOtherVersions` - If desired, remove other versions of the NVIDIA display driver from windows after install. Can trigger an unexpected reboot (uncommon), 
+        removes any nvidia display driver that doesn't match the version of the newly installed version, only effects display driver other components are untouched.
+        Can help prevent windows from reverting to a 'newer' driver on reboot if reverting to an older version of the driver.
+
+      Example param usage with choco install command:
+      `choco install nvidia-studio-driver --params "'/RemoveOtherVersions'"`
     </description>
     <releaseNotes>Wed Sep 10, 2025 - https://us.download.nvidia.com/Windows/581.29/581.29-win10-win11-nsd-release-notes.pdf</releaseNotes>
   </metadata>
