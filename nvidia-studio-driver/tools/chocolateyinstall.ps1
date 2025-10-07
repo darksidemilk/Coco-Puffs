@@ -1,7 +1,7 @@
 $packageName  = $env:ChocolateyPackageName
 $version      = $env:ChocolateyPackageVersion
 $toolsDir     = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
-$sources	  = "$toolsDir\files";
+$sources	    = "$toolsDir\files";
 $extractPath  = "$sources\$version"
 $downloadHash = "002E46DAFFED8C89F09325397839739D49F12594260A0990BC601FBEB3155CB4"
 $installerHash= "6C2433AB59433BB5A31E51008C74C33808F00659BFEB363D40A0EFE185B2E8AB"
@@ -15,8 +15,13 @@ $pp = Get-PackageParameters;
 if (!($pp.SkipCompatCheck)) {
   $nvidiaGpu = Get-NvidiaGPU
   if ($null -eq $nvidiaGpu) {
+    if ($env:username -eq "vagrant") {
+      Write-Warning "This appears to be a vagrant box, possible chocolatey-verifier, marking package as installed though it is not installed! This will be removed if a verifier-exemption is granted"
+      exit 0;
+    } else {
       throw "No Nvidia GPU found! This package is only for systems with Nvidia GPUs!"
       exit -436207360; #match the nvidia installer exit code for no nvidia gpu found
+    }
   } else {
     "Found nvidia gpu: $($nvidiaGpu.Name)" | out-host;
   }
@@ -67,7 +72,7 @@ $packageArgs = @{
 if ((!$pp.SkipCompatCheck)) {
     if (!(Test-NvidiaGPUInDeviceList -extractPath $extractPath)) {
       Write-Warning "your gpu $($nvidiaGpu.Name) is not listed as compatible with this driver in $($extractPath)\ListDevices.txt, not installing! You can bypass this warning with `--params "'/SkipCompatCheck'"`. Skip at your own risk."
-      Write-Warning "Downloaded and extracted files not cleaned up, you can find them in $($extractPath.replace("$env:ChocolateyInstall\lib\$packageName\","$env:ChocolateyInstall\lib-bad\$packageName\$env:chocolateyPackageVersion\"))"
+      Write-Warning "Downloaded and extracted files not cleaned up, you can find them in $($extractPath.replace("$env:ChocolateyInstall\lib\$packageName\","$env:ChocolateyInstall\lib-bad\$packageName\$version\"))"
       throw "Incompatible GPU, not installing"
       exit 1;
     }

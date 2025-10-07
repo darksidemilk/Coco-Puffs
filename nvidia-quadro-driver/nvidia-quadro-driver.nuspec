@@ -3,36 +3,43 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>nvidia-quadro-driver</id>
-    <version>553.62</version>
+    <version>553.62.0</version>
     <packageSourceUrl>https://github.com/darksidemilk/Coco-Puffs/tree/main/nvidia-quadro-driver</packageSourceUrl>
     <owners>JJ Fullmer</owners>
     <title>NVidia Quadro Driver</title>
     <authors>NVIDIA</authors>
     <projectUrl>https://www.nvidia.com/en-us/drivers/</projectUrl>
     <projectSourceUrl>https://www.nvidia.com/Download/driverResults.aspx/238728</projectSourceUrl>
-    <iconUrl>https://cdn.statically.io/gh/darksidemilk/Coco-Puffs/main/nvidia-quadro-driver/icons/nvidia-quadro-rtx-logo-rgb-for-screen(1).png</iconUrl>
+    <iconUrl>https://cdn.statically.io/gh/darksidemilk/Coco-Puffs/main/nvidia-quadro-driver/icons/nvidia-quadro-rtx-icon.png</iconUrl>
     <licenseUrl>https://www.nvidia.com/en-us/drivers/nvidia-license/</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <mailingListUrl>https://www.nvidia.com/en-us/preferences/email-signup/</mailingListUrl>
+    <docsUrl>https://us.download.nvidia.com/Windows/Quadro_Certified/553.62/553.62-nvidia-rtx-quadro-control-panel-quick-start-guide.pdf"</docsUrl>
     <tags>graphics card driver quadro rtx nvidia admin</tags>
     <summary>NVIDIA Quadro Driver</summary>
     <description>
-      # Overview
+# [NVIDIA RTX Driver Release 550 R550 U13 (553.62) | Windows 11](https://www.nvidia.com/Download/driverResults.aspx/238728)
 
-      This package installs the latest Nvidia Quadro Driver for Windows 10/11 with the default settings. This package is for Quadro cards only.
-      You can automate driver updates with `choco upgrade nvidia-quadro-driver -y` in a scheduled task.
-      You can revert to previous driver versions with `choco install` and specifying the version. i.e. `choco install nvidia-quadro-driver --version=553.62 -yf`
+<b>NVIDIA RTX Enterprise Production Branch Driver</b> <br /> <br /> Release 550 is a Production Branch release of the NVIDIA RTX Enterprise Driver. Production Branch drivers are designed and tested to provide long-term stability and availability. These drivers are ideal for enterprise customers and professional users who require application and hardware certification and regular driver updates for the latest in driver enhancements and security improvements.<br /> <br /> In addition to professional workstation features, Production Branch drivers also contain the features and enhancements of NVIDIA Studio Drivers of the same version number.<br /> <br /> <b>New Features in Version R550 U13</b> <br /> <ul>   <li>Adds the latest performance improvements, bug fixes, and       driver enhancements. </li>   <li>Security updates: see Security       Bulletin: NVIDIA GPU Display Driver &ndash; January 2025, which is posted       shortly after the release date of this software and will be listed on the <a href="https://www.nvidia.com/en-us/security/">NVIDIA Product Security page </a>.</li> </ul>     <br />     <b>Fixed Issues in Version R550 U13</b> <br />     <ul>   <li>Ongoing bug fixes and performance enhancements. </li> </ul>         <br />         <b>Open Issues in Version R550 U13</b> <br />         <ul>   <li>No open issues to note in this release.</li> </ul>             <br />             <br />             <p>If you would like to be notified of upcoming drivers for Windows, please <a href="https://www.nvidia.com/en-us/preferences/email-signup/">subscribe here</a>.</p>
 
-      # Package Parameters
+## Overview
 
-      The following package parameters can be set to customize the installation with custom behavior.
+This package installs the latest Nvidia Quadro Driver for Windows 10/11 with the default settings. This package is for Quadro cards only.
+You can automate driver updates with `choco upgrade nvidia-quadro-driver -y` in a scheduled task.
+You can revert to previous driver versions with `choco install` and specifying the version. i.e. `choco install nvidia-quadro-driver --version=553.62 -yf`
 
-      * `/SkipCompatCheck` - Skip the compatibility check that ensures your GPU is supported by this driver version. Use at your own risk.
-      * `/RemoveOtherVersions` - If desired, remove other versions of the NVIDIA display driver from windows after install. Can trigger an unexpected reboot (uncommon), 
-        removes any nvidia display driver that doesn't match the version of the newly installed version, only effects display driver other components are untouched.
-        Can help prevent windows from reverting to a 'newer' driver on reboot if reverting to an older version of the driver.
+## Package Parameters
 
-      Example param usage with choco install command:
-      `choco install nvidia-quadro-driver --params "'/RemoveOtherVersions'" -yf`
+The following package parameters can be set to customize the installation.
+
+  - `/SkipCompatCheck` - Skip the compatibility check that ensures your GPU is supported by this driver version. Use at your own risk.
+  - `/RemoveOtherVersions` - If desired, remove other versions of the NVIDIA display driver from windows after install.
+    - Can trigger an unexpected reboot (uncommon)
+    - Removes any nvidia display driver that doesn't match the version of the newly installed version, only affects display driver other components are untouched.
+    - Can help prevent windows from reverting to a 'newer' driver on reboot if reverting to an older version of the driver.
+
+Example param usage with choco install command:
+`choco install nvidia-quadro-driver --params "'/RemoveOtherVersions'" -yf`
       
     </description>
     <releaseNotes>Thu Jan 16, 2025 - https://us.download.nvidia.com/Windows/Quadro_Certified/553.62/553.62-win10-win11-nvidia-rtx-quadro-release-notes.pdf</releaseNotes>
