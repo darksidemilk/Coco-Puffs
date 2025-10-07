@@ -1,6 +1,8 @@
 # Coco-Puffs
 
-I'm coo coo for chocolatey package! Repository for my published chocolatey packages. 
+I'm coo coo for chocolatey packages!
+Repository for my published chocolatey packages.
+https://community.chocolatey.org/profiles/DarkSideMilk
 
 ## Structuring
 
