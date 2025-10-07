@@ -7,7 +7,7 @@ $urlParams = @{
   languageCode=1033 # language code 1033 = English US
   beta=0 # not beta version
   isWHQL=1 # is WHQL certified
-  #release=550 #optionally specify a release branch to search for. i.e. 550 would get 55x.xx versions and isNewest would need to be 0
+  release=550 #optionally specify a release branch to search for. i.e. 550 would get 55x.xx versions and isNewest would need to be 0
   dltype=1 # download type, not sure of available types, 1 is default and what gets the driver download
   dch=1 # DCH driver (Declarative Componentized Hardware supported apps, universal standard for windows 10+)
   upCRD=0 #request creator ready driver (null for quadro)
@@ -49,11 +49,25 @@ $version = $quadro.ids.downloadinfo.Version
 #osname
 $osName = [System.Web.HttpUtility]::UrlDecode($quadro.ids.downloadinfo.OSName)
 
-#heading
-"#[$baseName $displayVer | $osName]($detailsURL)"
-
 #add release notes under the heading in the description. Will need to replace between start of description up to `## Overview`
 $releaseNotes = [System.Web.HttpUtility]::UrlDecode($quadro.ids.downloadinfo.ReleaseNotes)
+
+#inject release notes html as md under heading
+install-module -name HtmlToMarkdown -force;
+ipmo HtmlToMarkdown;
+$md = Convert-HtmlToMarkdown -Html $releaseNotes;
+
+#heading
+"#[$baseName $displayVer | $osName]($detailsURL)"
+"`n"
+"$md"
+"`n"
+"---"
+"`n"
+"## Overview"
+
+
+
 
 #download url
 $quadro.ids.downloadinfo.DownloadURL

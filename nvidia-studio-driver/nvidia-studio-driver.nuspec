@@ -17,32 +17,32 @@
     <docsUrl>https://us.download.nvidia.com/Windows/581.29/581.29-nvidia-control-panel-quick-start-guide.pdf</docsUrl>
     <tags>graphics card driver studio rtx nvidia</tags>
     <summary>NVIDIA Studio Driver</summary>
-    <description><![CDATA[
+    <description>
 # [NVIDIA Studio Driver R580 (581.29) | Windows 11](https://www.nvidia.com/en-us/drivers/details/254262/)
 
-NVIDIA Studio Drivers provide artists, creators, and 3D developers the best performance and reliability when working with creative applications. To achieve the highest level of reliability, Studio Drivers undergo extensive testing against multi-app creator workflows and multiple revisions of the top creative applications from Adobe to Autodesk and beyond.<br />
-<br />
-<b>Applications</b> <br />
-The September NVIDIA Studio Driver provides optimal support for the latest new creative applications and updates including support for Microsoft TRELLIS NIM, providing optimized performance on RTX GPUs. <br />
-<br />
-<b>Fixed Application Bugs</b> <br />
-<ul>
-  <li>Cyberpunk 2077: Crash when using Photo Mode to take a screenshot with path tracing enabled [5076545]</li>
-  <li>Marvel Rivals: Negative performance impact when using some 581.xx drivers [5444816]</li>
-  <li>Forza Motorsport: Game crashes if using Smooth Motion while bringing up NVIDIA App overlay statistics [5412757]</li>
-  <li>Gray Zone Warfare: Game stability issues [5371781]</li>
-  <li>ARK: Survival Ascended: Game stability issues [5441616]</li>
-  <li>Marvel's Avengers - The Definitive Edition: Game crashes to desktop on startup [5350712]</li>
-</ul>
-<br />
-<b>Fixed General Bugs</b> <br />
-<ul>
-  <li>Potential memory leak when using NVENC hardware encoding [5442678]</li>
-  <li>Power cycling monitor can result in monitor flickering when NVIDIA App is installed [5434811]</li>
-  <li>NVIDIA App game filter issues after driver update [5429651]</li>
-  <li>Certain monitors may display a random flicker when hot plugged over HDMI [5280259]</li>
-</ul>
+NVIDIA Studio Drivers provide artists, creators, and 3D developers the best performance and reliability when working with creative applications. To achieve the highest level of reliability, Studio Drivers undergo extensive testing against multi-app creator workflows and multiple revisions of the top creative applications from Adobe to Autodesk and beyond.  
 
+**Applications**   
+
+The September NVIDIA Studio Driver provides optimal support for the latest new creative applications and updates including support for Microsoft TRELLIS NIM, providing optimized performance on RTX GPUs.   
+
+**Fixed Application Bugs**   
+
+- Cyberpunk 2077: Crash when using Photo Mode to take a screenshot with path tracing enabled [5076545]
+- Marvel Rivals: Negative performance impact when using some 581.xx drivers [5444816]
+- Forza Motorsport: Game crashes if using Smooth Motion while bringing up NVIDIA App overlay statistics [5412757]
+- Gray Zone Warfare: Game stability issues [5371781]
+- ARK: Survival Ascended: Game stability issues [5441616]
+- Marvel's Avengers - The Definitive Edition: Game crashes to desktop on startup [5350712]
+
+**Fixed General Bugs**   
+
+- Potential memory leak when using NVENC hardware encoding [5442678]
+- Power cycling monitor can result in monitor flickering when NVIDIA App is installed [5434811]
+- NVIDIA App game filter issues after driver update [5429651]
+- Certain monitors may display a random flicker when hot plugged over HDMI [5280259]
+
+---
 
 ## Overview
 
@@ -63,7 +63,7 @@ The following package parameters can be set to customize the installation.
 
 Example param usage with choco install command:
 `choco install nvidia-studio-driver --params "'/RemoveOtherVersions'"`
-    ]]></description>
+    </description>
     <releaseNotes>Wed Sep 10, 2025 - https://us.download.nvidia.com/Windows/581.29/581.29-win10-win11-nsd-release-notes.pdf</releaseNotes>
   </metadata>
   <files>

@@ -44,8 +44,20 @@ $detailsURL = $studio.ids.downloadinfo.DetailsURL
 #version will be used in package and to check for updates
 $version = $studio.ids.downloadinfo.Version
 
+#inject release notes html as md under heading
+$str = [System.Web.HttpUtility]::UrlDecode($studio.ids.downloadinfo.ReleaseNotes)
+install-module -name HtmlToMarkdown -force;
+ipmo HtmlToMarkdown;
+$md = Convert-HtmlToMarkdown -Html $str;
+
 #heading
 "#[$baseName R$releaseId ($version) | $osName]($detailsURL)"
+"`n"
+"$md"
+"`n"
+"---"
+"`n"
+"## Overview"
 
 #release notes url is within this encoded url, will need to be extracted/parsed
 [System.Web.HttpUtility]::UrlDecode($studio.ids.downloadinfo.othernotes)

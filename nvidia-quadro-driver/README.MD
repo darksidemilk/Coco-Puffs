@@ -59,6 +59,7 @@ isNewFeature           : null
 gfeExclusive           : 0
 webExclusive           : 0
 cudaToolkitID          : null
-theSystemIsDc          : 1
-theUserRequestedCRD    : 0
+theSystemIsDc          : 1 #set automatically, always seems to be 1, signifies data center ready gpu driver
+theUserRequestedCRD    : 0 #set by
 ```
+
