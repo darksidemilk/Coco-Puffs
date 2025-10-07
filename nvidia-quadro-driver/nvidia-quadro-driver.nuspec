@@ -8,7 +8,7 @@
     <owners>JJ Fullmer</owners>
     <title>NVidia Quadro Driver</title>
     <authors>NVIDIA</authors>
-    <projectUrl>https://www.nvidia.com/en-us/drivers/</projectUrl>
+    <projectUrl>https://www.nvidia.com/en-us/products/workstations/</projectUrl>
     <projectSourceUrl>https://www.nvidia.com/Download/driverResults.aspx/238728</projectSourceUrl>
     <iconUrl>https://cdn.statically.io/gh/darksidemilk/Coco-Puffs/main/nvidia-quadro-driver/icons/nvidia-quadro-rtx-icon.png</iconUrl>
     <licenseUrl>https://www.nvidia.com/en-us/drivers/nvidia-license/</licenseUrl>
