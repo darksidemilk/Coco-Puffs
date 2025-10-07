@@ -15,8 +15,8 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <mailingListUrl>https://www.nvidia.com/en-us/preferences/email-signup/</mailingListUrl>
     <docsUrl>https://us.download.nvidia.com/Windows/Quadro_Certified/553.62/553.62-nvidia-rtx-quadro-control-panel-quick-start-guide.pdf</docsUrl>
-    <tags>graphics card driver quadro rtx nvidia admin</tags>
-    <summary>NVIDIA Quadro Driver</summary>
+    <tags>graphics card driver quadro rtx rtxpro nvidia admin</tags>
+    <summary>NVIDIA Quadro/RTX Pro Driver</summary>
     <description>
 # [NVIDIA RTX Driver Release 550 R550 U13 (553.62) | Windows 11](https://www.nvidia.com/Download/driverResults.aspx/238728)
 
