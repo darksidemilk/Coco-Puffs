@@ -6,7 +6,7 @@
     <version>581.29.0</version>
     <packageSourceUrl>https://github.com/darksidemilk/Coco-Puffs/tree/main/nvidia-studio-driver</packageSourceUrl>
     <owners>JJ Fullmer</owners>
-    <title>NVidia Studio Driver</title>
+    <title>NVIDIA Studio Driver</title>
     <authors>NVIDIA</authors>
     <projectUrl>https://www.nvidia.com/en-us/studio/</projectUrl>
     <projectSourceUrl>https://www.nvidia.com/en-us/drivers/details/254262/</projectSourceUrl>
