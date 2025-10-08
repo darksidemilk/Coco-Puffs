@@ -47,7 +47,7 @@ The September NVIDIA Studio Driver provides optimal support for the latest new c
 ## Overview
 
 This package installs the latest Nvidia Studio Driver (aka the creator ready driver) for Windows 10/11 with the default settings. 
-This driver also works with most Nvidia RTX / RTX PRO / Quadro cards.
+This driver is meant for Nvidia GeForce GTX 1xxx series and GeForce RTX series (20xx and newer) cards, it also works with most Nvidia RTX / RTX PRO / Quadro cards.
 You can automate driver updates with `choco upgrade nvidia-studio-driver -y` in a scheduled task.
 You can revert to previous driver versions with `choco install` and specifying the version. i.e. `choco install nvidia-studio-driver --version=581.29 -yf`
 
