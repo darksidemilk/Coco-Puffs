@@ -46,7 +46,7 @@ If you would like to be notified of upcoming drivers for Windows, please [subscr
 ## Overview
 
 This package installs the latest Nvidia RTX Driver (Formerly Nvidia Quadro) for Windows 10/11 with the default settings. 
-This package is for RTX / RTX PRO / Quadro cards only.
+**This package is for RTX / RTX PRO / Quadro cards only.**
 You can automate driver updates with `choco upgrade nvidia-rtx-driver -y` in a scheduled task.
 You can revert to previous driver versions with `choco install` and specifying the version. i.e. `choco install nvidia-rtx-driver --version=553.62 -yf`
 
