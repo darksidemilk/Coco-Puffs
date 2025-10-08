@@ -2,21 +2,21 @@
 <!-- Do not remove this test for UTF-8: if “Ω” doesn’t appear as greek uppercase omega letter enclosed in quotation marks, you should use an editor that supports UTF-8, not this one. -->
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
-    <id>nvidia-quadro-driver</id>
+    <id>nvidia-rtx-driver</id>
     <version>553.62.0</version>
-    <packageSourceUrl>https://github.com/darksidemilk/Coco-Puffs/tree/main/nvidia-quadro-driver</packageSourceUrl>
+    <packageSourceUrl>https://github.com/darksidemilk/Coco-Puffs/tree/main/nvidia-rtx-driver</packageSourceUrl>
     <owners>JJ Fullmer</owners>
-    <title>NVidia Quadro Driver</title>
+    <title>NVIDIA RTX Driver (Formerly Nvidia Quadro)</title>
     <authors>NVIDIA</authors>
     <projectUrl>https://www.nvidia.com/en-us/products/workstations/</projectUrl>
     <projectSourceUrl>https://www.nvidia.com/Download/driverResults.aspx/238728</projectSourceUrl>
-    <iconUrl>https://cdn.statically.io/gh/darksidemilk/Coco-Puffs/main/nvidia-quadro-driver/icons/nvidia-quadro-rtx-icon.png</iconUrl>
+    <iconUrl>https://cdn.statically.io/gh/darksidemilk/Coco-Puffs/main/nvidia-rtx-driver/icons/nvidia-quadro-rtx-icon.png</iconUrl>
     <licenseUrl>https://www.nvidia.com/en-us/drivers/nvidia-license/</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <mailingListUrl>https://www.nvidia.com/en-us/preferences/email-signup/</mailingListUrl>
     <docsUrl>https://us.download.nvidia.com/Windows/Quadro_Certified/553.62/553.62-nvidia-rtx-quadro-control-panel-quick-start-guide.pdf</docsUrl>
     <tags>graphics card driver quadro rtx rtxpro nvidia admin</tags>
-    <summary>NVIDIA Quadro/RTX Pro Driver</summary>
+    <summary>NVIDIA RTX / RTX Pro / Quadro Driver</summary>
     <description>
 # [NVIDIA RTX Driver Release 550 R550 U13 (553.62) | Windows 11](https://www.nvidia.com/Download/driverResults.aspx/238728)
 
@@ -45,9 +45,10 @@ If you would like to be notified of upcoming drivers for Windows, please [subscr
 
 ## Overview
 
-This package installs the latest Nvidia Quadro Driver for Windows 10/11 with the default settings. This package is for Quadro cards only.
-You can automate driver updates with `choco upgrade nvidia-quadro-driver -y` in a scheduled task.
-You can revert to previous driver versions with `choco install` and specifying the version. i.e. `choco install nvidia-quadro-driver --version=553.62 -yf`
+This package installs the latest Nvidia RTX Driver (Formerly Nvidia Quadro) for Windows 10/11 with the default settings. 
+This package is for RTX / RTX PRO / Quadro cards only.
+You can automate driver updates with `choco upgrade nvidia-rtx-driver -y` in a scheduled task.
+You can revert to previous driver versions with `choco install` and specifying the version. i.e. `choco install nvidia-rtx-driver --version=553.62 -yf`
 
 ## Package Parameters
 
@@ -60,7 +61,7 @@ The following package parameters can be set to customize the installation.
     - Can help prevent windows from reverting to a 'newer' driver on reboot if reverting to an older version of the driver.
 
 Example param usage with choco install command:
-`choco install nvidia-quadro-driver --params "'/RemoveOtherVersions'" -yf`
+`choco install nvidia-rtx-driver --params "'/RemoveOtherVersions'" -yf`
 
     </description>
     <releaseNotes>Thu Jan 16, 2025 - https://us.download.nvidia.com/Windows/Quadro_Certified/553.62/553.62-win10-win11-nvidia-rtx-quadro-release-notes.pdf</releaseNotes>

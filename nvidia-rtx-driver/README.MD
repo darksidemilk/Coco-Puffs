@@ -1,6 +1,6 @@
-# Nvidia Quadro Driver
+# Nvidia RTX / RTX Pro Driver (Formerly Nvidia Quadro) 
 
-This is a package that will update you to the latest quadro driver.
+This is a package that will update you to the latest RTX workstation driver.
 
 The automations will do the following for each package
 

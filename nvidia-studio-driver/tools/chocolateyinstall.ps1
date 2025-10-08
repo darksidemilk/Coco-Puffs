@@ -25,6 +25,10 @@ if (!($pp.SkipCompatCheck)) {
   } else {
     "Found nvidia gpu: $($nvidiaGpu.Name)" | out-host;
   }
+  If ( [System.Environment]::OSVersion.Version.Major -ne '10' ) {
+    throw "This package only supports Windows 10 and 11, previous versions are not supported by Nvidia"
+    exit 1;
+  }
 } else {
   Write-Warning "Skipping nvidia gpu compatibility check as requested with SkipCompatCheck package parameter, you are installing at your own risk! Install will still fail if no GPU exists"
 }

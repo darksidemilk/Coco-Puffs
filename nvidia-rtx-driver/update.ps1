@@ -78,17 +78,17 @@ $quadro.ids.downloadinfo.ReleaseDate
 
 #checksum
 #when new package is being built, download the url and get the checksum
-Get-ChocolateyWebFile -url $quadro.ids.downloadinfo.DownloadURL -packagename 'nvidia-quadro-driver' -fileFullPath "$env:TEMP\nvidia-quadro-driver.exe"
-$hash = (Get-FileHash "$env:TEMP\nvidia-quadro-driver.exe" -Algorithm SHA256).Hash
+Get-ChocolateyWebFile -url $quadro.ids.downloadinfo.DownloadURL -packagename 'nvidia-rtx-driver' -fileFullPath "$env:TEMP\nvidia-rtx-driver.exe"
+$hash = (Get-FileHash "$env:TEMP\nvidia-rtx-driver.exe" -Algorithm SHA256).Hash
 
 #then extract it and get the hash of setup.exe for install
 $unzipArgs = @{
-  packageName    = 'nvidia-studio-driver'
-  fileFullPath   = "$env:TEMP\nvidia-studio-driver.exe"
-  destination    = "$env:TEMP\nvidia-studio-driver-$version"
+  packageName    = 'nvidia-rtx-driver'
+  fileFullPath   = "$env:TEMP\nvidia-rtx-driver.exe"
+  destination    = "$env:TEMP\nvidia-rtx-driver-$version"
 }
 Get-ChocolateyUnzip @unzipArgs
-$installerHash = (Get-FileHash "$env:TEMP\nvidia-studio-driver-$version\setup.exe" -Algorithm SHA256).Hash
+$installerHash = (Get-FileHash "$env:TEMP\nvidia-rtx-driver-$version\setup.exe" -Algorithm SHA256).Hash
 
 
 #check my version against $quadro.ids.downloadinfo.Version
