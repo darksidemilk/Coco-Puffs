@@ -15,13 +15,8 @@ $pp = Get-PackageParameters;
 if (!($pp.SkipCompatCheck)) {
   $nvidiaGpu = Get-NvidiaGPU
   if ($null -eq $nvidiaGpu) {
-    if ($env:username -eq "vagrant") {
-      Write-Warning "This appears to be a vagrant box, possible chocolatey-verifier, marking package as installed though it is not installed! This will be removed if a verifier-exemption is granted"
-      exit 0;
-    } else {
-      throw "No Nvidia GPU found! This package is only for systems with Nvidia GPUs!"
-      exit -436207360; #match the nvidia installer exit code for no nvidia gpu found
-    }
+    throw "No Nvidia GPU found! This package is only for systems with Nvidia GPUs!"
+    exit -436207360; #match the nvidia installer exit code for no nvidia gpu found
   } else {
     "Found nvidia gpu: $($nvidiaGpu.Name)" | out-host;
   }
