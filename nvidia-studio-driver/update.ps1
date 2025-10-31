@@ -1,31 +1,88 @@
-$urlParams = @{
-  func="DriverManualLookup"
-  psid=131 # product series id 131 = Nvidia GeForce RTX 50 Series
-  pfid=1068 # product family id 1068 = NVIDIA GeForce RTX 5070 Ti
-  osID=135 # operating system id (135 = win11)
-  languageID=1 # language id 1 = English
-  languageCode=1033 # language code 1033 = English US
-  beta=0 # not beta version
-  isWHQL=0 # is WHQL certified needs to be 0 for studio drivers to return a result, they are whql though as is seen in the response and in the details url
-  #release=550 #optionally specify a release branch to search for. i.e. 550 would get 55x.xx versions and isNewest would need to be 0
-  dltype=1 # download type, not sure of available types, 1 is default and what gets the driver download
-  dch=1 # DCH driver (Declarative Componentized Hardware supported apps, universal standard for windows 10+)
-  upCRD=1 #request creator ready driver (what makes it a studio driver)
-  isNewFeature=0 # quadro new feature 
-  # ctk="null" # cuda toolkit id, only a response param
-  sort1=1 # sort mode (1 = by most recent? doesn't matter only getting 1 result)
-  numberOfResults=1 # number of results to return
-  isNewest=0 # don't get newest version as studio drivers are typically not newest for geForce, game ready drivers are always newest
-  is64bit=1 # 64 bit OS
+install-module Chocolatey-AU -Repository PSGallery -AllowClobber;
+import-module Chocolatey-AU
+install-module -name HtmlToMarkdown -Repository PSGallery;
+Import-Module HtmlToMarkdown;
+
+function global:Get-NvidiaDriverInfo {
+  [cmdletBinding()]
+  param()
+  $urlParams = @{
+    func="DriverManualLookup"
+    psid=131 # product series id 131 = Nvidia GeForce RTX 50 Series
+    pfid=1068 # product family id 1068 = NVIDIA GeForce RTX 5070 Ti
+    osID=135 # operating system id (135 = win11)
+    languageID=1 # language id 1 = English
+    languageCode=1033 # language code 1033 = English US
+    beta=0 # not beta version
+    isWHQL=0 # is WHQL certified needs to be 0 for studio drivers to return a result, they are whql though as is seen in the response and in the details url
+    #release=550 #optionally specify a release branch to search for. i.e. 550 would get 55x.xx versions and isNewest would need to be 0
+    dltype=1 # download type, not sure of available types, 1 is default and what gets the driver download
+    dch=1 # DCH driver (Declarative Componentized Hardware supported apps, universal standard for windows 10+)
+    upCRD=1 #request creator ready driver (what makes it a studio driver)
+    isNewFeature=0 # quadro new feature 
+    # ctk="null" # cuda toolkit id, only a response param
+    sort1=1 # sort mode (1 = by most recent? doesn't matter only getting 1 result)
+    numberOfResults=1 # number of results to return
+    isNewest=0 # don't get newest version as studio drivers are typically not newest for geForce, game ready drivers are always newest
+    is64bit=1 # 64 bit OS
+  }
+  $queryStr = ""; 
+  $urlParams.keys | ForEach-Object { 
+    $queryStr+="&"; 
+    $queryStr+=$_; 
+    $queryStr+="=$($urlParams[$_])" 
+  }
+
+  $studio = Invoke-RestMethod "https://gfwsl.geforce.com/services_toolkit/services/com/nvidia/services/AjaxDriverService.php?$queryStr"
+  return $studio
+
 }
-$queryStr = ""; 
-$urlParams.keys | ForEach-Object { 
-  $queryStr+="&"; 
-  $queryStr+=$_; 
-  $queryStr+="=$($urlParams[$_])" 
+function global:au_GetLatest {
+  #this is defined as global function above that would be in the update.ps1 script.
+  $studio = Get-NvidiaDriverInfo;
+
+  $detailsURL = $studio.ids.downloadinfo.DetailsURL
+  $othernotes = [System.Web.HttpUtility]::UrlDecode($studio.ids.downloadinfo.othernotes)
+  $docsurl = $otherNotes.split("`"") | ? { $_ -match 'quick-start-guide.pdf'}
+  $releaseNotesUrl = $otherNotes.split("`"") | ? { $_ -match 'release-notes.pdf'}
+  $releaseDate = $studio.ids.downloadinfo.ReleaseDate
+  $releaseNoteLink = "$releaseDate - $releaseNotesUrl"
+
+  $version = $studio.ids.downloadinfo.Version
+  $version = "$version.0"
+  $url = $studio.ids.downloadinfo.DownloadURL
+  return @{ 
+    Version = $version; 
+    URL = $url;
+    docsURL = $docsurl;
+    releaseNotesNuspec = $releaseNoteLink;
+    projectSourceURL = $detailsURL;
+  }
 }
 
-$studio = Invoke-RestMethod "https://gfwsl.geforce.com/services_toolkit/services/com/nvidia/services/AjaxDriverService.php?$queryStr"
+function global:au_SearchReplace {
+  # $studio = Get-NvidiaDriverInfo;
+  # $detailsURL = $studio.ids.downloadinfo.DetailsURL
+  # $othernotes = [System.Web.HttpUtility]::UrlDecode($studio.ids.downloadinfo.othernotes)
+  # $docsurl = $otherNotes.split("`"") | ? { $_ -match 'quick-start-guide.pdf'}
+  # $releaseNotesUrl = $otherNotes.split("`"") | ? { $_ -match 'release-notes.pdf'}
+  # $releaseDate = $studio.ids.downloadinfo.ReleaseDate
+  @{
+    ".\tools\chocolateyInstall.ps1" = @{
+        "(^[$]downloadurl\s*=\s*)('.*')"          = "`$1'$($Latest.URL)'"
+        "(^[$]downloadHash\s*=\s*)('.*')"     = "`$1'$($Latest.Checksum64)'"
+    }
+    "$($Latest.PackageName).nuspec" = @{
+      "(\<releaseNotes\>).*?(\</releaseNotes\>)" = "`${1}$($Latest.releaseNotesNuspec)`$2"
+      "(\<projectSourceURL\>).*?(\</projectSourceURL\>)" = "`${1}$($Latest.projectSourceURL)`$2"
+      "(\<docsUrl\>).*?(\</docsUrl\>)" = "`${1}$($Latest.docsURL)`$2"
+    }
+  }
+}
+
+$latest = global:au_GetLatest;
+
+
 #psuedo code
 # get-filefromweb -url $quadro.ids.downloadinfo.downloadurl -filepath "nvidia-quadro-$(get-date -Format "yyMM").$($quadro.ids.downloadinfo.version).exe"
 
@@ -46,8 +103,7 @@ $version = $studio.ids.downloadinfo.Version
 
 #inject release notes html as md under heading
 $str = [System.Web.HttpUtility]::UrlDecode($studio.ids.downloadinfo.ReleaseNotes)
-install-module -name HtmlToMarkdown -force;
-ipmo HtmlToMarkdown;
+
 $md = Convert-HtmlToMarkdown -Html $str;
 
 #heading
@@ -60,8 +116,9 @@ $md = Convert-HtmlToMarkdown -Html $str;
 "## Overview"
 
 #release notes url is within this encoded url, will need to be extracted/parsed
-[System.Web.HttpUtility]::UrlDecode($studio.ids.downloadinfo.othernotes)
-
+$othernotes = [System.Web.HttpUtility]::UrlDecode($studio.ids.downloadinfo.othernotes)
+$docsurl = $otherNotes.split("`"") | ? { $_ -match 'quick-start-guide.pdf'}
+$releaseNotesUrl = $otherNotes.split("`"") | ? { $_ -match 'release-notes.pdf'}
 #download url
 $studio.ids.downloadinfo.DownloadURL
 
@@ -91,9 +148,7 @@ $installerHash = (Get-FileHash "$env:TEMP\nvidia-studio-driver-$version\setup.ex
 
 # update the version
 
-# update the packagesourceurl with details url
-
-# update description with bannerurl?
+# update the projectsourceurl with details url
 
 #update releasenotes with releasenotes url and date
 
