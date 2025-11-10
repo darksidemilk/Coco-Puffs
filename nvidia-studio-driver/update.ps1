@@ -185,7 +185,7 @@ if (global:Test-NewVersionAvailable) {
   "Updating package with chocolatey-au" | out-host;
   Update-auPackage -ChecksumFor none -NoReadme -NoCheckChocoVersion -NoCheckUrl;
   "Committing and pushing changes to git repository $(get-childitem)" | out-host;
-  if (!(Test-Path "$global:packageName.$version.nupkg")) {
+  if (!(Test-Path "$global:packageName.$version.0.nupkg")) {
     choco pack $global:packageName.nuspec;
   }
   git add "$global:packageName.nuspec";
@@ -197,7 +197,7 @@ if (global:Test-NewVersionAvailable) {
     Push-auPackage -ea stop;
   } catch {
     choco apikey add -s "https://push.chocolatey.org/" -k="$env:api_key"
-    choco push "$global:packageName.$version.nupkg" --source https://push.chocolatey.org/
+    choco push "$global:packageName.$version.0.nupkg" --source https://push.chocolatey.org/
   }
 } else {
   exit;
