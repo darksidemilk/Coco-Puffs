@@ -73,7 +73,7 @@ $md = Convert-HtmlToMarkdown -Html $releaseNotes;
 $quadro.ids.downloadinfo.DownloadURL
 
 #release date
-$quadro.ids.downloadinfo.ReleaseDate
+$quadro.ids.downloadinfo.ReleaseDateTime
 
 
 #checksum

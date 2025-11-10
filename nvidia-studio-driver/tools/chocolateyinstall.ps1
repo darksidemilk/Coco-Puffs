@@ -1,4 +1,4 @@
-$packageName  = $env:ChocolateyPackageName
+﻿$packageName  = $env:ChocolateyPackageName
 $version      = $env:ChocolateyPackageVersion
 $toolsDir     = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 $sources	    = "$toolsDir\files";

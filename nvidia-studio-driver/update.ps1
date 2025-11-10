@@ -1,7 +1,4 @@
-install-module Chocolatey-AU -Repository PSGallery -AllowClobber;
-import-module Chocolatey-AU
-install-module -name HtmlToMarkdown -Repository PSGallery;
-Import-Module HtmlToMarkdown;
+$global:packageName = 'nvidia-studio-driver';
 
 function global:Get-NvidiaDriverInfo {
   [cmdletBinding()]
@@ -33,44 +30,117 @@ function global:Get-NvidiaDriverInfo {
     $queryStr+="=$($urlParams[$_])" 
   }
 
-  $studio = Invoke-RestMethod "https://gfwsl.geforce.com/services_toolkit/services/com/nvidia/services/AjaxDriverService.php?$queryStr"
-  return $studio
+  $global:studio = Invoke-RestMethod "https://gfwsl.geforce.com/services_toolkit/services/com/nvidia/services/AjaxDriverService.php?$queryStr"
+  return $global:studio
 
 }
+
+function global:Test-NewVersionAvailable {
+  [CmdletBinding()]
+  param()
+  [system.version]$version = $global:studio.ids.downloadinfo.Version
+  $nuspec = Get-ChildItem -filter "$($global:packageName).nuspec"
+  [xml]$nuspecXml = Get-Content $nuspec.FullName
+  [system.version]$nuspecVersion = $nuspecXml.package.metadata.version;
+  if (($version.Major -gt $nuspecVersion.Major) -or ($version.Minor -gt $nuspecVersion.Minor)) {
+    return $true
+  } else {
+    return $false
+  }
+}
+
+function global:Set-NuspecDescription {
+  [CmdletBinding()]
+  param()
+
+  $detailsURL = $global:studio.ids.downloadinfo.DetailsURL
+
+  $version = $global:studio.ids.downloadinfo.Version
+  $nuspec = Get-ChildItem -filter "$($global:packageName).nuspec"
+  [xml]$nuspecXml = Get-Content $nuspec.FullName
+  $indexOfBreak = $nuspecXml.package.metadata.description.indexof("---")
+  $description = $nuspecXml.package.metadata.description.Remove(0,$indexOfBreak);
+
+  $str = [System.Web.HttpUtility]::UrlDecode($global:studio.ids.downloadinfo.ReleaseNotes)
+  $md = Convert-HtmlToMarkdown -Html $str;
+  $osName = [System.Web.HttpUtility]::UrlDecode($global:studio.ids.downloadinfo.OSName)
+  $baseName = [System.Web.HttpUtility]::UrlDecode($global:studio.ids.downloadinfo.name)
+  $releaseId = $global:studio.ids.downloadinfo.Release
+  $NewDescription = @"
+# [$baseName R$releaseId ($version) | $osName]($detailsURL)
+
+$md
+
+"@
+  $NewDescription += "`n$description";
+
+  $nuspecXml.package.metadata.description = "`n$NewDescription"
+  $nuspecXml.Save($nuspec.FullName);
+}
+
+function global:Get-NvidiaChecksums {
+  [CmdletBinding()]
+  param( )
+  $checksums = [PSCustomObject]@{
+    DownloadHash = $null;
+    InstallerHash = $null;
+  }
+
+  Get-Childitem C:\programdata\chocolatey\helpers\*.ps* | ForEach-Object { import-module $_.FullName -ea 0 -wa 0 }
+  $url = $global:studio.ids.downloadinfo.DownloadURL
+  $version = $global:studio.ids.downloadinfo.Version
+  $checksums.DownloadHash = Get-auRemoteChecksum -url $url -Algorithm 'SHA256';
+
+  Get-ChocolateyWebFile -url $url 'nvidia-studio-driver' -fileFullPath "$env:TEMP\nvidia-studio-driver.exe" -checksum $checksums.DownloadHash -checksumType 'sha256' -ea 0 -wa 0
+  $checksums.DownloadHash = (Get-FileHash "$env:TEMP\nvidia-studio-driver.exe" -Algorithm SHA256).Hash
+
+  #then extract it and get the hash of setup.exe for install
+  $unzipArgs = @{
+    packageName    = 'nvidia-studio-driver'
+    fileFullPath   = "$env:TEMP\nvidia-studio-driver.exe"
+    destination    = "$env:TEMP\nvidia-studio-driver-$version"
+  }
+  Get-ChocolateyUnzip @unzipArgs -ea 0 -wa 0
+  $checksums.InstallerHash = (Get-FileHash "$env:TEMP\nvidia-studio-driver-$version\setup.exe" -Algorithm SHA256).Hash
+  
+  return $checksums;
+}
+
 function global:au_GetLatest {
   #this is defined as global function above that would be in the update.ps1 script.
-  $studio = Get-NvidiaDriverInfo;
+  $global:studio = global:Get-NvidiaDriverInfo;
 
-  $detailsURL = $studio.ids.downloadinfo.DetailsURL
-  $othernotes = [System.Web.HttpUtility]::UrlDecode($studio.ids.downloadinfo.othernotes)
-  $docsurl = $otherNotes.split("`"") | ? { $_ -match 'quick-start-guide.pdf'}
-  $releaseNotesUrl = $otherNotes.split("`"") | ? { $_ -match 'release-notes.pdf'}
-  $releaseDate = $studio.ids.downloadinfo.ReleaseDate
+  $detailsURL = $global:studio.ids.downloadinfo.DetailsURL
+  $othernotes = [System.Web.HttpUtility]::UrlDecode($global:studio.ids.downloadinfo.othernotes)
+  $docsurl = $otherNotes.split("`"") | Where-Object { $_ -match 'quick-start-guide.pdf'}
+  $releaseNotesUrl = $otherNotes.split("`"") | Where-Object { $_ -match 'release-notes.pdf'}
+  $releaseDate = $global:studio.ids.downloadinfo.ReleaseDateTime
   $releaseNoteLink = "$releaseDate - $releaseNotesUrl"
 
-  $version = $studio.ids.downloadinfo.Version
-  $version = "$version.0"
-  $url = $studio.ids.downloadinfo.DownloadURL
+
+  $version = $global:studio.ids.downloadinfo.Version
+  $url = $global:studio.ids.downloadinfo.DownloadURL
+  # global:Set-NuspecDescription;
+  $checksums = global:Get-NvidiaChecksums;
+  $version = "$version.0" #append .0 to match semantic versioning scheme
+
   return @{ 
     Version = $version; 
     URL = $url;
     docsURL = $docsurl;
     releaseNotesNuspec = $releaseNoteLink;
     projectSourceURL = $detailsURL;
+    downloadHash = $checksums.DownloadHash;
+    installerHash = $checksums.InstallerHash;
   }
 }
 
 function global:au_SearchReplace {
-  # $studio = Get-NvidiaDriverInfo;
-  # $detailsURL = $studio.ids.downloadinfo.DetailsURL
-  # $othernotes = [System.Web.HttpUtility]::UrlDecode($studio.ids.downloadinfo.othernotes)
-  # $docsurl = $otherNotes.split("`"") | ? { $_ -match 'quick-start-guide.pdf'}
-  # $releaseNotesUrl = $otherNotes.split("`"") | ? { $_ -match 'release-notes.pdf'}
-  # $releaseDate = $studio.ids.downloadinfo.ReleaseDate
   @{
     ".\tools\chocolateyinstall.ps1" = @{
-        "(^[$]downloadURL\s*=\s*)('.*')"          = "`$1'$($Latest.URL)'"
-        # "(^[$]downloadHash\s*=\s*)('.*')"     = "`$1'$($Latest.Checksum64)'"
+      '(\$downloadHash\s*=\s*)(".*")'    = "`$1'$($Latest.downloadHash)'"
+      '(\$installerHash\s*=\s*)(".*")'    = "`$1'$($Latest.installerHash)'"
+      '(\$downloadURL\s*=\s*)(".*")'     = "`$1'$($Latest.URL)'"
     }
     "$($Latest.PackageName).nuspec" = @{
       "(\<releaseNotes\>).*?(\</releaseNotes\>)" = "`${1}$($Latest.releaseNotesNuspec)`$2"
@@ -78,8 +148,36 @@ function global:au_SearchReplace {
       "(\<docsUrl\>).*?(\</docsUrl\>)" = "`${1}$($Latest.docsURL)`$2"
     }
   }
+} 
+$global:studio = global:Get-NvidiaDriverInfo;
+if (global:Test-NewVersionAvailable) {
+  if (!(Get-command choco.exe)) {
+    #taken from https://chocolatey.org/install#individual
+    Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+  }
+
+  try {
+    Install-PSResource -Name Chocolatey-AU -TrustRepository -Scope CurrentUser -AcceptLicense -ea stop;
+  } catch {
+    install-module Chocolatey-AU -Repository PSGallery -AllowClobber -force;
+  }
+  import-module Chocolatey-AU -Prefix au
+
+  try {
+    Install-PSResource -name HtmlToMarkdown -TrustRepository -Scope CurrentUser -AcceptLicense -ea stop;
+  } catch {
+    install-module -name HtmlToMarkdown -Repository PSGallery -force;
+  }
+  Import-Module HtmlToMarkdown;
+  
+  global:Set-NuspecDescription
+  Update-auPackage -ChecksumFor none -NoReadme
+  Push-auPackage;
+} else {
+  exit;
 }
-update -ChecksumFor none
+
+
 # $latest = global:au_GetLatest;
 # global:au_SearchReplace;
 
@@ -87,22 +185,22 @@ update -ChecksumFor none
 # # get-filefromweb -url $quadro.ids.downloadinfo.downloadurl -filepath "nvidia-quadro-$(get-date -Format "yyMM").$($quadro.ids.downloadinfo.version).exe"
 
 # #driver base name
-# $baseName = [System.Web.HttpUtility]::UrlDecode($studio.ids.downloadinfo.name)
+# $baseName = [System.Web.HttpUtility]::UrlDecode($global:studio.ids.downloadinfo.name)
 
 # #release id
-# $releaseId = $studio.ids.downloadinfo.Release
+# $releaseId = $global:studio.ids.downloadinfo.Release
 
 # #osname
-# $osName = [System.Web.HttpUtility]::UrlDecode($studio.ids.downloadinfo.OSName)
+# $osName = [System.Web.HttpUtility]::UrlDecode($global:studio.ids.downloadinfo.OSName)
 
 # #project source url = details url.
-# $detailsURL = $studio.ids.downloadinfo.DetailsURL
+# $detailsURL = $global:studio.ids.downloadinfo.DetailsURL
 
 # #version will be used in package and to check for updates
-# $version = $studio.ids.downloadinfo.Version
+# $version = $global:studio.ids.downloadinfo.Version
 
 # #inject release notes html as md under heading
-# $str = [System.Web.HttpUtility]::UrlDecode($studio.ids.downloadinfo.ReleaseNotes)
+# $str = [System.Web.HttpUtility]::UrlDecode($global:studio.ids.downloadinfo.ReleaseNotes)
 
 # $md = Convert-HtmlToMarkdown -Html $str;
 
@@ -112,23 +210,23 @@ update -ChecksumFor none
 # "$md"
 # "`n"
 # "---"
-# "`n"
+# "`n"  
 # "## Overview"
 
 # #release notes url is within this encoded url, will need to be extracted/parsed
-# $othernotes = [System.Web.HttpUtility]::UrlDecode($studio.ids.downloadinfo.othernotes)
+# $othernotes = [System.Web.HttpUtility]::UrlDecode($global:studio.ids.downloadinfo.othernotes)
 # $docsurl = $otherNotes.split("`"") | ? { $_ -match 'quick-start-guide.pdf'}
 # $releaseNotesUrl = $otherNotes.split("`"") | ? { $_ -match 'release-notes.pdf'}
 # #download url
-# $studio.ids.downloadinfo.DownloadURL
+# $global:studio.ids.downloadinfo.DownloadURL
 
 # #release date to put in release notes with release notes url
-# $studio.ids.downloadinfo.ReleaseDate
+# $global:studio.ids.downloadinfo.ReleaseDateTime
 
 
 # #checksum
 # #when new package is being built, download the url and get the checksum
-# Get-ChocolateyWebFile -url $studio.ids.downloadinfo.DownloadURL -packagename 'nvidia-studio-driver' -fileFullPath "$env:TEMP\nvidia-studio-driver.exe"
+# Get-ChocolateyWebFile -url $global:studio.ids.downloadinfo.DownloadURL -packagename 'nvidia-studio-driver' -fileFullPath "$env:TEMP\nvidia-studio-driver.exe"
 # $hash = (Get-FileHash "$env:TEMP\nvidia-studio-driver-$version.exe" -Algorithm SHA256).Hash
 
 # #then extract it and get the hash of setup.exe for install
@@ -140,7 +238,7 @@ update -ChecksumFor none
 # Get-ChocolateyUnzip @unzipArgs
 # $installerHash = (Get-FileHash "$env:TEMP\nvidia-studio-driver-$version\setup.exe" -Algorithm SHA256).Hash
 
-# #check my version against $studio.ids.downloadinfo.Version
+# #check my version against $global:studio.ids.downloadinfo.Version
 
 # #if newer avail get new version and new hash
 
