@@ -68,9 +68,9 @@ function global:au_SearchReplace {
   # $releaseNotesUrl = $otherNotes.split("`"") | ? { $_ -match 'release-notes.pdf'}
   # $releaseDate = $studio.ids.downloadinfo.ReleaseDate
   @{
-    ".\tools\chocolateyInstall.ps1" = @{
-        "(^[$]downloadurl\s*=\s*)('.*')"          = "`$1'$($Latest.URL)'"
-        "(^[$]downloadHash\s*=\s*)('.*')"     = "`$1'$($Latest.Checksum64)'"
+    ".\tools\chocolateyinstall.ps1" = @{
+        "(^[$]downloadURL\s*=\s*)('.*')"          = "`$1'$($Latest.URL)'"
+        # "(^[$]downloadHash\s*=\s*)('.*')"     = "`$1'$($Latest.Checksum64)'"
     }
     "$($Latest.PackageName).nuspec" = @{
       "(\<releaseNotes\>).*?(\</releaseNotes\>)" = "`${1}$($Latest.releaseNotesNuspec)`$2"
@@ -79,77 +79,77 @@ function global:au_SearchReplace {
     }
   }
 }
+update -ChecksumFor none
+# $latest = global:au_GetLatest;
+# global:au_SearchReplace;
 
-$latest = global:au_GetLatest;
+# #psuedo code
+# # get-filefromweb -url $quadro.ids.downloadinfo.downloadurl -filepath "nvidia-quadro-$(get-date -Format "yyMM").$($quadro.ids.downloadinfo.version).exe"
+
+# #driver base name
+# $baseName = [System.Web.HttpUtility]::UrlDecode($studio.ids.downloadinfo.name)
+
+# #release id
+# $releaseId = $studio.ids.downloadinfo.Release
+
+# #osname
+# $osName = [System.Web.HttpUtility]::UrlDecode($studio.ids.downloadinfo.OSName)
+
+# #project source url = details url.
+# $detailsURL = $studio.ids.downloadinfo.DetailsURL
+
+# #version will be used in package and to check for updates
+# $version = $studio.ids.downloadinfo.Version
+
+# #inject release notes html as md under heading
+# $str = [System.Web.HttpUtility]::UrlDecode($studio.ids.downloadinfo.ReleaseNotes)
+
+# $md = Convert-HtmlToMarkdown -Html $str;
+
+# #heading
+# "#[$baseName R$releaseId ($version) | $osName]($detailsURL)"
+# "`n"
+# "$md"
+# "`n"
+# "---"
+# "`n"
+# "## Overview"
+
+# #release notes url is within this encoded url, will need to be extracted/parsed
+# $othernotes = [System.Web.HttpUtility]::UrlDecode($studio.ids.downloadinfo.othernotes)
+# $docsurl = $otherNotes.split("`"") | ? { $_ -match 'quick-start-guide.pdf'}
+# $releaseNotesUrl = $otherNotes.split("`"") | ? { $_ -match 'release-notes.pdf'}
+# #download url
+# $studio.ids.downloadinfo.DownloadURL
+
+# #release date to put in release notes with release notes url
+# $studio.ids.downloadinfo.ReleaseDate
 
 
-#psuedo code
-# get-filefromweb -url $quadro.ids.downloadinfo.downloadurl -filepath "nvidia-quadro-$(get-date -Format "yyMM").$($quadro.ids.downloadinfo.version).exe"
+# #checksum
+# #when new package is being built, download the url and get the checksum
+# Get-ChocolateyWebFile -url $studio.ids.downloadinfo.DownloadURL -packagename 'nvidia-studio-driver' -fileFullPath "$env:TEMP\nvidia-studio-driver.exe"
+# $hash = (Get-FileHash "$env:TEMP\nvidia-studio-driver-$version.exe" -Algorithm SHA256).Hash
 
-#driver base name
-$baseName = [System.Web.HttpUtility]::UrlDecode($studio.ids.downloadinfo.name)
+# #then extract it and get the hash of setup.exe for install
+# $unzipArgs = @{
+#   packageName    = 'nvidia-studio-driver'
+#   fileFullPath   = "$env:TEMP\nvidia-studio-driver.exe"
+#   destination    = "$env:TEMP\nvidia-studio-driver-$version"
+# }
+# Get-ChocolateyUnzip @unzipArgs
+# $installerHash = (Get-FileHash "$env:TEMP\nvidia-studio-driver-$version\setup.exe" -Algorithm SHA256).Hash
 
-#release id
-$releaseId = $studio.ids.downloadinfo.Release
+# #check my version against $studio.ids.downloadinfo.Version
 
-#osname
-$osName = [System.Web.HttpUtility]::UrlDecode($studio.ids.downloadinfo.OSName)
+# #if newer avail get new version and new hash
 
-#project source url = details url.
-$detailsURL = $studio.ids.downloadinfo.DetailsURL
+# #update the download url
 
-#version will be used in package and to check for updates
-$version = $studio.ids.downloadinfo.Version
+# # update the version
 
-#inject release notes html as md under heading
-$str = [System.Web.HttpUtility]::UrlDecode($studio.ids.downloadinfo.ReleaseNotes)
+# # update the projectsourceurl with details url
 
-$md = Convert-HtmlToMarkdown -Html $str;
+# #update releasenotes with releasenotes url and date
 
-#heading
-"#[$baseName R$releaseId ($version) | $osName]($detailsURL)"
-"`n"
-"$md"
-"`n"
-"---"
-"`n"
-"## Overview"
-
-#release notes url is within this encoded url, will need to be extracted/parsed
-$othernotes = [System.Web.HttpUtility]::UrlDecode($studio.ids.downloadinfo.othernotes)
-$docsurl = $otherNotes.split("`"") | ? { $_ -match 'quick-start-guide.pdf'}
-$releaseNotesUrl = $otherNotes.split("`"") | ? { $_ -match 'release-notes.pdf'}
-#download url
-$studio.ids.downloadinfo.DownloadURL
-
-#release date to put in release notes with release notes url
-$studio.ids.downloadinfo.ReleaseDate
-
-
-#checksum
-#when new package is being built, download the url and get the checksum
-Get-ChocolateyWebFile -url $studio.ids.downloadinfo.DownloadURL -packagename 'nvidia-studio-driver' -fileFullPath "$env:TEMP\nvidia-studio-driver.exe"
-$hash = (Get-FileHash "$env:TEMP\nvidia-studio-driver-$version.exe" -Algorithm SHA256).Hash
-
-#then extract it and get the hash of setup.exe for install
-$unzipArgs = @{
-  packageName    = 'nvidia-studio-driver'
-  fileFullPath   = "$env:TEMP\nvidia-studio-driver.exe"
-  destination    = "$env:TEMP\nvidia-studio-driver-$version"
-}
-Get-ChocolateyUnzip @unzipArgs
-$installerHash = (Get-FileHash "$env:TEMP\nvidia-studio-driver-$version\setup.exe" -Algorithm SHA256).Hash
-
-#check my version against $studio.ids.downloadinfo.Version
-
-#if newer avail get new version and new hash
-
-#update the download url
-
-# update the version
-
-# update the projectsourceurl with details url
-
-#update releasenotes with releasenotes url and date
-
-# update the checksum with new hash
+# # update the checksum with new hash

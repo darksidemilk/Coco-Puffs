@@ -3,68 +3,85 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>nvidia-studio-driver</id>
-    <version>581.29.0</version>
+    <version>581.57.0</version>
     <packageSourceUrl>https://github.com/darksidemilk/Coco-Puffs/tree/main/nvidia-studio-driver</packageSourceUrl>
     <owners>JJ Fullmer</owners>
     <title>NVIDIA Studio Driver</title>
     <authors>NVIDIA</authors>
     <projectUrl>https://www.nvidia.com/en-us/studio/</projectUrl>
-    <projectSourceUrl>https://www.nvidia.com/en-us/drivers/details/254262/</projectSourceUrl>
+    <projectSourceUrl>https://www.nvidia.com/en-us/drivers/details/257327/</projectSourceUrl>
     <iconUrl>https://cdn.statically.io/gh/darksidemilk/Coco-Puffs/main/nvidia-studio-driver/icons/nvidia-studio-icon.png</iconUrl>
     <licenseUrl>https://www.nvidia.com/en-us/drivers/geforce-license/</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <mailingListUrl>https://www.nvidia.com/en-us/preferences/email-signup/</mailingListUrl>
-    <docsUrl>https://us.download.nvidia.com/Windows/581.29/581.29-nvidia-control-panel-quick-start-guide.pdf</docsUrl>
+    <docsUrl>https://us.download.nvidia.com/Windows/581.57/581.57-nvidia-control-panel-quick-start-guide.pdf</docsUrl>
     <tags>graphics card driver studio rtx nvidia</tags>
     <summary>NVIDIA Studio Driver</summary>
-    <description>
-# [NVIDIA Studio Driver R580 (581.29) | Windows 11](https://www.nvidia.com/en-us/drivers/details/254262/)
+    <description><![CDATA[This is a package that will update you to the latest studio driver (aka Creator Ready Driver).
 
-NVIDIA Studio Drivers provide artists, creators, and 3D developers the best performance and reliability when working with creative applications. To achieve the highest level of reliability, Studio Drivers undergo extensive testing against multi-app creator workflows and multiple revisions of the top creative applications from Adobe to Autodesk and beyond.  
+The automations will do the following for each package
 
-**Applications**   
+  - Update the Download URL to the latest version
+  - Update the version to match the latest version, nuspec version will be normalized to semantic versioning by appending .0
+  - Update the checksum of the downloaded installer
+  - Update the checksum of the setup.exe extracted from the installer
+  - Update the releasenotes url
+  - Update the docs url with a link to the control panel quick start guide
+  - Update the nuspec description with the main heading linking to nvidia's driver page and release notes from the latest nvidia driver. i.e. 
+  
+```
+"#[$baseName R$releaseId ($version) | $osName]($detailsURL)"
 
-The September NVIDIA Studio Driver provides optimal support for the latest new creative applications and updates including support for Microsoft TRELLIS NIM, providing optimized performance on RTX GPUs.   
+[System.Web.HttpUtility]::UrlDecode($studio.ids.downloadinfo.ReleaseNotes)
+```
+  - Update the ProjectSourceUrl in the nuspec to the details url (version specific download page)
 
-**Fixed Application Bugs**   
 
-- Cyberpunk 2077: Crash when using Photo Mode to take a screenshot with path tracing enabled [5076545]
-- Marvel Rivals: Negative performance impact when using some 581.xx drivers [5444816]
-- Forza Motorsport: Game crashes if using Smooth Motion while bringing up NVIDIA App overlay statistics [5412757]
-- Gray Zone Warfare: Game stability issues [5371781]
-- ARK: Survival Ascended: Game stability issues [5441616]
-- Marvel's Avengers - The Definitive Edition: Game crashes to desktop on startup [5350712]
 
-**Fixed General Bugs**   
+## Notes
 
-- Potential memory leak when using NVENC hardware encoding [5442678]
-- Power cycling monitor can result in monitor flickering when NVIDIA App is installed [5434811]
-- NVIDIA App game filter issues after driver update [5429651]
-- Certain monitors may display a random flicker when hot plugged over HDMI [5280259]
+This will be an automatic package just getting my initial things into the repo for now. 
 
----
+See also https://github.com/ZenitH-AT/nvidia-data?tab=readme-ov-file and https://github.com/ZenitH-AT/nvidia-update for where information on the nvidia driver search apis were found.
+You can get the psid and pfid from here https://www.nvidia.com/Download/API/lookupValueSearch.aspx?TypeID=2 and here https://www.nvidia.com/Download/API/lookupValueSearch.aspx?TypeID=3 the second link does include both pfid and psid, the first link gets you the definition of psid (product series ID) as it shows in the manual driver search.
+We are searching with an RTX 5070 in this script. WHQL=0 is set, but the studio drivers are whql when reviewing their listing page, but the json result shows it as 0. The studio drivers are also never "newest" because they compare that 'newest' with the 'game ready' drivers which are released more frequently. So isNewest will always show 0.
+"https://gfwsl.geforce.com/services_toolkit/services/com/nvidia/services/AjaxDriverService.php?func=DriverManualLookup&psid=131&pfid=1068&osID=135&languageCode=1033&beta=0&isWHQL=0&dltype=1&dch=1&upCRD=1&qnf=0&ctk=null&sort1=1&numberOfResults=1&is64bit=1"
 
-## Overview
+### Request Properties Available
 
-This package installs the latest Nvidia Studio Driver (aka the creator ready driver) for Windows 10/11 with the default settings. 
-**This driver is meant for Nvidia GeForce GTX 1xxx series and GeForce RTX series (20xx and newer) cards, it also works with most Nvidia RTX / RTX PRO / Quadro cards.**
-You can automate driver updates with `choco upgrade nvidia-studio-driver -y` in a scheduled task.
-You can revert to previous driver versions with `choco install` and specifying the version. i.e. `choco install nvidia-studio-driver --version=581.29 -yf`
-
-## Package Parameters
-
-The following package parameters can be set to customize the installation.
-
-  - `/SkipCompatCheck` - Skip the compatibility check that ensures your GPU is supported by this driver version. Use at your own risk.
-  - `/RemoveOtherVersions` - If desired, remove other versions of the NVIDIA display driver from windows after install.
-    - Can trigger an unexpected reboot (uncommon)
-    - Removes any nvidia display driver that doesn't match the version of the newly installed version, only affects display driver other components are untouched.
-    - Can help prevent windows from reverting to a 'newer' driver on reboot if reverting to an older version of the driver.
-
-Example param usage with choco install command:
-`choco install nvidia-studio-driver --params "'/RemoveOtherVersions'"`
-    </description>
-    <releaseNotes>Wed Sep 10, 2025 - https://us.download.nvidia.com/Windows/581.29/581.29-win10-win11-nsd-release-notes.pdf</releaseNotes>
+```
+downloadID                                                   : null
+pfid                                                         : 971
+psid                                                         : 122
+deviceID                                                     : null
+osID                                                         : 135
+osCode                                                       : null
+is64bit                                                      : 1
+languageID                                                   : 1
+languageCode                                                 : 1033
+dltype                                                       : 1
+isArchive                                                    : null
+beta                                                         : 0
+includebeta                                                  : null
+gtversion                                                    : null
+version                                                      : null
+release                                                      : null
+isWHQL                                                       : 1
+isNewest                                                     : 1
+locationID                                                   : null
+sort1                                                        : 1
+sort2                                                        : null
+numberOfResults                                              : 1
+isNewFeature                                                 : null
+gfeExclusive                                                 : 0
+webExclusive                                                 : 0
+null,null,null,null,null,null,null,null,null,null,null,null, : 
+cudaToolkitID                                                : null
+theSystemIsDc                                                : 1
+theUserRequestedCRD                                          : 0
+```
+]]></description>
+    <releaseNotes> - https://us.download.nvidia.com/Windows/581.57/581.57-win10-win11-nsd-release-notes.pdf</releaseNotes>
   </metadata>
   <files>
     <file src="tools\**" target="tools" />
