@@ -93,8 +93,8 @@ function global:Get-NvidiaChecksums {
   $version = $global:studio.ids.downloadinfo.Version
   $checksums.DownloadHash = Get-auRemoteChecksum -url $url -Algorithm 'SHA256';
 
-  Get-ChocolateyWebFile -url $url -packageName $global:packageName -fileFullPath "$env:TEMP\$globalPackageName.exe" -checksum $checksums.DownloadHash -checksumType 'sha256' -ea 0 -wa 0
-  $checksums.DownloadHash = (Get-FileHash "$env:TEMP\$globalPackageName.exe" -Algorithm SHA256).Hash
+  Get-ChocolateyWebFile -url $url -packageName $global:packageName -fileFullPath "$env:TEMP\$global:PackageName.exe" -checksum $checksums.DownloadHash -checksumType 'sha256' -ea 0 -wa 0
+  # $checksums.DownloadHash = (Get-FileHash "$env:TEMP\$global:PackageName.exe" -Algorithm SHA256).Hash
 
   #then extract it and get the hash of setup.exe for install
   $unzipArgs = @{
@@ -103,6 +103,7 @@ function global:Get-NvidiaChecksums {
     destination    = "$env:TEMP\$global:PackageName-$version"
   }
   Get-ChocolateyUnzip @unzipArgs -ea 0 -wa 0
+  # pause;
   $checksums.InstallerHash = (Get-FileHash "$env:TEMP\$global:packageName-$version\setup.exe" -Algorithm SHA256).Hash
   
   return $checksums;
@@ -185,10 +186,10 @@ if (global:Test-NewVersionAvailable) {
   "Committing and pushing changes to git repository" | out-host;
   git add ".\$global:packageName.nuspec";
   git add tools\chocolateyinstall.ps1;
-  # git commit -m "updated and pushed $global:packageName version $($studio.ids.downloadinfo.Version)";
-  # git push;
+  git commit -m "updated and pushed $global:packageName version $($studio.ids.downloadinfo.Version)";
+  git push;
   "Pushing package to choco community repository" | out-host;
-  # Push-auPackage;
+  Push-auPackage;
 } else {
   exit;
 }
