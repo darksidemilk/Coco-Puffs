@@ -92,6 +92,7 @@ function global:Get-NvidiaChecksums {
   $url = $global:studio.ids.downloadinfo.DownloadURL
   $version = $global:studio.ids.downloadinfo.Version
   $checksums.DownloadHash = Get-auRemoteChecksum -url $url -Algorithm 'SHA256';
+  $checksums.DownloadHash = $checksums.DownloadHash.ToUpper();
 
   Get-ChocolateyWebFile -url $url -packageName $global:packageName -fileFullPath "$env:TEMP\$global:PackageName.exe" -checksum $checksums.DownloadHash -checksumType 'sha256' -ea 0 -wa 0
   # $checksums.DownloadHash = (Get-FileHash "$env:TEMP\$global:PackageName.exe" -Algorithm SHA256).Hash
@@ -105,7 +106,7 @@ function global:Get-NvidiaChecksums {
   Get-ChocolateyUnzip @unzipArgs -ea 0 -wa 0
   # pause;
   $checksums.InstallerHash = (Get-FileHash "$env:TEMP\$global:packageName-$version\setup.exe" -Algorithm SHA256).Hash
-  
+  $checksums.InstallerHash = $checksums.InstallerHash.ToUpper();
   return $checksums;
 }
 
@@ -193,12 +194,12 @@ if (global:Test-NewVersionAvailable) {
   git commit -m "updated and pushed $global:packageName version $($ver).0";
   git push;
   "Pushing package to choco community repository" | out-host;
-  try {
-    Push-auPackage -ea stop;
-  } catch {
+  # try {
+  #   Push-auPackage -ea stop;
+  # } catch {
     choco apikey add -s "https://push.chocolatey.org/" -k="$env:api_key"
     choco push "$global:packageName.$ver.0.nupkg" --source https://push.chocolatey.org/
-  }
+  # }
 } else {
   "No new version available, exiting update script." | out-host;
   exit;
