@@ -200,6 +200,7 @@ if (global:Test-NewVersionAvailable) {
     choco push "$global:packageName.$ver.0.nupkg" --source https://push.chocolatey.org/
   }
 } else {
+  "No new version available, exiting update script." | out-host;
   exit;
 }
 
