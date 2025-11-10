@@ -3,6 +3,7 @@ $global:packageName = 'nvidia-studio-driver';
 function global:Get-NvidiaDriverInfo {
   [cmdletBinding()]
   param()
+  "Getting driver info from Nvidia API" | out-host;
   $urlParams = @{
     func="DriverManualLookup"
     psid=131 # product series id 131 = Nvidia GeForce RTX 50 Series
@@ -38,6 +39,7 @@ function global:Get-NvidiaDriverInfo {
 function global:Test-NewVersionAvailable {
   [CmdletBinding()]
   param()
+  "Testing if new version is available" | out-host;
   [system.version]$version = $global:studio.ids.downloadinfo.Version
   $nuspec = Get-ChildItem -filter "$($global:packageName).nuspec"
   [xml]$nuspecXml = Get-Content $nuspec.FullName
@@ -53,6 +55,7 @@ function global:Set-NuspecDescription {
   [CmdletBinding()]
   param()
 
+  "Setting nuspec description with release notes" | out-host;
   $detailsURL = $global:studio.ids.downloadinfo.DetailsURL
 
   $version = $global:studio.ids.downloadinfo.Version
@@ -81,6 +84,7 @@ $md
 function global:Get-NvidiaChecksums {
   [CmdletBinding()]
   param( )
+  "Getting download and installer checksums" | out-host;
   $checksums = [PSCustomObject]@{
     DownloadHash = $null;
     InstallerHash = $null;
@@ -121,7 +125,7 @@ function global:au_GetLatest {
   $version = $global:studio.ids.downloadinfo.Version
   $url = $global:studio.ids.downloadinfo.DownloadURL
   # global:Set-NuspecDescription;
-  $checksums = global:Get-NvidiaChecksums;
+  $checksums = global:Get-NvidiaChecksums -ea 0 -wa 0;
   $version = "$version.0" #append .0 to match semantic versioning scheme
 
   return @{ 
@@ -151,11 +155,14 @@ function global:au_SearchReplace {
 } 
 $global:studio = global:Get-NvidiaDriverInfo;
 if (global:Test-NewVersionAvailable) {
+  "New Version is available: creating package for version $($global:studio.ids.downloadinfo.Version)" | out-host;
   if (!(Get-command choco.exe)) {
+    "Installing choco" | out-host;
     #taken from https://chocolatey.org/install#individual
     Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
   }
 
+  "Installing and importing Chocolatey-AU and htmltomarkdown modules" | out-host;
   try {
     Install-PSResource -Name Chocolatey-AU -TrustRepository -Scope CurrentUser -AcceptLicense -ea stop;
   } catch {
@@ -169,9 +176,19 @@ if (global:Test-NewVersionAvailable) {
     install-module -name HtmlToMarkdown -Repository PSGallery -force;
   }
   Import-Module HtmlToMarkdown;
+
+  Set-Location $PSScriptRoot;
+  "Updating package from working directory: $($pwd)" | out-host;
   
   global:Set-NuspecDescription
+  "Updating package with chocolatey-au" | out-host;
   Update-auPackage -ChecksumFor none -NoReadme
+  "Committing and pushing changes to git repository" | out-host;
+  git add $global:packageName.nuspec;
+  git add tools\chocolateyinstall.ps1;
+  git commit -m "updated and pushed $global:packageName version $($studio.ids.downloadinfo.Version)";
+  git push;
+  "Pushing package to choco community repository" | out-host;
   Push-auPackage;
 } else {
   exit;
