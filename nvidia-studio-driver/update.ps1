@@ -112,7 +112,7 @@ function global:Get-NvidiaChecksums {
 
 function global:au_GetLatest {
   #this is defined as global function above that would be in the update.ps1 script.
-  $global:studio = global:Get-NvidiaDriverInfo;
+  # $global:studio = global:Get-NvidiaDriverInfo;
 
   $detailsURL = $global:studio.ids.downloadinfo.DetailsURL
   $othernotes = [System.Web.HttpUtility]::UrlDecode($global:studio.ids.downloadinfo.othernotes)
