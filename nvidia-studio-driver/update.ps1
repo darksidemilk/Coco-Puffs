@@ -1,5 +1,3 @@
-$global:packageName = 'nvidia-studio-driver';
-
 function global:Get-NvidiaDriverInfo {
   [cmdletBinding()]
   param()
@@ -95,17 +93,17 @@ function global:Get-NvidiaChecksums {
   $version = $global:studio.ids.downloadinfo.Version
   $checksums.DownloadHash = Get-auRemoteChecksum -url $url -Algorithm 'SHA256';
 
-  Get-ChocolateyWebFile -url $url 'nvidia-studio-driver' -fileFullPath "$env:TEMP\nvidia-studio-driver.exe" -checksum $checksums.DownloadHash -checksumType 'sha256' -ea 0 -wa 0
-  $checksums.DownloadHash = (Get-FileHash "$env:TEMP\nvidia-studio-driver.exe" -Algorithm SHA256).Hash
+  Get-ChocolateyWebFile -url $url -packageName $global:packageName -fileFullPath "$env:TEMP\$globalPackageName.exe" -checksum $checksums.DownloadHash -checksumType 'sha256' -ea 0 -wa 0
+  $checksums.DownloadHash = (Get-FileHash "$env:TEMP\$globalPackageName.exe" -Algorithm SHA256).Hash
 
   #then extract it and get the hash of setup.exe for install
   $unzipArgs = @{
-    packageName    = 'nvidia-studio-driver'
-    fileFullPath   = "$env:TEMP\nvidia-studio-driver.exe"
-    destination    = "$env:TEMP\nvidia-studio-driver-$version"
+    packageName    = $global:packageName
+    fileFullPath   = "$env:TEMP\$global:PackageName.exe"
+    destination    = "$env:TEMP\$global:PackageName-$version"
   }
   Get-ChocolateyUnzip @unzipArgs -ea 0 -wa 0
-  $checksums.InstallerHash = (Get-FileHash "$env:TEMP\nvidia-studio-driver-$version\setup.exe" -Algorithm SHA256).Hash
+  $checksums.InstallerHash = (Get-FileHash "$env:TEMP\$global:packageName-$version\setup.exe" -Algorithm SHA256).Hash
   
   return $checksums;
 }
@@ -125,7 +123,6 @@ function global:au_GetLatest {
   $version = $global:studio.ids.downloadinfo.Version
   $url = $global:studio.ids.downloadinfo.DownloadURL
   # global:Set-NuspecDescription;
-  $checksums = global:Get-NvidiaChecksums -ea 0 -wa 0;
   $version = "$version.0" #append .0 to match semantic versioning scheme
 
   return @{ 
@@ -134,8 +131,8 @@ function global:au_GetLatest {
     docsURL = $docsurl;
     releaseNotesNuspec = $releaseNoteLink;
     projectSourceURL = $detailsURL;
-    downloadHash = $checksums.DownloadHash;
-    installerHash = $checksums.InstallerHash;
+    downloadHash = $global:checksums.DownloadHash;
+    installerHash = $global:checksums.InstallerHash;
   }
 }
 
@@ -153,6 +150,7 @@ function global:au_SearchReplace {
     }
   }
 } 
+$global:packageName = 'nvidia-studio-driver';
 $global:studio = global:Get-NvidiaDriverInfo;
 if (global:Test-NewVersionAvailable) {
   "New Version is available: creating package for version $($global:studio.ids.downloadinfo.Version)" | out-host;
@@ -180,16 +178,17 @@ if (global:Test-NewVersionAvailable) {
   Set-Location $PSScriptRoot;
   "Updating package from working directory: $($pwd)" | out-host;
   
-  global:Set-NuspecDescription
+  Set-NuspecDescription
+  $global:checksums = Get-NvidiaChecksums -ea 0 -wa 0;
   "Updating package with chocolatey-au" | out-host;
-  Update-auPackage -ChecksumFor none -NoReadme
+  Update-auPackage -ChecksumFor none -NoReadme -NoCheckChocoVersion -NoCheckUrl;
   "Committing and pushing changes to git repository" | out-host;
-  git add $global:packageName.nuspec;
+  git add ".\$global:packageName.nuspec";
   git add tools\chocolateyinstall.ps1;
-  git commit -m "updated and pushed $global:packageName version $($studio.ids.downloadinfo.Version)";
-  git push;
+  # git commit -m "updated and pushed $global:packageName version $($studio.ids.downloadinfo.Version)";
+  # git push;
   "Pushing package to choco community repository" | out-host;
-  Push-auPackage;
+  # Push-auPackage;
 } else {
   exit;
 }
