@@ -154,8 +154,8 @@ function global:au_SearchReplace {
 $global:packageName = 'nvidia-studio-driver';
 $global:studio = global:Get-NvidiaDriverInfo;
 if (global:Test-NewVersionAvailable) {
-  $version = $global:studio.ids.downloadinfo.Version;
-  "New Version is available: creating package for version $($version)" | out-host;
+  $ver = $global:studio.ids.downloadinfo.Version;
+  "New Version is available: creating package for version $($ver)" | out-host;
   if (!(Get-command choco.exe)) {
     "Installing choco" | out-host;
     #taken from https://chocolatey.org/install#individual
@@ -185,19 +185,19 @@ if (global:Test-NewVersionAvailable) {
   "Updating package with chocolatey-au" | out-host;
   Update-auPackage -ChecksumFor none -NoReadme -NoCheckChocoVersion -NoCheckUrl;
   "Committing and pushing changes to git repository $(get-childitem)" | out-host;
-  if (!(Test-Path "$global:packageName.$version.0.nupkg")) {
+  if (!(Test-Path "$global:packageName.$ver.0.nupkg")) {
     choco pack $global:packageName.nuspec;
   }
   git add "$global:packageName.nuspec";
   git add ".\tools\chocolateyinstall.ps1";
-  git commit -m "updated and pushed $global:packageName version $($studio.ids.downloadinfo.Version)";
+  git commit -m "updated and pushed $global:packageName version $($ver).0";
   git push;
   "Pushing package to choco community repository" | out-host;
   try {
     Push-auPackage -ea stop;
   } catch {
     choco apikey add -s "https://push.chocolatey.org/" -k="$env:api_key"
-    choco push "$global:packageName.$version.0.nupkg" --source https://push.chocolatey.org/
+    choco push "$global:packageName.$ver.0.nupkg" --source https://push.chocolatey.org/
   }
 } else {
   exit;
