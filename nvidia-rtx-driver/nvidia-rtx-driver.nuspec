@@ -3,41 +3,37 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>nvidia-rtx-driver</id>
-    <version>553.62.0</version>
+    <version>581.80.0</version>
     <packageSourceUrl>https://github.com/darksidemilk/Coco-Puffs/tree/main/nvidia-rtx-driver</packageSourceUrl>
     <owners>JJ Fullmer</owners>
     <title>NVIDIA RTX Driver (Formerly Nvidia Quadro)</title>
     <authors>NVIDIA</authors>
     <projectUrl>https://www.nvidia.com/en-us/products/workstations/</projectUrl>
-    <projectSourceUrl>https://www.nvidia.com/Download/driverResults.aspx/238728</projectSourceUrl>
+    <projectSourceUrl>https://www.nvidia.com/en-us/drivers/details/257491/</projectSourceUrl>
     <iconUrl>https://cdn.statically.io/gh/darksidemilk/Coco-Puffs/main/nvidia-rtx-driver/icons/nvidia-quadro-rtx-icon.png</iconUrl>
     <licenseUrl>https://www.nvidia.com/en-us/drivers/nvidia-license/</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <mailingListUrl>https://www.nvidia.com/en-us/preferences/email-signup/</mailingListUrl>
-    <docsUrl>https://us.download.nvidia.com/Windows/Quadro_Certified/553.62/553.62-nvidia-rtx-quadro-control-panel-quick-start-guide.pdf</docsUrl>
+    <docsUrl>https://us.download.nvidia.com/Windows/Quadro_Certified/581.80/581.80-nvidia-rtx-quadro-control-panel-quick-start-guide.pdf</docsUrl>
     <tags>graphics card driver quadro rtx rtxpro nvidia admin</tags>
     <summary>NVIDIA RTX / RTX Pro / Quadro Driver</summary>
     <description>
-# [NVIDIA RTX Driver Release 550 R550 U13 (553.62) | Windows 11](https://www.nvidia.com/Download/driverResults.aspx/238728)
+# [NVIDIA RTX Driver Release 580 R580 (581.80) | Windows 11](https://www.nvidia.com/en-us/drivers/details/257491/)
 
 **NVIDIA RTX Enterprise Production Branch Driver**   
    
- Release 550 is a Production Branch release of the NVIDIA RTX Enterprise Driver. Production Branch drivers are designed and tested to provide long-term stability and availability. These drivers are ideal for enterprise customers and professional users who require application and hardware certification and regular driver updates for the latest in driver enhancements and security improvements.  
+Release 580 is a Production Branch release of the NVIDIA RTX Enterprise Driver. Production Branch drivers are designed and tested to provide long-term stability and availability. These drivers are ideal for enterprise customers and professional users who require application and hardware certification and regular driver updates for the latest in driver enhancements and security improvements.  
    
- In addition to professional workstation features, Production Branch drivers also contain the features and enhancements of NVIDIA Studio Drivers of the same version number.  
+In addition to professional workstation features, Production Branch drivers also contain the features and enhancements of NVIDIA Studio Drivers of the same version number.  
    
- **New Features in Version R550 U13**   
+ **Fixed Issues in Version R580 U5**   
  
-- Adds the latest performance improvements, bug fixes, and       driver enhancements.
-- Security updates: see Security       Bulletin: NVIDIA GPU Display Driver – January 2025, which is posted       shortly after the release date of this software and will be listed on the [NVIDIA Product Security page](https://www.nvidia.com/en-us/security/).
+- [Cadence][Fidelity] was crashing randomly causing possible loss of data.
+- Ongoing bug fixes and enhancements.
 
-     **Fixed Issues in Version R550 U13**   
+**Open Issues in Version R580 U5**   
 
-- Ongoing bug fixes and performance enhancements.
-
-         **Open Issues in Version R550 U13**   
-
-- No open issues to note in this release.
+- [Blackwell][Affinity Photo 2] is experiencing corruption in the viewport and with rendered images.
 
 If you would like to be notified of upcoming drivers for Windows, please [subscribe here](https://www.nvidia.com/en-us/preferences/email-signup/).
 
@@ -64,7 +60,7 @@ Example param usage with choco install command:
 `choco install nvidia-rtx-driver --params "'/RemoveOtherVersions'" -yf`
 
     </description>
-    <releaseNotes>Thu Jan 16, 2025 - https://us.download.nvidia.com/Windows/Quadro_Certified/553.62/553.62-win10-win11-nvidia-rtx-quadro-release-notes.pdf</releaseNotes>
+    <releaseNotes>Tue Nov 04, 2025 - https://us.download.nvidia.com/Windows/Quadro_Certified/581.80/581.80-win10-win11-nvidia-rtx-quadro-release-notes.pdf</releaseNotes>
   </metadata>
   <files>
     <file src="tools\**" target="tools" />
