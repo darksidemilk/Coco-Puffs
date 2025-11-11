@@ -153,8 +153,8 @@ function global:au_SearchReplace {
   }
 } 
 $global:packageName = 'nvidia-studio-driver';
-$global:studio = global:Get-NvidiaDriverInfo;
-if (global:Test-NewVersionAvailable) {
+$global:studio = Get-NvidiaDriverInfo;
+if (Test-NewVersionAvailable) {
   $ver = $global:studio.ids.downloadinfo.Version;
   "New Version is available: creating package for version $($ver)" | out-host;
   if (!(Get-command choco.exe)) {
@@ -184,7 +184,7 @@ if (global:Test-NewVersionAvailable) {
   Set-NuspecDescription
   $global:checksums = Get-NvidiaChecksums -ea 0 -wa 0;
   "Updating package with chocolatey-au" | out-host;
-  Update-auPackage -ChecksumFor none -NoReadme -NoCheckChocoVersion -NoCheckUrl;
+  Update-auPackage -ChecksumFor none -NoReadme;
   "Committing and pushing changes to git repository $(get-childitem)" | out-host;
   if (!(Test-Path "$global:packageName.$ver.0.nupkg")) {
     choco pack $global:packageName.nuspec;
