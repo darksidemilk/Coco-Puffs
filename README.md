@@ -11,3 +11,7 @@ Github actions will be used for CI/CD to auto publish packages as new versions a
 Publishing on the repo is subject to the Chocolatey review process (see also https://docs.chocolatey.org/en-us/community-repository/moderation/) which can take time for the final human review managed by volunteers.
 Please be patient if a new version isn't published right away. 
 
+## Status of automatic updates for packages
+
+* [![Update NVIDIA RTX Driver Package](https://github.com/darksidemilk/Coco-Puffs/actions/workflows/update_nvidia-rtx-driver.yml/badge.svg)](https://github.com/darksidemilk/Coco-Puffs/actions/workflows/update_nvidia-rtx-driver.yml)
+* [![Update NVIDIA Studio Driver Package](https://github.com/darksidemilk/Coco-Puffs/actions/workflows/update_nvidia-studio-driver.yml/badge.svg)](https://github.com/darksidemilk/Coco-Puffs/actions/workflows/update_nvidia-studio-driver.yml)
