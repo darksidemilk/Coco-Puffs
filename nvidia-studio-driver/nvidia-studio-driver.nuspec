@@ -1,46 +1,54 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!-- Do not remove this test for UTF-8: if “Ω” doesn’t appear as greek uppercase omega letter enclosed in quotation marks, you should use an editor that supports UTF-8, not this one. -->
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>nvidia-studio-driver</id>
-    <version>581.29.0</version>
+    <version>581.57.0</version>
     <packageSourceUrl>https://github.com/darksidemilk/Coco-Puffs/tree/main/nvidia-studio-driver</packageSourceUrl>
     <owners>JJ Fullmer</owners>
     <title>NVIDIA Studio Driver</title>
     <authors>NVIDIA</authors>
     <projectUrl>https://www.nvidia.com/en-us/studio/</projectUrl>
-    <projectSourceUrl>https://www.nvidia.com/en-us/drivers/details/254262/</projectSourceUrl>
+    <projectSourceUrl>https://www.nvidia.com/en-us/drivers/details/257327/</projectSourceUrl>
     <iconUrl>https://cdn.statically.io/gh/darksidemilk/Coco-Puffs/main/nvidia-studio-driver/icons/nvidia-studio-icon.png</iconUrl>
     <licenseUrl>https://www.nvidia.com/en-us/drivers/geforce-license/</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <mailingListUrl>https://www.nvidia.com/en-us/preferences/email-signup/</mailingListUrl>
-    <docsUrl>https://us.download.nvidia.com/Windows/581.29/581.29-nvidia-control-panel-quick-start-guide.pdf</docsUrl>
+    <docsUrl>https://us.download.nvidia.com/Windows/581.57/581.57-nvidia-control-panel-quick-start-guide.pdf</docsUrl>
     <tags>graphics card driver studio rtx nvidia</tags>
     <summary>NVIDIA Studio Driver</summary>
     <description>
-# [NVIDIA Studio Driver R580 (581.29) | Windows 11](https://www.nvidia.com/en-us/drivers/details/254262/)
+# [NVIDIA Studio Driver R580 (581.57) | Windows 11](https://www.nvidia.com/en-us/drivers/details/257327/)
 
 NVIDIA Studio Drivers provide artists, creators, and 3D developers the best performance and reliability when working with creative applications. To achieve the highest level of reliability, Studio Drivers undergo extensive testing against multi-app creator workflows and multiple revisions of the top creative applications from Adobe to Autodesk and beyond.  
+    
+  **Applications**   
+  The October NVIDIA Studio Driver provides optimal support for the latest new creative applications and updates including support for Stable Diffusion 3.5 introducing FP8 support on RTX as well as Adobe Premiere Pro's latest update with 90 new GPU-accelerated effects, transitions, and animations.  
+    
+  **Fixed Application Bugs**   
+  
+- Adobe After Effects / Premiere Pro: crash on launch when Smooth Motion is enabled globally [5515256]
+- Adobe Premiere Pro: Some system configurations can freeze during export using hardware encoding [5431822]
+- DxO Photolab 9: Stability issues when using the AI masks [5475130]
+- Steam overlay may cause game stability issues [5521892]
+- Hell is Us: Random red/green visual glitches during gameplay [5505371]
+- Black Myth: Wukong: Minor graphical glitch may randomly appear during gameplay after updating to R580 drivers [5453535]
+- Madden 26: Stability issues after updating to R580 drivers [5446236]
+- Games may crash if the installed game directory contains Chinese characters while Smooth Motion is enabled [5537563]
+- Battlefield 2042: Increased GPU Crashing when calling CDXGISwapChain::Present() [5446395]
+- Forza Horizon 4: light flickering on RTX 50 series [5404555]
+- Planet Coaster 2: crashes after driver update [5447412]
+- FPS significantly drops when using Smooth Motion with RivaTuner FPS cap [5476266]
+- R580 drivers causing stuttering in games using GODOT engine [5466820]
+- Total War: Warhammer III: Graphics corruption [5363634]
+- Delta Force: game stability issues when Smooth Motion is enabled [5540567]
+- Clair Obscur: Expedition 33: Display artifacts and stability issues when starting a game after waking PC from sleep [5467318]
+- Borderlands 4 corruption and stability issues [5497338]
 
-**Applications**   
+  **Fixed General Bugs**   
 
-The September NVIDIA Studio Driver provides optimal support for the latest new creative applications and updates including support for Microsoft TRELLIS NIM, providing optimized performance on RTX GPUs.   
-
-**Fixed Application Bugs**   
-
-- Cyberpunk 2077: Crash when using Photo Mode to take a screenshot with path tracing enabled [5076545]
-- Marvel Rivals: Negative performance impact when using some 581.xx drivers [5444816]
-- Forza Motorsport: Game crashes if using Smooth Motion while bringing up NVIDIA App overlay statistics [5412757]
-- Gray Zone Warfare: Game stability issues [5371781]
-- ARK: Survival Ascended: Game stability issues [5441616]
-- Marvel's Avengers - The Definitive Edition: Game crashes to desktop on startup [5350712]
-
-**Fixed General Bugs**   
-
-- Potential memory leak when using NVENC hardware encoding [5442678]
-- Power cycling monitor can result in monitor flickering when NVIDIA App is installed [5434811]
-- NVIDIA App game filter issues after driver update [5429651]
-- Certain monitors may display a random flicker when hot plugged over HDMI [5280259]
+- Black screen on Alienware AW2524H monitor after changing display settings [5430236]
+- When Video Noise Reduction is enabled the chroma is grayscale [5401959]
 
 ---
 
@@ -64,7 +72,7 @@ The following package parameters can be set to customize the installation.
 Example param usage with choco install command:
 `choco install nvidia-studio-driver --params "'/RemoveOtherVersions'"`
     </description>
-    <releaseNotes>Wed Sep 10, 2025 - https://us.download.nvidia.com/Windows/581.29/581.29-win10-win11-nsd-release-notes.pdf</releaseNotes>
+    <releaseNotes>Tue Oct 14, 2025 - https://us.download.nvidia.com/Windows/581.57/581.57-win10-win11-nsd-release-notes.pdf</releaseNotes>
   </metadata>
   <files>
     <file src="tools\**" target="tools" />
