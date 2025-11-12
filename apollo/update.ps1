@@ -1,6 +1,3 @@
-#todo automate checking for new releases at https://github.com/ClassicOldSong/Apollo/releases/latest and then updating package details
-$global:packageName = 'apollo';
-
 function Test-NewVersionAvailable {
   [CmdletBinding()]
   param()
@@ -61,8 +58,7 @@ function global:au_SearchReplace {
     # }
   }
 } 
-$global:packageName = 'nvidia-rtx-driver';
-$global:quadro = Get-NvidiaDriverInfo;
+$global:packageName = 'apollo';
 if (Test-NewVersionAvailable) {
   $ver = $global:latestVersion;
   "New Version is available: creating package for version $($ver)" | out-host;
