@@ -15,3 +15,4 @@ Please be patient if a new version isn't published right away.
 
 * [![Update NVIDIA RTX Driver Package](https://github.com/darksidemilk/Coco-Puffs/actions/workflows/update_nvidia-rtx-driver.yml/badge.svg)](https://github.com/darksidemilk/Coco-Puffs/actions/workflows/update_nvidia-rtx-driver.yml)
 * [![Update NVIDIA Studio Driver Package](https://github.com/darksidemilk/Coco-Puffs/actions/workflows/update_nvidia-studio-driver.yml/badge.svg)](https://github.com/darksidemilk/Coco-Puffs/actions/workflows/update_nvidia-studio-driver.yml)
+* [![Update Apollo Package](https://github.com/darksidemilk/Coco-Puffs/actions/workflows/update_apollo.yml/badge.svg)](https://github.com/darksidemilk/Coco-Puffs/actions/workflows/update_apollo.yml)
