@@ -87,9 +87,80 @@ The virtual display works just like any physically attached monitors with SudoVD
 Moved to [WiKi](https://github.com/ClassicOldSong/Apollo/wiki/FAQ)
 
 ]]></description>
-    <releaseNotes>Fix Spanish locale
-Fix double-refresh-rate not being used with custom refresh rates
-Add auto value for minimal fps target to reduce framerate overshoot in certain setups</releaseNotes>
+    <releaseNotes><![CDATA[
+[!WARNING]
+> **I noticed that some other forks of Sunshine merges on-going PRs from upstream (and without credits to the PR author). Although those features are appealing, but they're unfinished and has loads of potential risks. Please do not use those forks before they address all the security issues for your own safety concerns.**
+>
+> **Feature in question**: https://github.com/LizardByte/Sunshine/pull/4078
+> **Problem**: Communication is not encrpyted, audio stream not client-separated
+
+> [!NOTE]
+> If you experience stutters after upgrade to v0.4.x, try revert to v0.3.7-hotfix-1 for now and also report your system configuration to [this issue](https://github.com/ClassicOldSong/Apollo/issues/956).
+> If you just have upgraded your GPU driver, it's recommended to reboot your computer before staring a new stream.
+
+
+## Change log
+
+v0.4.6
+
+* Fix Spanish locale
+* Fix double-refresh-rate not being used with custom refresh rates
+* Add auto value for minimal fps target to reduce framerate overshoot in certain setups
+
+v0.4.5
+
+* Merge upstream
+* Bring back sudo-frame-pacing (I made up the name just now lol)
+
+v0.4.3
+
+* Revert `build-deps` to last known working version
+
+v0.4.2
+
+* Revert `libdisplaydevice` to last known working version
+
+v0.4.1
+
+* Various fixes and workarounds for new problems discovered after merging upstream
+
+v0.4.0
+
+* Track upstream
+* Resolve 60 fps lock issue for WGC capture by setting the MinUpdateInterval property of the WGC capture session. by @danielmartina in https://github.com/ClassicOldSong/Apollo/pull/785
+* Update es.json by @Linx-ESP in https://github.com/ClassicOldSong/Apollo/pull/853
+* Feature: Added option to disable rumble on controllers from the Apollo side by @thesystemcoder168 in https://github.com/ClassicOldSong/Apollo/pull/886
+* SudoVDA update: changed code signature to last 5 years long
+
+**NOTE**: Please update to this version before August 19th. The original signature for SudoVDA expires after this day.
+
+## Bonus
+
+[Apollo Profile Manager](https://github.com/ClassicOldSong/ApolloProfileManager/releases)
+
+You can use it to automatically save/restore a selection of files for each app, and they're separated for each client. You can use it to swap game settings, mod sets or even save files based on the client, so you don't need to edit game resolution/keymap/modsets every time you change to a different client.
+
+## Best practices
+
+Checkout [WiKi](https://github.com/ClassicOldSong/Apollo/wiki/Best-Practices)
+
+
+> [!WARNING]
+> ***It is highly recommend to remove any other virtual display solutions from your system and Apollo/Sunshine config, to reduce confusions and compatibility issues.***
+>
+> Remember to quit Apollo before upgrading.
+
+> [!NOTE]
+> [VirusTotal scan report for this build](https://www.virustotal.com/gui/file/42b2aefaacb3474511517a56b96ee9f0517f30ac38b5dd2fda9fd5b478f5021a)
+>
+> [Why Windows always report file as harmful?](https://github.com/ClassicOldSong/Apollo/issues/21)
+
+## New Contributors
+* @danielmartina made their first contribution in https://github.com/ClassicOldSong/Apollo/pull/785
+* @Linx-ESP made their first contribution in https://github.com/ClassicOldSong/Apollo/pull/853
+
+**Full Changelog**: https://github.com/ClassicOldSong/Apollo/compare/v0.3.7...v0.4.6
+    ]]></releaseNotes>
     <copyright>2024-2025</copyright>
     <tags>apollo nvidia amd intel gaming streaming server nvidia-gamestream</tags>
     <docsUrl>https://github.com/ClassicOldSong/Apollo/wiki</docsUrl>
@@ -97,12 +168,9 @@ Add auto value for minimal fps target to reduce framerate overshoot in certain s
     <bugTrackerUrl>https://github.com/ClassicOldSong/Apollo/issues</bugTrackerUrl>
     <projectSourceUrl>https://github.com/ClassicOldSong/Apollo</projectSourceUrl>
     <packageSourceUrl>https://github.com/darksidemilk/Coco-Puffs/tree/main/apollo</packageSourceUrl>
-    <!-- <dependencies>
-      <dependency id="ViGEmBus" version="1.22.0" />
-    </dependencies> -->
 </metadata>
 <files>
-    <!-- this section controls what actually gets packaged into the Chocolatey package -->
+    <!-- this section controls what actually gets packaged into the Chocolatey package -->  
     <!-- make sure that all files used in the module are included-->
     <file src="tools\**" target="tools" />
 </files>

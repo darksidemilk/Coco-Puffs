@@ -1,0 +1,23 @@
+name: Update Apollo Package
+
+on:
+  workflow_dispatch:
+  schedule:
+  - cron: "10 8 * * *"
+
+
+jobs:
+    update-apollo:
+        runs-on: windows-latest
+        env:
+            GH_TOKEN: ${{ github.token }}
+            api_key: ${{ secrets.CHOCOLATEY }}
+            packageName: apollo
+        steps:
+            - uses: actions/checkout@v4
+            - uses: fregante/setup-git-user@v2.0.2
+            - name: Run Update Script for Apollo Package
+              run: |
+                "Run Update Script for Apollo Package" | Out-Host;
+                cd $env:packageName
+                pwsh .\update.ps1

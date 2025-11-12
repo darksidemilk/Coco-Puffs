@@ -2,11 +2,13 @@ $ErrorActionPreference = 'Stop';
 
 $toolsDir     = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 # $fileLocation = ''
-$version = "0.4.6"
+# $version = "0.4.6"
+$version = $env:ChocolateyPackageVersion
 $filename = "Apollo-$version.exe"
 $installDir = "$env:ProgramFiles\Apollo"
 $scripts = "$installDir\scripts"
 $drivers = "$installDir\drivers"
+$checksum = "42B2AEFAACB3474511517A56B96EE9F0517F30AC38B5DD2FDA9FD5B478F5021A"
 
 $packageArgs = @{
   packageName   = $env:ChocolateyPackageName
@@ -15,7 +17,7 @@ $packageArgs = @{
   silentArgs    = "/S"
   validExitCodes= @(0)
   url           = "https://github.com/ClassicOldSong/Apollo/releases/download/v$version/$filename"
-  checksum      = '42B2AEFAACB3474511517A56B96EE9F0517F30AC38B5DD2FDA9FD5B478F5021A'
+  checksum      = $checksum
   checksumType  = 'sha256'
   destination   = $toolsDir
   #installDir   = "" # passed when you want to override install directory - requires licensed editions
