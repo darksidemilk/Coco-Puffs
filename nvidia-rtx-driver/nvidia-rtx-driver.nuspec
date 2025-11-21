@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!-- Do not remove this test for UTF-8: if “Ω” doesn’t appear as greek uppercase omega letter enclosed in quotation marks, you should use an editor that supports UTF-8, not this one. -->
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
@@ -18,22 +18,17 @@
     <tags>graphics card driver quadro rtx rtxpro nvidia admin</tags>
     <summary>NVIDIA RTX / RTX Pro / Quadro Driver</summary>
     <description>
-# [NVIDIA RTX Driver Release 580 R580 (581.80) | Windows 11](https://www.nvidia.com/en-us/drivers/details/257491/)
+# [NVIDIA RTX Driver Release 570 R570 (573.92) | Windows 11](https://www.nvidia.com/en-us/drivers/details/258547/)
 
 **NVIDIA RTX Enterprise Production Branch Driver**   
    
-Release 580 is a Production Branch release of the NVIDIA RTX Enterprise Driver. Production Branch drivers are designed and tested to provide long-term stability and availability. These drivers are ideal for enterprise customers and professional users who require application and hardware certification and regular driver updates for the latest in driver enhancements and security improvements.  
+ Release 570 is a Production Branch release of the NVIDIA RTX Enterprise Driver. Production Branch drivers are designed and tested to provide long-term stability and availability. These drivers are ideal for enterprise customers and professional users who require application and hardware certification and regular driver updates for the latest in driver enhancements and security improvements.  
    
-In addition to professional workstation features, Production Branch drivers also contain the features and enhancements of NVIDIA Studio Drivers of the same version number.  
+ In addition to professional workstation features, Production Branch drivers also contain the features and enhancements of NVIDIA Studio Drivers of the same version number.  
    
- **Fixed Issues in Version R580 U5**   
+ **Fixed Issues in Version R570 U11**   
  
-- [Cadence][Fidelity] was crashing randomly causing possible loss of data.
 - Ongoing bug fixes and enhancements.
-
-**Open Issues in Version R580 U5**   
-
-- [Blackwell][Affinity Photo 2] is experiencing corruption in the viewport and with rendered images.
 
 If you would like to be notified of upcoming drivers for Windows, please [subscribe here](https://www.nvidia.com/en-us/preferences/email-signup/).
 
