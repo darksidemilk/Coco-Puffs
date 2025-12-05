@@ -3,52 +3,49 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>nvidia-studio-driver</id>
-    <version>581.57.0</version>
+    <version>591.44.0</version>
     <packageSourceUrl>https://github.com/darksidemilk/Coco-Puffs/tree/main/nvidia-studio-driver</packageSourceUrl>
     <owners>JJ Fullmer</owners>
     <title>NVIDIA Studio Driver</title>
     <authors>NVIDIA</authors>
     <projectUrl>https://www.nvidia.com/en-us/studio/</projectUrl>
-    <projectSourceUrl>https://www.nvidia.com/en-us/drivers/details/257327/</projectSourceUrl>
+    <projectSourceUrl>https://www.nvidia.com/en-us/drivers/details/258747/</projectSourceUrl>
     <iconUrl>https://cdn.statically.io/gh/darksidemilk/Coco-Puffs/main/nvidia-studio-driver/icons/nvidia-studio-icon.png</iconUrl>
     <licenseUrl>https://www.nvidia.com/en-us/drivers/geforce-license/</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <mailingListUrl>https://www.nvidia.com/en-us/preferences/email-signup/</mailingListUrl>
-    <docsUrl>https://us.download.nvidia.com/Windows/581.57/581.57-nvidia-control-panel-quick-start-guide.pdf</docsUrl>
+    <docsUrl>https://us.download.nvidia.com/Windows/591.44/591.44-nvidia-control-panel-quick-start-guide.pdf</docsUrl>
     <tags>graphics card driver studio rtx nvidia</tags>
     <summary>NVIDIA Studio Driver</summary>
     <description>
-# [NVIDIA Studio Driver R580 (581.57) | Windows 11](https://www.nvidia.com/en-us/drivers/details/257327/)
+# [NVIDIA Studio Driver R590 (591.44) | Windows 11](https://www.nvidia.com/en-us/drivers/details/258747/)
 
 NVIDIA Studio Drivers provide artists, creators, and 3D developers the best performance and reliability when working with creative applications. To achieve the highest level of reliability, Studio Drivers undergo extensive testing against multi-app creator workflows and multiple revisions of the top creative applications from Adobe to Autodesk and beyond.  
-    
-  **Applications**   
-  The October NVIDIA Studio Driver provides optimal support for the latest new creative applications and updates including support for Stable Diffusion 3.5 introducing FP8 support on RTX as well as Adobe Premiere Pro's latest update with 90 new GPU-accelerated effects, transitions, and animations.  
-    
-  **Fixed Application Bugs**   
-  
-- Adobe After Effects / Premiere Pro: crash on launch when Smooth Motion is enabled globally [5515256]
-- Adobe Premiere Pro: Some system configurations can freeze during export using hardware encoding [5431822]
-- DxO Photolab 9: Stability issues when using the AI masks [5475130]
-- Steam overlay may cause game stability issues [5521892]
-- Hell is Us: Random red/green visual glitches during gameplay [5505371]
-- Black Myth: Wukong: Minor graphical glitch may randomly appear during gameplay after updating to R580 drivers [5453535]
-- Madden 26: Stability issues after updating to R580 drivers [5446236]
-- Games may crash if the installed game directory contains Chinese characters while Smooth Motion is enabled [5537563]
-- Battlefield 2042: Increased GPU Crashing when calling CDXGISwapChain::Present() [5446395]
-- Forza Horizon 4: light flickering on RTX 50 series [5404555]
-- Planet Coaster 2: crashes after driver update [5447412]
-- FPS significantly drops when using Smooth Motion with RivaTuner FPS cap [5476266]
-- R580 drivers causing stuttering in games using GODOT engine [5466820]
-- Total War: Warhammer III: Graphics corruption [5363634]
-- Delta Force: game stability issues when Smooth Motion is enabled [5540567]
-- Clair Obscur: Expedition 33: Display artifacts and stability issues when starting a game after waking PC from sleep [5467318]
-- Borderlands 4 corruption and stability issues [5497338]
 
-  **Fixed General Bugs**   
+**Applications**   
 
-- Black screen on Alienware AW2524H monitor after changing display settings [5430236]
-- When Video Noise Reduction is enabled the chroma is grayscale [5401959]
+The December NVIDIA Studio Driver provides optimal support for the latest new creative applications and updates including support for RTX optimizations in ComfyUI, NVFP8 and RTX optimizations in FLUX.2, NVIDIA LSS in Blender 5.0, and TensorRT-RTX in Topaz Video AI and Topaz Photo AI.  
+
+**Fixed Application Bugs**   
+
+- Adobe Premiere Pro: Freeze During Export Using Hardware Encoding [5431822]
+- Vulkan apps crash when launched on Core 2 Duo / Core 2 Quad CPUs [5509161]
+- F1 25: Performance optimizations when using DLSS Frame Generation [5422722]
+- Battlefield 6: Gaming stability issues [5582125]
+- Counter-Strike 2: Text may appear slightly distorted when in-game resolution is lower than the native resolution of the display [5278913]
+- Like a Dragon: Infinite Wealth: Light flickering after driver update on some system configurations [5432356]
+- Like a Dragon Gaiden: The Man Who Erased His Name: Corruption after driver update on some system configurations [5432356]
+- Black Myth: Wukong: Lower performance in driver branches newer than R570 [5562283]
+- Monster Hunter World: Iceborne: Some particle effects may be missing on GeForce RTX 50 Series GPUs [5546598]
+- Call of Duty: Black Ops 3: Gameplay becomes dim over time [5488108]
+- Madden 26: Stability issues [5535693]
+- Users running R580 branch drivers (58x.xx) or newer may observe lower performance in some games after updating to Windows 11 October 2025 KB5066835 [5561605]
+- The Witcher 3: Wild Hunt: Random corruption on main character's sword corruption [5363151]
+
+**Fixed General Bugs**   
+
+- Sophos Home Antivirus: System stability issues [5581371]
+- Green line observed while viewing videos in Chromium browser on GeForce RTX 50 Series GPUs [5535388]
 
 ---
 
@@ -72,7 +69,7 @@ The following package parameters can be set to customize the installation.
 Example param usage with choco install command:
 `choco install nvidia-studio-driver --params "'/RemoveOtherVersions'"`
     </description>
-    <releaseNotes>Tue Oct 14, 2025 - https://us.download.nvidia.com/Windows/581.57/581.57-win10-win11-nsd-release-notes.pdf</releaseNotes>
+    <releaseNotes>Thu Dec 04, 2025 - https://us.download.nvidia.com/Windows/591.44/591.44-win10-win11-nsd-release-notes.pdf</releaseNotes>
   </metadata>
   <files>
     <file src="tools\**" target="tools" />
