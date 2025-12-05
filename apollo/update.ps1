@@ -51,7 +51,7 @@ function global:au_GetLatest {
 function global:au_SearchReplace {
   @{
     ".\tools\chocolateyinstall.ps1" = @{
-      '(\$checksum\s*=\s*)(".*")'    = "`$1'$($Latest.checksum)'"
+      '(\$checksum\s*=\s*)(".*"|''.*'')'    = "`$1`"$($Latest.checksum)`""
     }
     # "$($Latest.PackageName).nuspec" = @{
     #   "(\<releaseNotes\>).*?(\</releaseNotes\>)" = "`${1}$($Latest.releaseNotesNuspec)`$2"

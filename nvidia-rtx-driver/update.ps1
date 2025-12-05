@@ -140,9 +140,9 @@ function global:au_GetLatest {
 function global:au_SearchReplace {
   @{
     ".\tools\chocolateyinstall.ps1" = @{
-      '(\$downloadHash\s*=\s*)(".*")'    = "`$1'$($Latest.downloadHash)'"
-      '(\$installerHash\s*=\s*)(".*")'    = "`$1'$($Latest.installerHash)'"
-      '(\$downloadURL\s*=\s*)(".*")'     = "`$1'$($Latest.URL)'"
+      '(\$downloadHash\s*=\s*)(".*"|''.*'')'    = "`$1`"$($Latest.downloadHash)`""
+      '(\$installerHash\s*=\s*)(".*"|''.*'')'    = "`$1`"$($Latest.installerHash)`""
+      '(\$downloadURL\s*=\s*)(".*"|''.*'')'     = "`$1`"$($Latest.URL)`""
     }
     "$($Latest.PackageName).nuspec" = @{
       "(\<releaseNotes\>).*?(\</releaseNotes\>)" = "`${1}$($Latest.releaseNotesNuspec)`$2"
