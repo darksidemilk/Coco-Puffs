@@ -1,34 +1,38 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!-- Do not remove this test for UTF-8: if “Ω” doesn’t appear as greek uppercase omega letter enclosed in quotation marks, you should use an editor that supports UTF-8, not this one. -->
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>nvidia-rtx-driver</id>
-    <version>581.80.0</version>
+    <version>582.08.0</version>
     <packageSourceUrl>https://github.com/darksidemilk/Coco-Puffs/tree/main/nvidia-rtx-driver</packageSourceUrl>
     <owners>JJ Fullmer</owners>
     <title>NVIDIA RTX Driver (Formerly Nvidia Quadro)</title>
     <authors>NVIDIA</authors>
     <projectUrl>https://www.nvidia.com/en-us/products/workstations/</projectUrl>
-    <projectSourceUrl>https://www.nvidia.com/en-us/drivers/details/257491/</projectSourceUrl>
+    <projectSourceUrl>https://www.nvidia.com/en-us/drivers/details/259046/</projectSourceUrl>
     <iconUrl>https://cdn.statically.io/gh/darksidemilk/Coco-Puffs/main/nvidia-rtx-driver/icons/nvidia-quadro-rtx-icon.png</iconUrl>
     <licenseUrl>https://www.nvidia.com/en-us/drivers/nvidia-license/</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <mailingListUrl>https://www.nvidia.com/en-us/preferences/email-signup/</mailingListUrl>
-    <docsUrl>https://us.download.nvidia.com/Windows/Quadro_Certified/581.80/581.80-nvidia-rtx-quadro-control-panel-quick-start-guide.pdf</docsUrl>
+    <docsUrl>https://us.download.nvidia.com/Windows/Quadro_Certified/582.08/582.08-nvidia-rtx-quadro-control-panel-quick-start-guide.pdf</docsUrl>
     <tags>graphics card driver quadro rtx rtxpro nvidia admin</tags>
     <summary>NVIDIA RTX / RTX Pro / Quadro Driver</summary>
     <description>
-# [NVIDIA RTX Driver Release 570 R570 (573.92) | Windows 11](https://www.nvidia.com/en-us/drivers/details/258547/)
+# [NVIDIA RTX Driver Release 580 R580 (582.08) | Windows 11](https://www.nvidia.com/en-us/drivers/details/259046/)
 
 **NVIDIA RTX Enterprise Production Branch Driver**   
-   
- Release 570 is a Production Branch release of the NVIDIA RTX Enterprise Driver. Production Branch drivers are designed and tested to provide long-term stability and availability. These drivers are ideal for enterprise customers and professional users who require application and hardware certification and regular driver updates for the latest in driver enhancements and security improvements.  
-   
- In addition to professional workstation features, Production Branch drivers also contain the features and enhancements of NVIDIA Studio Drivers of the same version number.  
-   
- **Fixed Issues in Version R570 U11**   
- 
+
+Release 580 is a Production Branch release of the NVIDIA RTX Enterprise Driver. Production Branch drivers are designed and tested to provide long-term stability and availability. These drivers are ideal for enterprise customers and professional users who require application and hardware certification and regular driver updates for the latest in driver enhancements and security improvements.  
+
+In addition to professional workstation features, Production Branch drivers also contain the features and enhancements of NVIDIA Studio Drivers of the same version number.  
+
+**Fixed Issues in Version R580 U6**  
+
 - Ongoing bug fixes and enhancements.
+
+**Open Issues in Version R580 U6**  
+
+- [Blackwell][Affinity Photo 2] is experiencing corruption in the viewport and with rendered images.
 
 If you would like to be notified of upcoming drivers for Windows, please [subscribe here](https://www.nvidia.com/en-us/preferences/email-signup/).
 
@@ -55,7 +59,7 @@ Example param usage with choco install command:
 `choco install nvidia-rtx-driver --params "'/RemoveOtherVersions'" -yf`
 
     </description>
-    <releaseNotes>Tue Nov 04, 2025 - https://us.download.nvidia.com/Windows/Quadro_Certified/581.80/581.80-win10-win11-nvidia-rtx-quadro-release-notes.pdf</releaseNotes>
+    <releaseNotes>Thu Dec 11, 2025 - https://us.download.nvidia.com/Windows/Quadro_Certified/582.08/582.08-win10-win11-nvidia-rtx-quadro-release-notes.pdf</releaseNotes>
   </metadata>
   <files>
     <file src="tools\**" target="tools" />
