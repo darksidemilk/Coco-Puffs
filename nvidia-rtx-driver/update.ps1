@@ -196,6 +196,10 @@ if ((Test-NewVersionAvailable)) {
   if (!(Test-Path "$global:packageName.$ver.0.nupkg")) {
     choco pack $global:packageName.nuspec;
   }
+  if ($ver.split(".")[1] -like "0*") {
+    "Minor Version has a leading 0 on the nvidia side, adjusting ver to match semantic versioning for choco package" | out-host;
+    $ver = ([system.version]$ver).tostring()
+  }
   if (!(Test-Path "$global:packageName.$ver.0.nupkg")) {
     $pkg = get-item "$global:packageName.*.nupkg"
     $pkg = $pkg.FullName;
@@ -222,6 +226,10 @@ if ((Test-NewVersionAvailable)) {
   choco pack $global:packageName.nuspec;
   choco apikey add -s "https://push.chocolatey.org/" -k="$env:api_key"
   $ver = $global:quadro.ids.downloadinfo.Version;
+  if ($ver.split(".")[1] -like "0*") {
+    "Minor Version has a leading 0 on the nvidia side, adjusting ver to match semantic versioning for choco package" | out-host;
+    $ver = ([system.version]$ver).tostring()
+  }
   if (!(Test-Path "$global:packageName.$ver.0.nupkg")) {
     $pkg = get-item "$global:packageName.*.nupkg"
     $pkg = $pkg.FullName;
