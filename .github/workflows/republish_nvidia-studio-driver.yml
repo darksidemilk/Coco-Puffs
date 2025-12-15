@@ -1,10 +1,10 @@
-name: Republish NVIDIA Studio Driver Package
+name: Re-Publish NVIDIA Studio Driver Package
 
 on:
   workflow_dispatch:
 
 jobs:
-    update-nvidia-studio-driver:
+    republish-nvidia-studio-driver:
         runs-on: windows-latest
         env:
             GH_TOKEN: ${{ github.token }}
