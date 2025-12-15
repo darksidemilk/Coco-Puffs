@@ -196,6 +196,15 @@ if ((Test-NewVersionAvailable)) {
   if (!(Test-Path "$global:packageName.$ver.0.nupkg")) {
     choco pack $global:packageName.nuspec;
   }
+  if (!(Test-Path "$global:packageName.$ver.0.nupkg")) {
+    $pkg = get-item "$global:packageName.*.nupkg"
+    $pkg = $pkg.FullName;
+  } else {
+    $Pkg = "$global:packageName.$ver.0.nupkg"
+  }
+  if (!(Test-Path $pkg)) {
+    throw "Package $pkg not found, choco pack may have failed!"
+  }
   git add "$global:packageName.nuspec";
   git add ".\tools\chocolateyinstall.ps1";
   git commit -m "updated and pushed $global:packageName version $($ver).0";
@@ -205,14 +214,24 @@ if ((Test-NewVersionAvailable)) {
   #   Push-auPackage -ea stop;
   # } catch {
     choco apikey add -s "https://push.chocolatey.org/" -k="$env:api_key"
-    choco push "$global:packageName.$ver.0.nupkg" --source https://push.chocolatey.org/
+    choco push "$pkg" --source https://push.chocolatey.org/
   # }
 } elseif($republish) {
   Set-Location $PSScriptRoot;
   "Updating package from working directory: $($pwd)" | out-host;
   choco pack $global:packageName.nuspec;
   choco apikey add -s "https://push.chocolatey.org/" -k="$env:api_key"
-  choco push "$global:packageName.$ver.0.nupkg" --source https://push.chocolatey.org/
+  $ver = $global:quadro.ids.downloadinfo.Version;
+  if (!(Test-Path "$global:packageName.$ver.0.nupkg")) {
+    $pkg = get-item "$global:packageName.*.nupkg"
+    $pkg = $pkg.FullName;
+  } else {
+    $Pkg = "$global:packageName.$ver.0.nupkg"
+  }
+  if (!(Test-Path $pkg)) {
+    throw "Package $pkg not found, choco pack may have failed!"
+  }
+  choco push "$pkg" --source https://push.chocolatey.org/
 } else {
   "No new version available, exiting update script." | out-host;
   exit;
