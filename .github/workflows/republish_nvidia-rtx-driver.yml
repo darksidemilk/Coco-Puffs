@@ -1,0 +1,20 @@
+name: Re-Publish NVIDIA RTX Driver Package
+
+on:
+  workflow_dispatch:
+
+jobs:
+    update-nvidia-rtx-driver:
+        runs-on: windows-latest
+        env:
+            GH_TOKEN: ${{ github.token }}
+            api_key: ${{ secrets.CHOCOLATEY }}
+            packageName: nvidia-rtx-driver
+        steps:
+            - uses: actions/checkout@v4
+            - uses: fregante/setup-git-user@v2.0.2
+            - name: Run Update Script for NVIDIA RTX Driver Package
+              run: |
+                "Run Update Script for NVIDIA RTX Driver Package" | Out-Host;
+                cd $env:packageName
+                pwsh .\update.ps1 -republish

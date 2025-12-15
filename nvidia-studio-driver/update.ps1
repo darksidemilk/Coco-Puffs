@@ -1,3 +1,9 @@
+[CmdletBinding()]
+param(
+  [switch]$republish
+)
+
+
 function global:Get-NvidiaDriverInfo {
   [cmdletBinding()]
   param()
@@ -200,6 +206,12 @@ if (Test-NewVersionAvailable) {
     choco apikey add -s "https://push.chocolatey.org/" -k="$env:api_key"
     choco push "$global:packageName.$ver.0.nupkg" --source https://push.chocolatey.org/
   # }
+} elseif($republish) {
+  Set-Location $PSScriptRoot;
+  "Updating package from working directory: $($pwd)" | out-host;
+  choco pack $global:packageName.nuspec;
+  choco apikey add -s "https://push.chocolatey.org/" -k="$env:api_key"
+  choco push "$global:packageName.$ver.0.nupkg" --source https://push.chocolatey.org/
 } else {
   "No new version available, exiting update script." | out-host;
   exit;
