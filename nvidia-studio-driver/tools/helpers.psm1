@@ -138,6 +138,15 @@ function Get-OtherVersionsOfNvidiaDisplayDrivers {
     )
     
     process {
+        "Finding other versions of nvidia display drivers not matching version $version" | out-host;
+        #readd removed leading zeros to minor version for flattening correctly
+        $semver = [system.version]$version
+        if ($semver.minor -lt 10) {
+            $nvidiaVerMinor = "0$($semver.minor)"
+        } else {
+            $nvidiaVerMinor = "$($semver.minor)"
+        }
+        $version = "$($semver.major).$nvidiaVerMinor.$($semver.build)"
         #get version without dots and without extra 0
         $flatver = $version.split(".")[0]+$version.split(".")[1]
 
@@ -146,6 +155,7 @@ function Get-OtherVersionsOfNvidiaDisplayDrivers {
             $ver = $_.Version.replace(".","");
             $ver -notmatch $flatver
         }
+        "Found $($nonMatching.count) other versions of nvidia display drivers not matching version $version" | out-host;
         return $nonMatching;
         
     }
@@ -167,24 +177,28 @@ function Remove-OtherVersionsOfNvidiaDisplayDrivers {
     #>
     [CmdletBinding()]
     param (
-        [parameter(Mandatory=$true)]
+        [parameter()]
         $driversToRemove
     )
     
     
     process {
-    
-        $driversToRemove | ForEach-Object {
-            $ver = $_.Version.replace(".","");
-            "Removing driver version $($_.version) aka '$($ver.Substring(4,3)).$($ver.Substring(7,2))'" | out-host;
-            try {
-                $result = pnputil /delete-driver $_.driver /uninstall;
-                $result2 = pnputil /delete-driver $_.driver /delete /force;
-                if (!($result -match 'Driver package deleted successfully.' -or $result2 -match 'Driver package deleted successfully.')) { # if neither command has a success message, throw an error
-                    throw 'pnputil failed to delete'
+        if ($null -eq $driversToRemove) {
+            Write-Warning "no drivers to remove, not removing anything"
+            return;
+        } else { 
+            $driversToRemove | ForEach-Object {
+                $ver = $_.Version.replace(".","");
+                "Removing driver version $($_.version) aka '$($ver.Substring(4,3)).$($ver.Substring(7,2))'" | out-host;
+                try {
+                    $result = pnputil /delete-driver $_.driver /uninstall;
+                    $result2 = pnputil /delete-driver $_.driver /delete /force;
+                    if (!($result -match 'Driver package deleted successfully.' -or $result2 -match 'Driver package deleted successfully.')) { # if neither command has a success message, throw an error
+                        throw 'pnputil failed to delete'
+                    }
+                } catch {
+                    Write-Warning "Failed to remove driver version $($_.version), you may need to manually remove it later"
                 }
-            } catch {
-                Write-Warning "Failed to remove driver version $($_.version), you may need to manually remove it later"
             }
         }
     }

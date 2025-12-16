@@ -84,7 +84,7 @@ Install-ChocolateyInstallPackage @packageArgs
 if ($pp.RemoveOtherVersions) {
   Write-Warning "Removing other versions of nvidia display drivers because RemoveOtherVersions is set!"
   $driversToRemove = Get-OtherVersionsOfNvidiaDisplayDrivers -version $version;
-  Remove-OtherVersionsOfNvidiaDisplayDrivers -driversToRemove $driversToRemove;
+  Remove-OtherVersionsOfNvidiaDisplayDrivers -driversToRemove $driversToRemove -ErrorAction SilentlyContinue;
 }
 
 #cleanup extracted files
