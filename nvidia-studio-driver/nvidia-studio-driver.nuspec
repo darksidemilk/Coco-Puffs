@@ -3,49 +3,45 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>nvidia-studio-driver</id>
-    <version>591.44.0</version>
+    <version>591.74.0</version>
     <packageSourceUrl>https://github.com/darksidemilk/Coco-Puffs/tree/main/nvidia-studio-driver</packageSourceUrl>
     <owners>JJ Fullmer</owners>
     <title>NVIDIA Studio Driver</title>
     <authors>NVIDIA</authors>
     <projectUrl>https://www.nvidia.com/en-us/studio/</projectUrl>
-    <projectSourceUrl>https://www.nvidia.com/en-us/drivers/details/258747/</projectSourceUrl>
+    <projectSourceUrl>https://www.nvidia.com/en-us/drivers/details/260362/</projectSourceUrl>
     <iconUrl>https://cdn.statically.io/gh/darksidemilk/Coco-Puffs/main/nvidia-studio-driver/icons/nvidia-studio-icon.png</iconUrl>
     <licenseUrl>https://www.nvidia.com/en-us/drivers/geforce-license/</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <mailingListUrl>https://www.nvidia.com/en-us/preferences/email-signup/</mailingListUrl>
-    <docsUrl>https://us.download.nvidia.com/Windows/591.44/591.44-nvidia-control-panel-quick-start-guide.pdf</docsUrl>
+    <docsUrl>https://us.download.nvidia.com/Windows/591.74/591.74-nvidia-control-panel-quick-start-guide.pdf</docsUrl>
     <tags>graphics card driver studio rtx nvidia</tags>
     <summary>NVIDIA Studio Driver</summary>
     <description>
-# [NVIDIA Studio Driver R590 (591.44) | Windows 11](https://www.nvidia.com/en-us/drivers/details/258747/)
+# [NVIDIA Studio Driver R590 (591.74) | Windows 11](https://www.nvidia.com/en-us/drivers/details/260362/)
 
 NVIDIA Studio Drivers provide artists, creators, and 3D developers the best performance and reliability when working with creative applications. To achieve the highest level of reliability, Studio Drivers undergo extensive testing against multi-app creator workflows and multiple revisions of the top creative applications from Adobe to Autodesk and beyond.  
 
 **Applications**   
 
-The December NVIDIA Studio Driver provides optimal support for the latest new creative applications and updates including support for RTX optimizations in ComfyUI, NVFP8 and RTX optimizations in FLUX.2, NVIDIA LSS in Blender 5.0, and TensorRT-RTX in Topaz Video AI and Topaz Photo AI.  
+The January NVIDIA Studio Driver provides optimal support for the latest new creative applications and updates including NVIDIA Broadcast 2.1, PyTorch NVFP4 and NVFP8 support in ComfyUI, and RTX optimizations for LTX-2.  
 
 **Fixed Application Bugs**   
 
-- Adobe Premiere Pro: Freeze During Export Using Hardware Encoding [5431822]
-- Vulkan apps crash when launched on Core 2 Duo / Core 2 Quad CPUs [5509161]
-- F1 25: Performance optimizations when using DLSS Frame Generation [5422722]
-- Battlefield 6: Gaming stability issues [5582125]
-- Counter-Strike 2: Text may appear slightly distorted when in-game resolution is lower than the native resolution of the display [5278913]
-- Like a Dragon: Infinite Wealth: Light flickering after driver update on some system configurations [5432356]
-- Like a Dragon Gaiden: The Man Who Erased His Name: Corruption after driver update on some system configurations [5432356]
-- Black Myth: Wukong: Lower performance in driver branches newer than R570 [5562283]
-- Monster Hunter World: Iceborne: Some particle effects may be missing on GeForce RTX 50 Series GPUs [5546598]
-- Call of Duty: Black Ops 3: Gameplay becomes dim over time [5488108]
-- Madden 26: Stability issues [5535693]
-- Users running R580 branch drivers (58x.xx) or newer may observe lower performance in some games after updating to Windows 11 October 2025 KB5066835 [5561605]
-- The Witcher 3: Wild Hunt: Random corruption on main character's sword corruption [5363151]
+- Arena Breakout: Infinite: Game stability issues [5748974]
+- Enshrouded: Game stability issues on GeForce RTX 50 Series GPUs [5664067]
+- Assassin's Creed Valhalla: HDR toggle not functional when Smooth Motion is enabled [5469746]
+- Dying Light: The Beast: Game stability issues after updating to 591.44 driver [5720536]
 
 **Fixed General Bugs**   
 
-- Sophos Home Antivirus: System stability issues [5581371]
-- Green line observed while viewing videos in Chromium browser on GeForce RTX 50 Series GPUs [5535388]
+- Brightness adjustment issues on various displays [5739739]
+- Colors are not applied correctly when using Digital Vibrance [5718365]
+- Slight banding may be observed on gradiants in SDR color mode [5720512]
+- Unable to deselect "Show Notification Tray Icon" from NVIDIA Control Panel [5622213]
+- Display color seems faded after switching to non-native resolution [5548662]
+- Using RTX HDR on select televisions causes games to blackscreen [5720286]
+- Using RTX HDR in Vulkan games causes black screen on LG OLED TVs [5763163]
 
 ---
 
@@ -69,7 +65,7 @@ The following package parameters can be set to customize the installation.
 Example param usage with choco install command:
 `choco install nvidia-studio-driver --params "'/RemoveOtherVersions'"`
     </description>
-    <releaseNotes>Thu Dec 04, 2025 - https://us.download.nvidia.com/Windows/591.44/591.44-win10-win11-nsd-release-notes.pdf</releaseNotes>
+    <releaseNotes>Mon Jan 05, 2026 - https://us.download.nvidia.com/Windows/591.74/591.74-win10-win11-nsd-release-notes.pdf</releaseNotes>
   </metadata>
   <files>
     <file src="tools\**" target="tools" />
