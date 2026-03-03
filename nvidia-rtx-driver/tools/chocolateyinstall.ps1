@@ -3,10 +3,10 @@ $version      = $env:ChocolateyPackageVersion
 $toolsDir     = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 $sources	    = "$toolsDir\files";
 $extractPath  = "$sources\$version"
-$downloadHash = "86F19350C6C3B22670B5FDE876E1DC0AC02453B24ACD5D3624DB9BB61B46AA4D"
-$installerHash= "90FEF2E648A97AC670E959CC6464B463ADE08C73CFB6CA97531005A576E6E1AB"
+$downloadHash = "52E693B1EA7096D333632B55AB58F8C835D86296061A3709DEF3100E32550CAA"
+$installerHash= "F18480561424C2BC0A53338EEC05CF171A946261CC74E1CB294E54003D160BE3"
 $hashType     = "sha256"
-$downloadURL  = "https://us.download.nvidia.com/Windows/Quadro_Certified/582.16/582.16-quadro-rtx-desktop-notebook-win10-win11-64bit-international-dch-whql.exe"
+$downloadURL  = "https://us.download.nvidia.com/Windows/Quadro_Certified/595.71/595.71-quadro-rtx-desktop-notebook-win10-win11-64bit-international-dch-whql.exe"
 
 Import-Module "$toolsDir\helpers.psm1"
 
