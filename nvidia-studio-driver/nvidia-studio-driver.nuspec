@@ -3,48 +3,43 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>nvidia-studio-driver</id>
-    <version>595.79.0</version>
+    <version>596.36.0</version>
     <packageSourceUrl>https://github.com/darksidemilk/Coco-Puffs/tree/main/nvidia-studio-driver</packageSourceUrl>
     <owners>JJ Fullmer</owners>
     <title>NVIDIA Studio Driver</title>
     <authors>NVIDIA</authors>
     <projectUrl>https://www.nvidia.com/en-us/studio/</projectUrl>
-    <projectSourceUrl>https://www.nvidia.com/en-us/drivers/details/265478/</projectSourceUrl>
+    <projectSourceUrl>https://www.nvidia.com/en-us/drivers/details/267262/</projectSourceUrl>
     <iconUrl>https://cdn.statically.io/gh/darksidemilk/Coco-Puffs/main/nvidia-studio-driver/icons/nvidia-studio-icon.png</iconUrl>
     <licenseUrl>https://www.nvidia.com/en-us/drivers/geforce-license/</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <mailingListUrl>https://www.nvidia.com/en-us/preferences/email-signup/</mailingListUrl>
-    <docsUrl>https://us.download.nvidia.com/Windows/595.79/595.79-nvidia-control-panel-quick-start-guide.pdf</docsUrl>
+    <docsUrl>https://us.download.nvidia.com/Windows/596.36/596.36-nvidia-control-panel-quick-start-guide.pdf</docsUrl>
     <tags>graphics card driver studio rtx nvidia</tags>
     <summary>NVIDIA Studio Driver</summary>
     <description>
-# [NVIDIA Studio Driver R595 (595.79) | Windows 11](https://www.nvidia.com/en-us/drivers/details/265478/)
+# [NVIDIA Studio Driver R595 (596.36) | Windows 11](https://www.nvidia.com/en-us/drivers/details/267262/)
 
 NVIDIA Studio Drivers provide artists, creators, and 3D developers the best performance and reliability when working with creative applications. To achieve the highest level of reliability, Studio Drivers undergo extensive testing against multi-app creator workflows and multiple revisions of the top creative applications from Adobe to Autodesk and beyond.  
 
 **Applications**   
 
-The March NVIDIA Studio Driver provides optimal support for the latest new creative applications and updates including Topaz NeuroStream, Lightricks LTX-2.3, Windows ML support for VoiceMod, and the latest updates for FLUX.2 Klein 9B and ComfyUI.  
+The April NVIDIA Studio Driver provides optimal support for the latest new creative applications and updates including Adobe Premiere Pro, DaVinci Resolve 21, Wondershare Filmora, Maxon Redshift 2026.4, Lightricks LTX Desktop, and Reincubate Camo. In addition, this NVIDIA Studio Driver offers support for the new GeForce RTX 5070 Laptop GPU (12GB).  
 
 **Fixed Application Bugs**   
 
-- Blackmagic Design: AV1 decode crash with multiple obu in one packet [5671098]
-- The Ascent: Intermittent black bar on top of screen on GeForce RTX 50 Series GPUs [5859818]
-- Total War: THREE KINGDOMS: Green artifacts appear on GeForce RTX 50 series [5745647]
-- FINAL FANTASY XII The Zodiac Age crashes with fatal error after driver update [5741199]
-- Call of Duty Modern Warfare (2019) displays image corruption after driver update [5733427]
-- Quantum Break: Performance drops significantly on Act 4 Part 1 [5607678]
-- Total War: Three Kingdoms: Artifacts may be observed during gameplay when Screen Space Reflections is enabled [5745647]
-- Crimson Desert: Game crashes when launched on R595 drivers [5861012]
-- Resident Evil Requiem: White glowing light/dots may appear in game when Subsurface Scattering is enabled [5915673]
-- Star Citizen: Game client crashes when launched [5935027]
+- Blender 5.0.1 EEVEE: Non-shader nodes connected to the material output rendered as black (zero value) [5965763]
+- God of War: Ragnarok: Certain textures may intermittently flash white during gameplay [5856704]
+- Assassins Creed Shadows: Flickering on character model clothing [5987951]
+- The Crew Motorfest: Grass and vegetation flickering [5950261]
+- Arknights: Endfield: stutter may be observed in some gameplay [5950402]
+- Halo Infinite: Texture corruption may occur on R595 drivers [5957741]
+- HITMAN World of Assassination: Game stability issues when NVIDIA Smooth Motion is enabled [5849519]
+- Game stability issues after enabling DLSS FG when Instant Replay is enabled [5732936]
 
 **Fixed General Bugs**   
 
-- Color banding observed with SDR content when Windows Automatic Color Management enabled [5754551]
-- Asus G14 may freeze on startup when Asus Ultimate Mode is enabled [5754849]
-- When the graphics card is overclocked, GPU voltage may become capped, preventing it from boosting to expected levels [5934973]
-- Intermittent application crash or driver timeout may be observed when playing multi-key DRM content in a browser on HDCP 1.x monitors [5934450]
+- Blocky artifacts when playing back H.264 content with DXVA 2.0 [6058551]
 
 ---
 
@@ -68,7 +63,7 @@ The following package parameters can be set to customize the installation.
 Example param usage with choco install command:
 `choco install nvidia-studio-driver --params "'/RemoveOtherVersions'"`
     </description>
-    <releaseNotes>Tue Mar 10, 2026 - https://us.download.nvidia.com/Windows/595.79/595.79-win10-win11-nsd-release-notes.pdf</releaseNotes>
+    <releaseNotes>Tue Apr 28, 2026 - https://us.download.nvidia.com/Windows/596.36/596.36-win10-win11-nsd-release-notes.pdf</releaseNotes>
   </metadata>
   <files>
     <file src="tools\**" target="tools" />
