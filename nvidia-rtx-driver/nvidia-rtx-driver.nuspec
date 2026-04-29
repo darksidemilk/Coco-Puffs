@@ -3,31 +3,34 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>nvidia-rtx-driver</id>
-    <version>595.97.0</version>
+    <version>596.36.0</version>
     <packageSourceUrl>https://github.com/darksidemilk/Coco-Puffs/tree/main/nvidia-rtx-driver</packageSourceUrl>
     <owners>JJ Fullmer</owners>
     <title>NVIDIA RTX Driver (Formerly Nvidia Quadro)</title>
     <authors>NVIDIA</authors>
     <projectUrl>https://www.nvidia.com/en-us/products/workstations/</projectUrl>
-    <projectSourceUrl>https://www.nvidia.com/en-us/drivers/details/265877/</projectSourceUrl>
+    <projectSourceUrl>https://www.nvidia.com/en-us/drivers/details/267265/</projectSourceUrl>
     <iconUrl>https://cdn.statically.io/gh/darksidemilk/Coco-Puffs/main/nvidia-rtx-driver/icons/nvidia-quadro-rtx-icon.png</iconUrl>
     <licenseUrl>https://www.nvidia.com/en-us/drivers/nvidia-license/</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <mailingListUrl>https://www.nvidia.com/en-us/preferences/email-signup/</mailingListUrl>
-    <docsUrl>https://us.download.nvidia.com/Windows/Quadro_Certified/595.97/595.97-nvidia-rtx-quadro-control-panel-quick-start-guide.pdf</docsUrl>
+    <docsUrl>https://us.download.nvidia.com/Windows/Quadro_Certified/596.36/596.36-nvidia-rtx-quadro-control-panel-quick-start-guide.pdf</docsUrl>
     <tags>graphics card driver quadro rtx rtxpro nvidia admin</tags>
     <summary>NVIDIA RTX / RTX Pro / Quadro Driver</summary>
     <description>
-# [NVIDIA RTX Driver Release 595 R595 (595.97) | Windows 11](https://www.nvidia.com/en-us/drivers/details/265877/)
+# [NVIDIA RTX Driver Release 595 R595 (596.36) | Windows 11](https://www.nvidia.com/en-us/drivers/details/267265/)
 
 **NVIDIA RTX Enterprise Production Branch Driver**   
    
- Release 595 is a Production Branch release of the NVIDIA RTX Enterprise Driver. Production Branch drivers are designed and tested to provide long-term stability and availability. These drivers are ideal for enterprise customers and professional users who require application and hardware certification and regular driver updates for the latest in driver enhancements and security improvements.  
+Release 595 is a Production Branch release of the NVIDIA RTX Enterprise Driver. Production Branch drivers are designed and tested to provide long-term stability and availability. These drivers are ideal for enterprise customers and professional users who require application and hardware certification and regular driver updates for the latest in driver enhancements and security improvements.  
    
- In addition to professional workstation features, Production Branch drivers also contain the features and enhancements of NVIDIA Studio Drivers of the same version number.  
+In addition to professional workstation features, Production Branch drivers also contain the features and enhancements of NVIDIA Studio Drivers of the same version number.  
    
- **Fixed Issues in Version R595 U3**  
+ **Fixed Issues in Version R595 U4**  
  
+- [Siemens] Users could experience stuttering in NX and Teamcenter Visualization when an external display was connected on some laptop systems.
+- [NVIDIA Control Panel] was not installing with the NVIDIA RTX Enterprise Driver.
+- [Mosaic] The 59.94 Hz refresh rate was unavailable in some Mosaic configurations.
 - Ongoing bug fixes and enhancements.
 
 If you would like to be notified of upcoming drivers for Windows, please [subscribe here](https://www.nvidia.com/en-us/preferences/email-signup/).
@@ -55,7 +58,7 @@ Example param usage with choco install command:
 `choco install nvidia-rtx-driver --params "'/RemoveOtherVersions'" -yf`
 
     </description>
-    <releaseNotes>Tue Mar 24, 2026 - https://us.download.nvidia.com/Windows/Quadro_Certified/595.97/595.97-win10-win11-nvidia-rtx-quadro-release-notes.pdf</releaseNotes>
+    <releaseNotes>Tue Apr 28, 2026 - https://us.download.nvidia.com/Windows/Quadro_Certified/596.36/596.36-win10-win11-nvidia-rtx-quadro-release-notes.pdf</releaseNotes>
   </metadata>
   <files>
     <file src="tools\**" target="tools" />
