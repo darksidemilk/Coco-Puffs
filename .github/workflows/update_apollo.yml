@@ -14,7 +14,7 @@ jobs:
             api_key: ${{ secrets.CHOCOLATEY }}
             packageName: apollo
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v6
             - uses: fregante/setup-git-user@v2.0.2
             - name: Run Update Script for Apollo Package
               run: |
