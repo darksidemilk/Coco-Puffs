@@ -20,7 +20,7 @@ function global:Get-NvidiaDriverInfo {
     dltype=-1 # download type, not sure of available types, 1 is default and what gets the driver download
     dch=1 # DCH driver (Declarative Componentized Hardware supported apps, universal standard for windows 10+)
     upCRD="null" #request creator ready driver (null for quadro)
-    # isNewFeature=0 # quadro new feature
+    isNewFeature=0 # quadro new feature
     qnf=0
     ctk="null" # cuda toolkit id, only a response param
     sort1=1 # sort mode (1 = by most recent? doesn't matter only getting 1 result)
