@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!-- Do not remove this test for UTF-8: if “Ω” doesn’t appear as greek uppercase omega letter enclosed in quotation marks, you should use an editor that supports UTF-8, not this one. -->
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
@@ -18,28 +18,29 @@
     <tags>graphics card driver studio rtx nvidia</tags>
     <summary>NVIDIA Studio Driver</summary>
     <description>
-# [NVIDIA Studio Driver R595 (596.36) | Windows 11](https://www.nvidia.com/en-us/drivers/details/267262/)
+# [NVIDIA Studio Driver R610 (610.47) | Windows 11](https://www.nvidia.com/en-us/drivers/details/271420/)
 
 NVIDIA Studio Drivers provide artists, creators, and 3D developers the best performance and reliability when working with creative applications. To achieve the highest level of reliability, Studio Drivers undergo extensive testing against multi-app creator workflows and multiple revisions of the top creative applications from Adobe to Autodesk and beyond.  
 
-**Applications**   
+**Applications**  
 
-The April NVIDIA Studio Driver provides optimal support for the latest new creative applications and updates including Adobe Premiere Pro, DaVinci Resolve 21, Wondershare Filmora, Maxon Redshift 2026.4, Lightricks LTX Desktop, and Reincubate Camo. In addition, this NVIDIA Studio Driver offers support for the new GeForce RTX 5070 Laptop GPU (12GB).  
+The May NVIDIA Studio Driver provides optimal support for the latest new creative applications and updates including performance optimized releases for ComfyUI and Llama.cpp.  
 
-**Fixed Application Bugs**   
+**Fixed Application Bugs**  
 
-- Blender 5.0.1 EEVEE: Non-shader nodes connected to the material output rendered as black (zero value) [5965763]
-- God of War: Ragnarok: Certain textures may intermittently flash white during gameplay [5856704]
-- Assassins Creed Shadows: Flickering on character model clothing [5987951]
-- The Crew Motorfest: Grass and vegetation flickering [5950261]
-- Arknights: Endfield: stutter may be observed in some gameplay [5950402]
-- Halo Infinite: Texture corruption may occur on R595 drivers [5957741]
-- HITMAN World of Assassination: Game stability issues when NVIDIA Smooth Motion is enabled [5849519]
-- Game stability issues after enabling DLSS FG when Instant Replay is enabled [5732936]
+- Adobe: NVIDIA Driver crash in Lightroom Classic [6090770]
+- Autodesk Forma: OpenGL driver memory leak during camera orbit [5935127]
+- Foundry Mari 7.0v2 viewport displays flickering [6102981]
+- Like a Dragon: Infinite Wealth: Shadow/light flicker after driver update [5973185]
+- Enshrouded: Missing terrain after driver update [5955501]
+- Visual corruption may appear in certain games using Godot engine [5955501]
 
-**Fixed General Bugs**   
+**Fixed General Bugs**  
 
-- Blocky artifacts when playing back H.264 content with DXVA 2.0 [6058551]
+- Apple Studio Display XDR only displays 480p after driver update [5976295]
+- Samsung The Frame: Using display's Game mode disables key functionality [5825631]
+- Multimonitor gaming stability improvements when using V-SYNC [5343252]
+- Enhanced smoothness when DLSS Frame Generation is used with V-SYNC [5999586]
 
 ---
 
