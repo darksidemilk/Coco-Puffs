@@ -1,46 +1,46 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!-- Do not remove this test for UTF-8: if “Ω” doesn’t appear as greek uppercase omega letter enclosed in quotation marks, you should use an editor that supports UTF-8, not this one. -->
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>nvidia-studio-driver</id>
-    <version>596.36.0</version>
+    <version>610.62.0</version>
     <packageSourceUrl>https://github.com/darksidemilk/Coco-Puffs/tree/main/nvidia-studio-driver</packageSourceUrl>
     <owners>JJ Fullmer</owners>
     <title>NVIDIA Studio Driver</title>
     <authors>NVIDIA</authors>
     <projectUrl>https://www.nvidia.com/en-us/studio/</projectUrl>
-    <projectSourceUrl>https://www.nvidia.com/en-us/drivers/details/267262/</projectSourceUrl>
+    <projectSourceUrl>https://www.nvidia.com/en-us/drivers/details/272766/</projectSourceUrl>
     <iconUrl>https://cdn.statically.io/gh/darksidemilk/Coco-Puffs/main/nvidia-studio-driver/icons/nvidia-studio-icon.png</iconUrl>
     <licenseUrl>https://www.nvidia.com/en-us/drivers/geforce-license/</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <mailingListUrl>https://www.nvidia.com/en-us/preferences/email-signup/</mailingListUrl>
-    <docsUrl>https://us.download.nvidia.com/Windows/596.36/596.36-nvidia-control-panel-quick-start-guide.pdf</docsUrl>
+    <docsUrl>https://us.download.nvidia.com/Windows/610.62/610.62-nvidia-control-panel-quick-start-guide.pdf</docsUrl>
     <tags>graphics card driver studio rtx nvidia</tags>
     <summary>NVIDIA Studio Driver</summary>
     <description>
-# [NVIDIA Studio Driver R610 (610.47) | Windows 11](https://www.nvidia.com/en-us/drivers/details/271420/)
+# [NVIDIA Studio Driver R610 (610.62) | Windows 11](https://www.nvidia.com/en-us/drivers/details/272766/)
 
 NVIDIA Studio Drivers provide artists, creators, and 3D developers the best performance and reliability when working with creative applications. To achieve the highest level of reliability, Studio Drivers undergo extensive testing against multi-app creator workflows and multiple revisions of the top creative applications from Adobe to Autodesk and beyond.  
 
 **Applications**  
 
-The May NVIDIA Studio Driver provides optimal support for the latest new creative applications and updates including performance optimized releases for ComfyUI and Llama.cpp.  
+The June NVIDIA Studio Driver provides optimal support for the latest new creative applications and updates including NVIDIA Broadcast 2.2, Reallusion Character Creator 5.1, and the latest multi-GPU optimizations for llama.cpp and ComfyUI.  
 
 **Fixed Application Bugs**  
 
-- Adobe: NVIDIA Driver crash in Lightroom Classic [6090770]
-- Autodesk Forma: OpenGL driver memory leak during camera orbit [5935127]
-- Foundry Mari 7.0v2 viewport displays flickering [6102981]
-- Like a Dragon: Infinite Wealth: Shadow/light flicker after driver update [5973185]
-- Enshrouded: Missing terrain after driver update [5955501]
-- Visual corruption may appear in certain games using Godot engine [5955501]
+- World of Warcraft: Gaming stability improvements [5563205]
+- Apex Legends: Occasional visual corruption after extended gameplay [6239327]
+- Users may observe DLSS settings being grayed out in certain games after updating to display driver 615.47 [6262805]
+- Improved gaming stability in multi-monitor configurations when using V-SYNC with DLSS Frame Generation [6158481]
+- Resolved an issue that could cause jittering or ghosting in some DirectX 11 games when Smooth Motion is enabled [5937897]
+- Resolved an issue that could cause some games to crash when launched with Smooth Motion enabled [5466398]
 
 **Fixed General Bugs**  
 
-- Apple Studio Display XDR only displays 480p after driver update [5976295]
-- Samsung The Frame: Using display's Game mode disables key functionality [5825631]
-- Multimonitor gaming stability improvements when using V-SYNC [5343252]
-- Enhanced smoothness when DLSS Frame Generation is used with V-SYNC [5999586]
+- [Ada] Resolves a frame pacing issue on certain monitors when G-SYNC is enabled [6226972]
+- Resolved an issue that prevented the EDID from being read on certain monitors causing them to be identified as "NVIDIA NV-Failsafe” [6005508]
+- Resolved an issue where certain monitors would not wake from sleep mode [5806798/5635230]
+- General stability improvements when the system fails to create a new allocation [5449920]
 
 ---
 
@@ -64,7 +64,7 @@ The following package parameters can be set to customize the installation.
 Example param usage with choco install command:
 `choco install nvidia-studio-driver --params "'/RemoveOtherVersions'"`
     </description>
-    <releaseNotes>Tue Apr 28, 2026 - https://us.download.nvidia.com/Windows/596.36/596.36-win10-win11-nsd-release-notes.pdf</releaseNotes>
+    <releaseNotes>Tue Jun 16, 2026 - https://us.download.nvidia.com/Windows/610.62/610.62-win10-win11-nsd-release-notes.pdf</releaseNotes>
   </metadata>
   <files>
     <file src="tools\**" target="tools" />
