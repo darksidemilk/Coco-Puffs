@@ -1,0 +1,22 @@
+name: Update Apollo Package (Pre-release)
+
+on:
+  workflow_dispatch:
+  schedule:
+  - cron: "40 8 * * *"
+
+
+jobs:
+    update-apollo-prerelease:
+        runs-on: windows-latest
+        env:
+            GH_TOKEN: ${{ github.token }}
+            api_key: ${{ secrets.CHOCOLATEY }}
+            packageName: apollo
+        steps:
+            - uses: actions/checkout@v6
+            - name: Run Pre-release Update Script for Apollo Package
+              run: |
+                "Run Pre-release Update Script for Apollo Package" | Out-Host;
+                cd $env:packageName
+                pwsh .\update-prerelease.ps1
