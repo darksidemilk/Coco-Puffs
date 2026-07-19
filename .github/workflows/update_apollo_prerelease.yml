@@ -14,7 +14,7 @@ jobs:
             api_key: ${{ secrets.CHOCOLATEY }}
             packageName: apollo
         steps:
-            - uses: actions/checkout@v6
+            - uses: actions/checkout@v7
             - name: Run Pre-release Update Script for Apollo Package
               run: |
                 "Run Pre-release Update Script for Apollo Package" | Out-Host;
