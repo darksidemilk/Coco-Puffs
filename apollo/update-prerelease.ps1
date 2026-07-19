@@ -1,18 +1,3 @@
-function Get-LatestPrereleaseInfo {
-  [CmdletBinding()]
-  param()
-  "Checking GitHub for the latest pre-release" | Out-Host;
-  $releases = gh release list -R ClassicOldSong/Apollo --json tagName,isPrerelease,publishedAt -L 30 | ConvertFrom-Json
-  $latestPre = $releases | Where-Object { $_.isPrerelease } | Sort-Object -Property publishedAt -Descending | Select-Object -First 1
-  if ($null -eq $latestPre) {
-    return $null
-  }
-  return @{
-    Tag     = $latestPre.tagName
-    Version = $latestPre.tagName.TrimStart('v').Trim()
-  }
-}
-
 function Test-VersionAlreadyPushed {
   [CmdletBinding()]
   param([string]$Version)
@@ -27,6 +12,29 @@ function Test-VersionAlreadyPushed {
     }
     throw
   }
+}
+
+function Test-NewVersionAvailable {
+  [CmdletBinding()]
+  param()
+  "Checking GitHub for the latest pre-release" | Out-Host;
+  $releases = gh release list -R ClassicOldSong/Apollo --json tagName,isPrerelease,publishedAt -L 30 | ConvertFrom-Json
+  $latestPre = $releases | Where-Object { $_.isPrerelease } | Sort-Object -Property publishedAt -Descending | Select-Object -First 1
+  if ($null -eq $latestPre) {
+    "No pre-release found on GitHub" | Out-Host;
+    return $false
+  }
+
+  $global:latestPrereleaseTag = $latestPre.tagName
+  $global:latestVersion = $latestPre.tagName.TrimStart('v').Trim()
+  "Latest pre-release found on GitHub: $($global:latestVersion)" | Out-Host;
+
+  if (Test-VersionAlreadyPushed -Version $global:latestVersion) {
+    "Pre-release version $($global:latestVersion) has already been pushed to Chocolatey" | Out-Host;
+    return $false
+  }
+
+  return $true
 }
 
 function global:New-PrereleasePackage {
@@ -77,37 +85,29 @@ function global:New-PrereleasePackage {
 }
 
 $global:packageName = 'apollo';
+if (Test-NewVersionAvailable) {
+  $ver = $global:latestVersion;
+  "New pre-release version available: creating package for version $($ver)" | Out-Host;
 
-$latestPre = Get-LatestPrereleaseInfo
-if ($null -eq $latestPre) {
-  "No pre-release found on GitHub, exiting." | Out-Host;
+  if (!(Get-command choco.exe -ErrorAction SilentlyContinue)) {
+    "Installing choco" | Out-Host;
+    #taken from https://chocolatey.org/install#individual
+    Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+  }
+
+  "Installing and importing Chocolatey-AU module" | Out-Host;
+  try {
+    Install-PSResource -Name Chocolatey-AU -TrustRepository -Scope CurrentUser -AcceptLicense -ea stop;
+  } catch {
+    install-module Chocolatey-AU -Repository PSGallery -AllowClobber -force;
+  }
+  import-module Chocolatey-AU -Prefix au
+
+  Set-Location $PSScriptRoot;
+  "Building pre-release from working directory: $($pwd)" | Out-Host;
+
+  New-PrereleasePackage -Tag $global:latestPrereleaseTag -Version $ver
+} else {
+  "No new pre-release version available, exiting update script." | Out-Host;
   exit;
 }
-
-"Latest pre-release found on GitHub: $($latestPre.Version)" | Out-Host;
-
-if (Test-VersionAlreadyPushed -Version $latestPre.Version) {
-  "Pre-release version $($latestPre.Version) has already been pushed to Chocolatey, exiting." | Out-Host;
-  exit;
-}
-
-"New pre-release version available: creating package for version $($latestPre.Version)" | Out-Host;
-
-if (!(Get-command choco.exe -ErrorAction SilentlyContinue)) {
-  "Installing choco" | Out-Host;
-  #taken from https://chocolatey.org/install#individual
-  Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-}
-
-"Installing and importing Chocolatey-AU module" | Out-Host;
-try {
-  Install-PSResource -Name Chocolatey-AU -TrustRepository -Scope CurrentUser -AcceptLicense -ea stop;
-} catch {
-  install-module Chocolatey-AU -Repository PSGallery -AllowClobber -force;
-}
-import-module Chocolatey-AU -Prefix au
-
-Set-Location $PSScriptRoot;
-"Building pre-release from working directory: $($pwd)" | Out-Host;
-
-New-PrereleasePackage -Tag $latestPre.Tag -Version $latestPre.Version
