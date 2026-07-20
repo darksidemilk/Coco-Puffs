@@ -1,3 +1,5 @@
+$ErrorActionPreference = 'Stop'
+
 function Test-VersionAlreadyPushed {
   [CmdletBinding()]
   param([string]$Version)
@@ -25,9 +27,21 @@ function Test-NewVersionAvailable {
     return $false
   }
 
+  $rawVersion = $latestPre.tagName.TrimStart('v').Trim()
+  # GitHub tags/assets use "<base>-<label>.<iteration>" (e.g. 0.4.7-alpha.1), but Chocolatey
+  # expects the iteration as a numeric version segment instead of a dotted prerelease label,
+  # so the package version becomes "<base>.<iteration>-<label>" (e.g. 0.4.7.1-alpha).
+  if ($rawVersion -match '^(?<base>\d+\.\d+\.\d+)-(?<label>[^.]+)(\.(?<iter>\d+))?$') {
+    $iter = if ($Matches['iter']) { $Matches['iter'] } else { '0' }
+    $packageVersion = "$($Matches['base']).$iter-$($Matches['label'])"
+  } else {
+    $packageVersion = $rawVersion
+  }
+
   $global:latestPrereleaseTag = $latestPre.tagName
-  $global:latestVersion = $latestPre.tagName.TrimStart('v').Trim()
-  "Latest pre-release found on GitHub: $($global:latestVersion)" | Out-Host;
+  $global:latestAssetVersion = $rawVersion
+  $global:latestVersion = $packageVersion
+  "Latest pre-release found on GitHub: $rawVersion (Chocolatey package version: $($global:latestVersion))" | Out-Host;
 
   if (Test-VersionAlreadyPushed -Version $global:latestVersion) {
     "Pre-release version $($global:latestVersion) has already been pushed to Chocolatey" | Out-Host;
@@ -41,15 +55,16 @@ function global:New-PrereleasePackage {
   [CmdletBinding()]
   param(
     [string]$Tag,
-    [string]$Version
+    [string]$Version,
+    [string]$AssetVersion
   )
 
   "Building pre-release package for $($global:packageName) version $Version" | Out-Host;
 
   $assets = (gh release view $Tag -R ClassicOldSong/Apollo --json assets | ConvertFrom-Json).assets
-  $installerAsset = $assets | Where-Object { $_.name -eq "Apollo-$Version.exe" }
+  $installerAsset = $assets | Where-Object { $_.name -eq "Apollo-$AssetVersion.exe" }
   if ($null -eq $installerAsset) {
-    throw "Could not find installer asset Apollo-$Version.exe on release $Tag"
+    throw "Could not find installer asset Apollo-$AssetVersion.exe on release $Tag"
   }
 
   $checksum = Get-auRemoteChecksum -url $installerAsset.url -Algorithm 'sha256'
@@ -108,7 +123,7 @@ if (Test-NewVersionAvailable) {
   Set-Location $PSScriptRoot;
   "Building pre-release from working directory: $($pwd)" | Out-Host;
 
-  New-PrereleasePackage -Tag $global:latestPrereleaseTag -Version $ver
+  New-PrereleasePackage -Tag $global:latestPrereleaseTag -Version $ver -AssetVersion $global:latestAssetVersion
 } else {
   "No new pre-release version available, exiting update script." | Out-Host;
   exit;
