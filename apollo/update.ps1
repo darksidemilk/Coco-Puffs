@@ -23,7 +23,9 @@ function global:Set-NuspecReleaseNotes {
 
   $nuspec = Get-ChildItem -filter "$($global:packageName).nuspec"
   [xml]$nuspecXml = Get-Content $nuspec.FullName
-  $nuspecXml.package.metadata.releaseNotes = "<![CDATA[`n"+$body+"`n]]>";
+  $releaseNotesNode = $nuspecXml.package.metadata.SelectSingleNode('releaseNotes')
+  $releaseNotesNode.RemoveAll()
+  $releaseNotesNode.AppendChild($nuspecXml.CreateCDataSection("`n$body`n")) | Out-Null
   $nuspecXml.Save($nuspec.FullName);
 }
 
