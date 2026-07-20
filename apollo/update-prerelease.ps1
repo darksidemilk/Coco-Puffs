@@ -66,7 +66,9 @@ function global:New-PrereleasePackage {
   $nuspecPath = Join-Path $stagingDir "$($global:packageName).nuspec"
   [xml]$nuspecXml = Get-Content $nuspecPath
   $nuspecXml.package.metadata.version = $Version
-  $nuspecXml.package.metadata.releaseNotes = "<![CDATA[`n$releaseNotes`n]]>"
+  $releaseNotesNode = $nuspecXml.package.metadata.SelectSingleNode('releaseNotes')
+  $releaseNotesNode.RemoveAll()
+  $releaseNotesNode.AppendChild($nuspecXml.CreateCDataSection("`n$releaseNotes`n")) | Out-Null
   $nuspecXml.Save($nuspecPath)
 
   $installScriptPath = Join-Path $stagingDir "tools\chocolateyinstall.ps1"
