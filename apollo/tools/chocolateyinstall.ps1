@@ -4,6 +4,12 @@ $toolsDir     = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 # $fileLocation = ''
 # $version = "0.4.6"
 $version = $env:ChocolateyPackageVersion
+if ($version -match "-") {
+  #adjust prerelease version to match apollo's versioning scheme (e.g. 0.4.7-alpha.1) instead of choco semantic version prerelease sting
+  $prereleaseString = "-$($version.split("-")[1])"
+  $versionSplit = $($version.split("-")).split(".")
+  $version = $versionSplit[0] + "." + $versionSplit[1] + "." + $versionSplit[2] + $prereleaseString +"." +$versionSplit[3]
+}
 $filename = "Apollo-$version.exe"
 $installDir = "$env:ProgramFiles\Apollo"
 $scripts = "$installDir\scripts"
