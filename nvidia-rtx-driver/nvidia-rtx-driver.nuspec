@@ -3,32 +3,32 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>nvidia-rtx-driver</id>
-    <version>596.72.0</version>
+    <version>610.88.0</version>
     <packageSourceUrl>https://github.com/darksidemilk/Coco-Puffs/tree/main/nvidia-rtx-driver</packageSourceUrl>
     <owners>JJ Fullmer</owners>
     <title>NVIDIA RTX Driver (Formerly Nvidia Quadro)</title>
     <authors>NVIDIA</authors>
     <projectUrl>https://www.nvidia.com/en-us/products/workstations/</projectUrl>
-    <projectSourceUrl>https://www.nvidia.com/en-us/drivers/details/272962/</projectSourceUrl>
+    <projectSourceUrl>https://www.nvidia.com/en-us/drivers/details/274525/</projectSourceUrl>
     <iconUrl>https://cdn.statically.io/gh/darksidemilk/Coco-Puffs/main/nvidia-rtx-driver/icons/nvidia-quadro-rtx-icon.png</iconUrl>
     <licenseUrl>https://www.nvidia.com/en-us/drivers/nvidia-license/</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <mailingListUrl>https://www.nvidia.com/en-us/preferences/email-signup/</mailingListUrl>
-    <docsUrl>https://us.download.nvidia.com/Windows/Quadro_Certified/596.72/596.72-nvidia-rtx-quadro-control-panel-quick-start-guide.pdf</docsUrl>
+    <docsUrl>https://us.download.nvidia.com/Windows/Quadro_Certified/610.88/610.88-nvidia-rtx-quadro-control-panel-quick-start-guide.pdf</docsUrl>
     <tags>graphics card driver quadro rtx rtxpro nvidia admin</tags>
     <summary>NVIDIA RTX / RTX Pro / Quadro Driver</summary>
     <description>
-# [NVIDIA RTX Driver Release 595 R595 (596.72) | Windows 11](https://www.nvidia.com/en-us/drivers/details/272962/)
+# [NVIDIA RTX Driver Release 610 R610 (610.88) | Windows 11](https://www.nvidia.com/en-us/drivers/details/274525/)
 
-**NVIDIA RTX Enterprise Production Branch Driver**   
+**NVIDIA RTX Enterprise New Feature Branch Driver**   
+  
+Release 610 is a New Feature Branch (NFB) release of the NVIDIA RTX Enterprise Driver. NFB drivers provide users the flexibility to try new features made available outside the launch cycle of longer-lived Production Branch drivers. NFB drivers are tested for workstation environments and are recommended for early adopter users who need specific features mentioned in the release highlights or release notes.   
+  
+For the most stable and fully supported enterprise driver, please use the Production Branch graphics driver downloadable from the NVIDIA driver download page.  
+  
+**Fixed Issues in Version R610 U2**
 
-Release 595 is a Production Branch release of the NVIDIA RTX Enterprise Driver. Production Branch drivers are designed and tested to provide long-term stability and availability. These drivers are ideal for enterprise customers and professional users who require application and hardware certification and regular driver updates for the latest in driver enhancements and security improvements.  
-
-In addition to professional workstation features, Production Branch drivers also contain the features and enhancements of NVIDIA Studio Drivers of the same version number.  
-
-**Fixed Issues in Version R595 U6**  
-
-- [Dassault] [3DEXPERIENCE] resizing or maximizing the main window may cause temporary visual corruption.
+- [Chaos Vantage] Fixed Gaussian splat rendering corruption when Shader Execution Reordering (SER) was enabled.
 - Ongoing bug fixes and enhancements.
 
 If you would like to be notified of upcoming drivers for Windows, please [subscribe here](https://www.nvidia.com/en-us/preferences/email-signup/).
@@ -56,7 +56,7 @@ Example param usage with choco install command:
 `choco install nvidia-rtx-driver --params "'/RemoveOtherVersions'" -yf`
 
     </description>
-    <releaseNotes>Wed Jun 17, 2026 - https://us.download.nvidia.com/Windows/Quadro_Certified/596.72/596.72-win10-win11-nvidia-rtx-quadro-release-notes.pdf</releaseNotes>
+    <releaseNotes>Thu Jul 30, 2026 - https://us.download.nvidia.com/Windows/Quadro_Certified/610.88/610.88-win10-win11-nvidia-rtx-quadro-release-notes.pdf</releaseNotes>
   </metadata>
   <files>
     <file src="tools\**" target="tools" />
