@@ -3,32 +3,38 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>nvidia-rtx-driver</id>
-    <version>610.88.0</version>
+    <version>616.92.0</version>
     <packageSourceUrl>https://github.com/darksidemilk/Coco-Puffs/tree/main/nvidia-rtx-driver</packageSourceUrl>
     <owners>JJ Fullmer</owners>
     <title>NVIDIA RTX Driver (Formerly Nvidia Quadro)</title>
     <authors>NVIDIA</authors>
     <projectUrl>https://www.nvidia.com/en-us/products/workstations/</projectUrl>
-    <projectSourceUrl>https://www.nvidia.com/en-us/drivers/details/274525/</projectSourceUrl>
+    <projectSourceUrl>https://www.nvidia.com/en-us/drivers/details/279748/</projectSourceUrl>
     <iconUrl>https://cdn.statically.io/gh/darksidemilk/Coco-Puffs/main/nvidia-rtx-driver/icons/nvidia-quadro-rtx-icon.png</iconUrl>
     <licenseUrl>https://www.nvidia.com/en-us/drivers/nvidia-license/</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <mailingListUrl>https://www.nvidia.com/en-us/preferences/email-signup/</mailingListUrl>
-    <docsUrl>https://us.download.nvidia.com/Windows/Quadro_Certified/610.88/610.88-nvidia-rtx-quadro-control-panel-quick-start-guide.pdf</docsUrl>
+    <docsUrl>https://us.download.nvidia.com/Windows/Quadro_Certified/616.92/616.92-nvidia-rtx-quadro-control-panel-quick-start-guide.pdf</docsUrl>
     <tags>graphics card driver quadro rtx rtxpro nvidia admin</tags>
     <summary>NVIDIA RTX / RTX Pro / Quadro Driver</summary>
     <description>
-# [NVIDIA RTX Driver Release 610 R610 (610.88) | Windows 11](https://www.nvidia.com/en-us/drivers/details/274525/)
+# [NVIDIA RTX Driver Release 615 R615 (616.92) | Windows 11](https://www.nvidia.com/en-us/drivers/details/279748/)
 
 **NVIDIA RTX Enterprise New Feature Branch Driver**   
   
-Release 610 is a New Feature Branch (NFB) release of the NVIDIA RTX Enterprise Driver. NFB drivers provide users the flexibility to try new features made available outside the launch cycle of longer-lived Production Branch drivers. NFB drivers are tested for workstation environments and are recommended for early adopter users who need specific features mentioned in the release highlights or release notes.   
+Release 615 is a New Feature Branch (NFB) release of the NVIDIA RTX Enterprise Driver. NFB drivers provide users the flexibility to try new features made available outside the launch cycle of longer-lived Production Branch drivers. NFB drivers are tested for workstation environments and are recommended for early adopter users who need specific features mentioned in the release highlights or release notes. For the most stable and fully supported enterprise driver, please use the Production Branch graphics driver downloadable from the NVIDIA driver download page.   
   
-For the most stable and fully supported enterprise driver, please use the Production Branch graphics driver downloadable from the NVIDIA driver download page.  
-  
-**Fixed Issues in Version R610 U2**
+**Fixed Issues in Version R615 U1**
 
-- [Chaos Vantage] Fixed Gaussian splat rendering corruption when Shader Execution Reordering (SER) was enabled.
+- Fixed a rare correctness issue on Blackwell GPUs affecting kernels with two or more nested levels of thread divergence, where reconvergence could fail. Kernels with only a single level of divergence are unaffected, as are applications already built with NVCC 13.2.2 or newer. This fix guarantees correct execution, though it may come with a modest performance cost. Recompiling with NVCC 13.2.2 or newer will resolve the possible slowdown. If you are unable to recompile your application for any reason, the runtime behavior of this fix is controllable on a per-process-launch basis through the environment variable   
+    
+  CUDA\_SELECTIVE\_DEVICE\_CODE\_RECOMPILE as follows:
+  - CUDA\_SELECTIVE\_DEVICE\_CODE\_RECOMPILE=DEFAULT
+    - Default behavior: attempt JIT recompilation for 15 seconds, runtime patch remaining code
+  - CUDA\_SELECTIVE\_DEVICE\_CODE\_RECOMPILE=FORCED
+    - Re-finalize every eligible module, ignoring the time budget
+  - CUDA\_SELECTIVE\_DEVICE\_CODE\_RECOMPILE=DISABLED
+    - Driver patching only, never re-finalize.
 - Ongoing bug fixes and enhancements.
 
 If you would like to be notified of upcoming drivers for Windows, please [subscribe here](https://www.nvidia.com/en-us/preferences/email-signup/).
@@ -56,7 +62,7 @@ Example param usage with choco install command:
 `choco install nvidia-rtx-driver --params "'/RemoveOtherVersions'" -yf`
 
     </description>
-    <releaseNotes>Thu Jul 30, 2026 - https://us.download.nvidia.com/Windows/Quadro_Certified/610.88/610.88-win10-win11-nvidia-rtx-quadro-release-notes.pdf</releaseNotes>
+    <releaseNotes>Wed Sep 09, 2026 - https://us.download.nvidia.com/Windows/Quadro_Certified/616.92/616.92-win10-win11-nvidia-rtx-quadro-release-notes.pdf</releaseNotes>
   </metadata>
   <files>
     <file src="tools\**" target="tools" />
