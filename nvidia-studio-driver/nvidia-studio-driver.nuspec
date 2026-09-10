@@ -3,42 +3,39 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>nvidia-studio-driver</id>
-    <version>616.56.0</version>
+    <version>616.92.0</version>
     <packageSourceUrl>https://github.com/darksidemilk/Coco-Puffs/tree/main/nvidia-studio-driver</packageSourceUrl>
     <owners>JJ Fullmer</owners>
     <title>NVIDIA Studio Driver</title>
     <authors>NVIDIA</authors>
     <projectUrl>https://www.nvidia.com/en-us/studio/</projectUrl>
-    <projectSourceUrl>https://www.nvidia.com/en-us/drivers/details/278087/</projectSourceUrl>
+    <projectSourceUrl>https://www.nvidia.com/en-us/drivers/details/278455/</projectSourceUrl>
     <iconUrl>https://cdn.statically.io/gh/darksidemilk/Coco-Puffs/main/nvidia-studio-driver/icons/nvidia-studio-icon.png</iconUrl>
     <licenseUrl>https://www.nvidia.com/en-us/drivers/geforce-license/</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <mailingListUrl>https://www.nvidia.com/en-us/preferences/email-signup/</mailingListUrl>
-    <docsUrl>https://us.download.nvidia.com/Windows/616.56/616.56-nvidia-control-panel-quick-start-guide.pdf</docsUrl>
+    <docsUrl>https://us.download.nvidia.com/Windows/616.92/616.92-nvidia-control-panel-quick-start-guide.pdf</docsUrl>
     <tags>graphics card driver studio rtx nvidia</tags>
     <summary>NVIDIA Studio Driver</summary>
     <description>
-# [NVIDIA Studio Driver R615 (616.56) | Windows 11](https://www.nvidia.com/en-us/drivers/details/278087/)
+# [NVIDIA Studio Driver R615 (616.92) | Windows 11](https://www.nvidia.com/en-us/drivers/details/278455/)
 
 NVIDIA Studio Drivers provide artists, creators, and 3D developers the best performance and reliability when working with creative applications. To achieve the highest level of reliability, Studio Drivers undergo extensive testing against multi-app creator workflows and multiple revisions of the top creative applications from Adobe to Autodesk and beyond.  
   
 **Applications**  
   
-The August NVIDIA Studio Driver provides optimal support for the latest new creative applications and updates including Lightroom, and performance updates for LTX-2.5, and ComfyUI for WAN-Animate-2 and MiniMax-H3.  
+The September NVIDIA Studio Driver provides optimal support for the latest new creative applications and updates including Adobe Premiere, Blender, Maxon Redshift, and llama.ccp support for CUDA 13.3 and CUDA 13.4.  
   
 **Fixed Application Bugs**
 
-- DOOM: The Dark Ages &amp; Indiana Jones and the Great Circle: Frame rate may exceed V-SYNC when DLSS Frame Generation 3x or higher is used [6061475]
-- Outer Worlds: Texture flicker may be observed while playing after updating to R595 and R610 drivers [6238668]
-- ASUS Armory Crate: GameVisual color profiles are not getting applied when using R590 drivers [5860581]
-- Chief Architect: 610.47 driver crash on Geforce RTX 4000 series cards [6226227]
-- Claude Desktop: Driver incorrectly detects application as a 3D app [6468260]
-- Tycho Tracker: Unable to create individual OpenCL buffers greater than 2GB [6538978]
+- N/A
 
   
 **Fixed General Bugs**
 
-- Resolves issue that some instances can cause a driver crash with 32-bit DirectX 12 apps [5725350]
+- Intermittent flicker may be observed in browsers when navigating to certain websites [6673430]
+- Fixed an issue where virtual displays could not be created after updating to driver 616.56 [6674464]
+- Remote Desktop Protocol (RDP) sessions may display a black screen after updating to driver 616.56 [6687328]
 
 ---
 
@@ -62,7 +59,7 @@ The following package parameters can be set to customize the installation.
 Example param usage with choco install command:
 `choco install nvidia-studio-driver --params "'/RemoveOtherVersions'"`
     </description>
-    <releaseNotes>Wed Aug 26, 2026 - https://us.download.nvidia.com/Windows/616.56/616.56-win10-win11-nsd-release-notes.pdf</releaseNotes>
+    <releaseNotes>Wed Sep 09, 2026 - https://us.download.nvidia.com/Windows/616.92/616.92-win10-win11-nsd-release-notes.pdf</releaseNotes>
   </metadata>
   <files>
     <file src="tools\**" target="tools" />
