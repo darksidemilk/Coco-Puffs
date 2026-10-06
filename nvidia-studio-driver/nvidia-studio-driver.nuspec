@@ -3,39 +3,39 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>nvidia-studio-driver</id>
-    <version>616.92.0</version>
+    <version>617.42.0</version>
     <packageSourceUrl>https://github.com/darksidemilk/Coco-Puffs/tree/main/nvidia-studio-driver</packageSourceUrl>
     <owners>JJ Fullmer</owners>
     <title>NVIDIA Studio Driver</title>
     <authors>NVIDIA</authors>
     <projectUrl>https://www.nvidia.com/en-us/studio/</projectUrl>
-    <projectSourceUrl>https://www.nvidia.com/en-us/drivers/details/278455/</projectSourceUrl>
+    <projectSourceUrl>https://www.nvidia.com/en-us/drivers/details/280101/</projectSourceUrl>
     <iconUrl>https://cdn.statically.io/gh/darksidemilk/Coco-Puffs/main/nvidia-studio-driver/icons/nvidia-studio-icon.png</iconUrl>
     <licenseUrl>https://www.nvidia.com/en-us/drivers/geforce-license/</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <mailingListUrl>https://www.nvidia.com/en-us/preferences/email-signup/</mailingListUrl>
-    <docsUrl>https://us.download.nvidia.com/Windows/616.92/616.92-nvidia-control-panel-quick-start-guide.pdf</docsUrl>
+    <docsUrl>https://us.download.nvidia.com/Windows/617.42/617.42-nvidia-control-panel-quick-start-guide.pdf</docsUrl>
     <tags>graphics card driver studio rtx nvidia</tags>
     <summary>NVIDIA Studio Driver</summary>
     <description>
-# [NVIDIA Studio Driver R615 (616.92) | Windows 11](https://www.nvidia.com/en-us/drivers/details/278455/)
+# [NVIDIA Studio Driver R615 (617.42) | Windows 11](https://www.nvidia.com/en-us/drivers/details/280101/)
 
 NVIDIA Studio Drivers provide artists, creators, and 3D developers the best performance and reliability when working with creative applications. To achieve the highest level of reliability, Studio Drivers undergo extensive testing against multi-app creator workflows and multiple revisions of the top creative applications from Adobe to Autodesk and beyond.  
   
 **Applications**  
   
-The September NVIDIA Studio Driver provides optimal support for the latest new creative applications and updates including Adobe Premiere, Blender, Maxon Redshift, and llama.ccp support for CUDA 13.3 and CUDA 13.4.  
+The October NVIDIA Studio Driver provides optimal support for the latest new creative applications and updates including DaVinci Resolve 21.1, Adobe Premiere Pro, Perplexity App, and support for Topaz Labs Hyperion 2.5.  
   
 **Fixed Application Bugs**
 
-- N/A
+- Assassin's Creed Shadows may crash to desktop after extended gameplay after updating to driver 616.56 [6685219]
+- Judgement/Lost Judgement/ Virtua Fighter 5 R.E.V.O. may fail to launch after updating to driver 616.56 [6681537]
 
   
 **Fixed General Bugs**
 
-- Intermittent flicker may be observed in browsers when navigating to certain websites [6673430]
-- Fixed an issue where virtual displays could not be created after updating to driver 616.56 [6674464]
-- Remote Desktop Protocol (RDP) sessions may display a black screen after updating to driver 616.56 [6687328]
+- No picture on Samsung Odyssey G95NC monitor when connected via HDMI after updating to R615 drivers [6771206]
+- Certain monitors may not wake from sleep when connected via DisplayPort after updating to R615 drivers [6757568]
 
 ---
 
@@ -59,7 +59,7 @@ The following package parameters can be set to customize the installation.
 Example param usage with choco install command:
 `choco install nvidia-studio-driver --params "'/RemoveOtherVersions'"`
     </description>
-    <releaseNotes>Wed Sep 09, 2026 - https://us.download.nvidia.com/Windows/616.92/616.92-win10-win11-nsd-release-notes.pdf</releaseNotes>
+    <releaseNotes>Tue Oct 06, 2026 - https://us.download.nvidia.com/Windows/617.42/617.42-win10-win11-nsd-release-notes.pdf</releaseNotes>
   </metadata>
   <files>
     <file src="tools\**" target="tools" />
