@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!-- Do not remove this test for UTF-8: if “Ω” doesn’t appear as greek uppercase omega letter enclosed in quotation marks, you should use an editor that supports UTF-8, not this one. -->
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
@@ -18,23 +18,16 @@
     <tags>graphics card driver quadro rtx rtxpro nvidia admin</tags>
     <summary>NVIDIA RTX / RTX Pro / Quadro Driver</summary>
     <description>
-# [NVIDIA RTX Driver Release 615 R615 (616.92) | Windows 11](https://www.nvidia.com/en-us/drivers/details/279748/)
+# [NVIDIA RTX Driver Release 580 R580 (582.99) | Windows 11](https://www.nvidia.com/en-us/drivers/details/282544/)
 
-**NVIDIA RTX Enterprise New Feature Branch Driver**   
+**NVIDIA RTX Enterprise Production Branch Driver**   
   
-Release 615 is a New Feature Branch (NFB) release of the NVIDIA RTX Enterprise Driver. NFB drivers provide users the flexibility to try new features made available outside the launch cycle of longer-lived Production Branch drivers. NFB drivers are tested for workstation environments and are recommended for early adopter users who need specific features mentioned in the release highlights or release notes. For the most stable and fully supported enterprise driver, please use the Production Branch graphics driver downloadable from the NVIDIA driver download page.   
+Release 580 is a Production Branch release of the NVIDIA RTX Enterprise Driver. Production Branch drivers are designed and tested to provide long-term stability and availability. These drivers are ideal for enterprise customers and professional users who require application and hardware certification and regular driver updates for the latest in driver enhancements and security improvements.  
   
-**Fixed Issues in Version R615 U1**
+In addition to professional workstation features, Production Branch drivers also contain the features and enhancements of NVIDIA Studio Drivers of the same version number.  
+  
+**Fixed Issues in Version R580 U12**
 
-- Fixed a rare correctness issue on Blackwell GPUs affecting kernels with two or more nested levels of thread divergence, where reconvergence could fail. Kernels with only a single level of divergence are unaffected, as are applications already built with NVCC 13.2.2 or newer. This fix guarantees correct execution, though it may come with a modest performance cost. Recompiling with NVCC 13.2.2 or newer will resolve the possible slowdown. If you are unable to recompile your application for any reason, the runtime behavior of this fix is controllable on a per-process-launch basis through the environment variable   
-    
-  CUDA\_SELECTIVE\_DEVICE\_CODE\_RECOMPILE as follows:
-  - CUDA\_SELECTIVE\_DEVICE\_CODE\_RECOMPILE=DEFAULT
-    - Default behavior: attempt JIT recompilation for 15 seconds, runtime patch remaining code
-  - CUDA\_SELECTIVE\_DEVICE\_CODE\_RECOMPILE=FORCED
-    - Re-finalize every eligible module, ignoring the time budget
-  - CUDA\_SELECTIVE\_DEVICE\_CODE\_RECOMPILE=DISABLED
-    - Driver patching only, never re-finalize.
 - Ongoing bug fixes and enhancements.
 
 If you would like to be notified of upcoming drivers for Windows, please [subscribe here](https://www.nvidia.com/en-us/preferences/email-signup/).
