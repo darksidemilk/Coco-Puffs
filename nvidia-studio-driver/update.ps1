@@ -122,7 +122,7 @@ function global:au_GetLatest {
 
   $detailsURL = $global:studio.ids.downloadinfo.DetailsURL
   $othernotes = [System.Web.HttpUtility]::UrlDecode($global:studio.ids.downloadinfo.othernotes)
-  $docsurl = $otherNotes.split("`"") | Where-Object { $_ -match 'quick-start-guide.pdf'}
+  #$docsurl = $otherNotes.split("`"") | Where-Object { $_ -match 'quick-start-guide.pdf'} #studio and geforce no longer use control panel so no more quick start pdf exists
   $releaseNotesUrl = $otherNotes.split("`"") | Where-Object { $_ -match 'release-notes.pdf'}
   $releaseDate = $global:studio.ids.downloadinfo.ReleaseDateTime
   $releaseNoteLink = "$releaseDate - $releaseNotesUrl"
@@ -136,7 +136,7 @@ function global:au_GetLatest {
   return @{ 
     Version = $version; 
     URL = $url;
-    docsURL = $docsurl;
+    #docsURL = $docsurl; #studio drivers no longer have a quickstart guide pdf changing to static url
     releaseNotesNuspec = $releaseNoteLink;
     projectSourceURL = $detailsURL;
     downloadHash = $global:checksums.DownloadHash;
@@ -154,7 +154,6 @@ function global:au_SearchReplace {
     "$($Latest.PackageName).nuspec" = @{
       "(\<releaseNotes\>).*?(\</releaseNotes\>)" = "`${1}$($Latest.releaseNotesNuspec)`$2"
       "(\<projectSourceURL\>).*?(\</projectSourceURL\>)" = "`${1}$($Latest.projectSourceURL)`$2"
-      "(\<docsUrl\>).*?(\</docsUrl\>)" = "`${1}$($Latest.docsURL)`$2"
     }
   }
 } 
