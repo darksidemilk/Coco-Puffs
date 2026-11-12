@@ -3,10 +3,10 @@ $version      = $env:ChocolateyPackageVersion
 $toolsDir     = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 $sources	    = "$toolsDir\files";
 $extractPath  = "$sources\$version"
-$downloadHash = "CBC34EDF5661D9E5060F1760B4990A3295689144C5D539C004EC0EF69D1464A3"
-$installerHash= "FC3A0D02F12E87E8A75D53BD7F6C9C4A583DD71709323AFD43AA942D974D8628"
+$downloadHash = "824A5A84978A458534615EDF51DBCDE019B4645CCB575FBC50BD11FFC88EAB92"
+$installerHash= "F2F86D072176F086BFDCF9267BEF2CE468B4BA0A8706D762141F1FECCE151BEB"
 $hashType     = "sha256"
-$downloadURL  = "https://us.download.nvidia.com/Windows/621.14/621.14-desktop-win10-win11-64bit-international-nsd-dch-whql.exe"
+$downloadURL  = "https://us.download.nvidia.com/Windows/621.24/621.24-desktop-win10-win11-64bit-international-nsd-dch-whql.exe"
 
 Import-Module "$toolsDir\helpers.psm1"
 

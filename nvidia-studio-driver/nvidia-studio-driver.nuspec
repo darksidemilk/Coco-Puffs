@@ -3,13 +3,13 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>nvidia-studio-driver</id>
-    <version>621.14.0</version>
+    <version>621.24.0</version>
     <packageSourceUrl>https://github.com/darksidemilk/Coco-Puffs/tree/main/nvidia-studio-driver</packageSourceUrl>
     <owners>JJ Fullmer</owners>
     <title>NVIDIA Studio Driver</title>
     <authors>NVIDIA</authors>
     <projectUrl>https://www.nvidia.com/en-us/studio/</projectUrl>
-    <projectSourceUrl>https://www.nvidia.com/en-us/drivers/details/283966/</projectSourceUrl>
+    <projectSourceUrl>https://www.nvidia.com/en-us/drivers/details/285317/</projectSourceUrl>
     <iconUrl>https://cdn.statically.io/gh/darksidemilk/Coco-Puffs/main/nvidia-studio-driver/icons/nvidia-studio-icon.png</iconUrl>
     <licenseUrl>https://www.nvidia.com/en-us/drivers/geforce-license/</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -18,12 +18,11 @@
     <tags>graphics card driver studio rtx nvidia</tags>
     <summary>NVIDIA Studio Driver</summary>
     <description>
-# [NVIDIA Studio Driver R620 (621.14) | Windows 11](https://www.nvidia.com/en-us/drivers/details/283966/)
+# [NVIDIA Studio Driver R620 (621.24) | Windows 11](https://www.nvidia.com/en-us/drivers/details/285317/)
 
 NVIDIA Studio Drivers provide artists, creators, and 3D developers the best performance and reliability when working with creative applications. To achieve the highest level of reliability, Studio Drivers undergo extensive testing against multi-app creator workflows and multiple revisions of the top creative applications from Adobe to Autodesk and beyond.  
   
 **Applications**  
-  
 The November NVIDIA Studio Driver provides optimal performance and support for the latest new creative applications and updates including OBS Studio 33, Chaos Vantage, llama.cpp, PyTorch, Topaz Gigapixel, Maxon Redshift, and DaVinci Resolve 21.1.1 as well as support for DLSS 4.5 Ray Reconstruction within Blender 5.3 and Autodesk Arnold 7.5.4.0.  
   
 **Fixed Application Bugs**
@@ -31,6 +30,8 @@ The November NVIDIA Studio Driver provides optimal performance and support for t
 - Wuthering Waves: May crash during gameplay when using NVIDIA Freestyle filters with DLSS Frame Generation enabled. [5747079]
 - Star Citizen: Resolves a crash that may be seen when using Vulkan API [6680590]
 - Surviving Mars: Relaunched may crash during gameplay after updating to R595 drivers [5965452]
+- Chaos Vantage: NVIDIA OptiX Denoiser may fail at high resolutions [6953474]
+- Windows Photos/Media Player: Incorrect colors with DJI D-Log H.265 video playback [6996250]
 
   
 **Fixed General Bugs**
@@ -63,7 +64,7 @@ The following package parameters can be set to customize the installation.
 Example param usage with choco install command:
 `choco install nvidia-studio-driver --params "'/RemoveOtherVersions'"`
     </description>
-    <releaseNotes>Wed Nov 04, 2026 - https://us.download.nvidia.com/Windows/621.14/621.14-win10-win11-nsd-release-notes.pdf</releaseNotes>
+    <releaseNotes>Thu Nov 12, 2026 - https://us.download.nvidia.com/Windows/621.24/621.24-win11-x64-nsd-release-notes.pdf</releaseNotes>
   </metadata>
   <files>
     <file src="tools\**" target="tools" />
