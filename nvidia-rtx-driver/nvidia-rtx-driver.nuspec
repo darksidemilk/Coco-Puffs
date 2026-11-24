@@ -3,22 +3,22 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>nvidia-rtx-driver</id>
-    <version>621.24.0</version>
+    <version>621.40.0</version>
     <packageSourceUrl>https://github.com/darksidemilk/Coco-Puffs/tree/main/nvidia-rtx-driver</packageSourceUrl>
     <owners>JJ Fullmer</owners>
     <title>NVIDIA RTX Driver (Formerly Nvidia Quadro)</title>
     <authors>NVIDIA</authors>
     <projectUrl>https://www.nvidia.com/en-us/products/workstations/</projectUrl>
-    <projectSourceUrl>https://www.nvidia.com/en-us/drivers/details/285521/</projectSourceUrl>
+    <projectSourceUrl>https://www.nvidia.com/en-us/drivers/details/288687/</projectSourceUrl>
     <iconUrl>https://cdn.statically.io/gh/darksidemilk/Coco-Puffs/main/nvidia-rtx-driver/icons/nvidia-quadro-rtx-icon.png</iconUrl>
     <licenseUrl>https://www.nvidia.com/en-us/drivers/nvidia-license/</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <mailingListUrl>https://www.nvidia.com/en-us/preferences/email-signup/</mailingListUrl>
-    <docsUrl>https://us.download.nvidia.com/Windows/Quadro_Certified/621.24/621.24-nvidia-rtx-quadro-control-panel-quick-start-guide.pdf</docsUrl>
+    <docsUrl>https://us.download.nvidia.com/Windows/Quadro_Certified/621.40/621.40-nvidia-rtx-quadro-control-panel-quick-start-guide.pdf</docsUrl>
     <tags>graphics card driver quadro rtx rtxpro nvidia admin</tags>
     <summary>NVIDIA RTX / RTX Pro / Quadro Driver</summary>
     <description>
-# [NVIDIA RTX Driver Release 620 R620 (621.24) | Windows 11](https://www.nvidia.com/en-us/drivers/details/285521/)
+# [NVIDIA RTX Driver Release 620 R620 (621.40) | Windows 11](https://www.nvidia.com/en-us/drivers/details/288687/)
 
 **NVIDIA RTX Enterprise Production Branch Driver**   
   
@@ -26,10 +26,9 @@ Release 620 is a Production Branch release of the NVIDIA RTX Enterprise Driver. 
   
 In addition to professional workstation features, Production Branch drivers also contain the features and enhancements of NVIDIA Studio Drivers of the same version number.  
   
-**Fixed Issues in Version R620 U2**
+**Fixed Issues in Version R620 U3**
 
-- [Vulkan][Present Barrier] A system crash may occur when joining or leaving a Present Barrier group on a dedicated display.
-- [OptiX] Applications using OSL inverse-spline functions may crash.
+- Excessive writes to file nvlog.nvlgstg may occur in the background.
 - Ongoing bug fixes and enhancements.
 
 If you would like to be notified of upcoming drivers for Windows, please [subscribe here](https://www.nvidia.com/en-us/preferences/email-signup/).
@@ -57,7 +56,7 @@ Example param usage with choco install command:
 `choco install nvidia-rtx-driver --params "'/RemoveOtherVersions'" -yf`
 
     </description>
-    <releaseNotes>Wed Nov 18, 2026 - https://us.download.nvidia.com/Windows/Quadro_Certified/621.24/621.24-win10-win11-nvidia-rtx-quadro-release-notes.pdf</releaseNotes>
+    <releaseNotes>Tue Nov 24, 2026 - https://us.download.nvidia.com/Windows/Quadro_Certified/621.40/621.40-win10-win11-nvidia-rtx-quadro-release-notes.pdf</releaseNotes>
   </metadata>
   <files>
     <file src="tools\**" target="tools" />
